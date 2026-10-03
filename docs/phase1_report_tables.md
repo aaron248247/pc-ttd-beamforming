@@ -545,18 +545,19 @@ Finite length / fringes / threshold (single lengths N = 8..16, ny = 48): offset 
 ## Test run
 
 ```
-:test_mpb_group_velocity_matches_finite_difference_in_real_structure PASSED [ 78%]
-tests/test_mpb_analytic.py::test_symmetric_structure_is_mirror_symmetric_on_the_grid PASSED [ 79%]
-tests/test_tmm.py::test_single_interface_fresnel PASSED                  [ 80%]
-tests/test_tmm.py::test_vacuum_layer_is_pure_delay_with_positive_sign PASSED [ 81%]
-tests/test_tmm.py::test_dielectric_layer_in_matching_medium_delay_is_nL PASSED [ 82%]
-tests/test_tmm.py::test_referenced_excess_delay_of_vacuum_layer_is_zero PASSED [ 84%]
-tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[0] PASSED [ 85%]
-tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[1] PASSED [ 86%]
-tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[2] PASSED [ 87%]
-tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[3] PASSED [ 88%]
-tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[4] PASSED [ 89%]
-tests/test_tmm.py::test_reciprocity_of_transmission_under_layer_reversal PASSED [ 90%]
+ [ 79%]
+tests/test_reproducibility.py::test_2d_run_is_repeatable_bit_for_bit PASSED [ 80%]
+tests/test_reproducibility.py::test_fresh_2d_run_reproduces_saved_pc2d_curve PASSED [ 81%]
+tests/test_tmm.py::test_single_interface_fresnel PASSED                  [ 82%]
+tests/test_tmm.py::test_vacuum_layer_is_pure_delay_with_positive_sign PASSED [ 83%]
+tests/test_tmm.py::test_dielectric_layer_in_matching_medium_delay_is_nL PASSED [ 84%]
+tests/test_tmm.py::test_referenced_excess_delay_of_vacuum_layer_is_zero PASSED [ 85%]
+tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[0] PASSED [ 86%]
+tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[1] PASSED [ 87%]
+tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[2] PASSED [ 88%]
+tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[3] PASSED [ 89%]
+tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[4] PASSED [ 90%]
+tests/test_tmm.py::test_reciprocity_of_transmission_under_layer_reversal PASSED [ 91%]
 tests/test_tmm.py::test_half_wave_layer_is_transparent PASSED            [ 92%]
 tests/test_tmm.py::test_quarter_wave_peak_reflectance_closed_form[1] PASSED [ 93%]
 tests/test_tmm.py::test_quarter_wave_peak_reflectance_closed_form[2] PASSED [ 94%]
@@ -566,7 +567,7 @@ tests/test_tmm.py::test_quarter_wave_gap_edges_match_bloch_condition PASSED [ 97
 tests/test_tmm.py::test_finite_stack_transmission_follows_bloch_decay_in_stop_band PASSED [ 98%]
 tests/test_tmm.py::test_delay_in_stop_band_saturates_with_length PASSED  [100%]
 
-============================= 88 passed in 33.90s ==============================
+============================= 98 passed in 41.43s ==============================
 
 
 ```

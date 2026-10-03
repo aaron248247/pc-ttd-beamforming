@@ -1705,9 +1705,10 @@
   ]
  },
  "provenance": {
-  "timestamp_utc": "2026-10-03T20:39:11+00:00",
-  "git_head": "a120689adc6ebc18923ee0a6f3ed5881d05d7e09",
+  "timestamp_utc": "2026-10-03T22:41:05+00:00",
+  "git_head": "93ae5a36e072f04ad6baf94f308c157252caafb2",
   "git_dirty": true,
+  "code_dirty": false,
   "meep": "1.33.0-beta",
   "numpy": "1.24.3",
   "scipy": "1.11.1"

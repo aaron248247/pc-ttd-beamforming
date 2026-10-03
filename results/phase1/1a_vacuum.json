@@ -994,9 +994,10 @@
   "expected_slope": 1.0
  },
  "provenance": {
-  "timestamp_utc": "2026-10-03T20:11:02+00:00",
-  "git_head": "944225bbf5fdb01ba9e9f998140007a437c3ecd6",
+  "timestamp_utc": "2026-10-03T22:42:03+00:00",
+  "git_head": "93ae5a36e072f04ad6baf94f308c157252caafb2",
   "git_dirty": true,
+  "code_dirty": false,
   "meep": "1.33.0-beta",
   "numpy": "1.24.3",
   "scipy": "1.11.1"

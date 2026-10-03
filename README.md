@@ -10,15 +10,32 @@ The answer is not assumed to be favorable. See [docs/research_plan.md](docs/rese
 |---|---|
 | 0 Research design | done ([docs/research_plan.md](docs/research_plan.md)) |
 | 0.5 Geometry selection (MPB) | done and approved — [docs/phase0p5_report.md](docs/phase0p5_report.md); decisions in [docs/decisions.md](docs/decisions.md) |
-| 1 FDTD verification ladder | in progress |
+| 1 FDTD verification ladder | done, **awaiting review** — [docs/phase1_report.md](docs/phase1_report.md) |
 | 2–7 | not started |
 
-No performance claim about delay, bandwidth, or beam squint is made anywhere in this repository yet: those need the FDTD phases.
+No claim about photonic-crystal delay, bandwidth, or beam-squint performance is made anywhere in this repository yet. Phase 1 only verifies the measurement pipeline on cases with known answers.
 
 ## Environment
 
 Uses the `MEEP-GPU` conda env (MEEP 1.33.0-beta with MPI, MPB via `meep.mpb`, NumPy 1.24.3, SciPy 1.11.1, Matplotlib 3.10.6,
 pandas 2.0.3, pytest 7.4.0). Versions are recorded in `environment/env_versions.json`; `environment/environment.yml` is the export.
+
+## Reproduce Phase 1 (verification ladder)
+
+```bash
+PY=~/miniconda3/envs/MEEP-GPU/bin/python
+$PY -m pytest                                        # all tests (pure-Python, MPB, MEEP markers)
+cd experiments/phase1
+$PY 1a_vacuum.py && $PY 1b_dielectric.py             # minutes
+$PY 1d_mpb_directional.py                            # a few minutes (MPB, res 32/64/128)
+$PY 1c_bragg.py                                      # ~25 min (TMM vs MEEP, many studies)
+$PY 1d_pc2d.py                                       # ~1 h (2-D single-length sensitivity studies)
+$PY 1d_attenuation.py                                # ~1.5 h (N = 6..16 x ny = 24..48, minimum run time 20000)
+$PY 1d_termination.py && $PY 1d_termination.py 12 16 # ~25 min each
+$PY 1d_edges.py && $PY report.py && $PY make_figures.py
+```
+
+Methods and derivations: [docs/phase1_methods.md](docs/phase1_methods.md).
 
 ## Reproduce Phase 0.5
 

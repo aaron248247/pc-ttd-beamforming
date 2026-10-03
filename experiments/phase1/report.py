@@ -136,4 +136,8 @@ if __name__ == "__main__":
             o.append(table(hdr, rows2(D[key])))
     o.append("\n## Test run\n\n```\n" + (RES / "pytest_output.txt").read_text()[-1800:] + "\n```\n" if (RES / "pytest_output.txt").exists() else "")
     OUT.write_text("\n".join(o))
+    narr = ROOT / "docs" / "phase1_report_narrative.md"
+    if narr.exists():
+        (ROOT / "docs" / "phase1_report.md").write_text(
+            narr.read_text() + "\n\n---\n# Appendix: generated tables\n\nAll values below are read from `results/phase1/*.json` by `experiments/phase1/report.py`.\n\n" + "\n".join(o))
     print("wrote", OUT)
