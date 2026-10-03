@@ -84,20 +84,54 @@ if __name__ == "__main__":
                    [[g(r["f"]), g(r["meep_decay_per_period"], 5), g(r["analytic_bloch_decay"], 5), g((r["meep_decay_per_period"] - r["analytic_bloch_decay"]) / r["analytic_bloch_decay"], 3)] for r in C["bloch_decay"]["rows"]]))
 
     p2 = RES / "1d_pc2d.json"
-    if p2.exists():
+    if p2.exists() and (RES / "1d_edges.json").exists():
         D = pio.load_json(p2)
         M = pio.load_json(RES / "1d_mpb_directional.json")
+        Ed = pio.load_json(RES / "1d_edges.json")
+        At = pio.load_json(RES / "1d_attenuation.json")
         o.append("\n## T1D. Finite 2-D triangular air-hole crystal (r/a = 0.30, eps = 12, TE) vs MPB\n")
-        o.append("MPB directional (k_y = 0) gaps: even-Phi gap, res 32/64/128: " + "; ".join(f"[{g(r['even_gap'][0][0], 5)}, {g(r['even_gap'][0][1], 5)}]" for r in M["rows"]) +
+        o.append("MPB directional (k_y = 0) even-Phi gap at res 32/64/128: " + "; ".join(f"[{g(r['even_gap'][0][0], 5)}, {g(r['even_gap'][0][1], 5)}]" for r in M["rows"]) +
                  ". All-parity gap, res 128: [%s, %s]. Bulk omnidirectional gap (n=1, res 64): [%s, %s].\n\n"
                  % (g(M["rows"][-1]["any_gap"][0][0], 5), g(M["rows"][-1]["any_gap"][0][1], 5), g(M["bulk_omnidirectional_gap"][0]["w_lo"], 5), g(M["bulk_omnidirectional_gap"][0]["w_hi"], 5)))
-        hdr = ["value", "N", "ny", "edge lo -3dB", "edge hi -3dB", "edge lo -20dB", "edge hi -20dB", "T gap geomean", "T gap max", "max |R+T-1| gap", "max |R+T-1| all", "t_end", "hit max time"]
+        o.append("**Stop band from Tmax(f) = max over section lengths N of T_N(f), contiguous interval around mid-gap with Tmax < thr** (long runs, minimum run time 20000, decay tolerance 1e-8)\n\n")
+        o.append(table(["ny", "N set", "thr", "edge lo", "edge hi", "lo - MPB", "hi - MPB"],
+                       [[r["ny"], r["Ns"], g(r["thr"]), g(r["edge_lo"], 5), g(r["edge_hi"], 5), g(r["d_lo"], 3), g(r["d_hi"], 3)] for r in Ed["rows"]]))
+        s_ = Ed["summary"]
+        o.append("\nSpread over all variants at the finest resolution (ny = %d, %d variants with a defined interval): lower edge [%s, %s], upper edge [%s, %s]; offsets from MPB: lower [%s, %s], upper [%s, %s]. Over all resolutions (%d variants): lower offset [%s, %s], upper offset [%s, %s].\n"
+                 % (s_["finest_ny"], s_["finest"]["n"], g(s_["finest"]["lo"]["min"], 5), g(s_["finest"]["lo"]["max"], 5), g(s_["finest"]["hi"]["min"], 5), g(s_["finest"]["hi"]["max"], 5),
+                    g(s_["finest"]["d_lo"]["min"]), g(s_["finest"]["d_lo"]["max"]), g(s_["finest"]["d_hi"]["min"]), g(s_["finest"]["d_hi"]["max"]),
+                    s_["all"]["n"], g(s_["all"]["d_lo"]["min"]), g(s_["all"]["d_lo"]["max"]), g(s_["all"]["d_hi"]["min"]), g(s_["all"]["d_hi"]["max"])))
+        o.append("\n**Deep-gap attenuation** (mean ln T over 0.222-0.268 using only frequencies where T > 3e-7 for N = 6, 8, 10)\n\n")
+        o.append(table(["ny", "frequencies used", "mean ln T (N=6, 8, 10)", "decay per column"],
+                       [[r["ny"], r["n_freq"], ", ".join(g(x, 5) for x in r["mean_lnT"]), g(r["decay_per_column"], 4)] for r in Ed["deep_gap_decay"]]))
+        rc = Ed["resolution_change_coarsest_to_finest"]
+        o.append("\n**Contributions to the edge uncertainty (thr = 1e-2)**\n\nDiscretization: change of each single-length edge from ny = %d to %d: %s; largest |change| = %s.\n\n"
+                 % (rc["ny"][0], rc["ny"][1], "; ".join("N=%d: lo %s, hi %s" % (x["N"], g(x["d_lo"], 3), g(x["d_hi"], 3)) for x in rc["rows"]), g(rc["max_abs"], 3)))
+        so = Ed["single_length_offsets_finest"]
+        o.append("Finite length / fringes / threshold (single lengths N = 8..16, ny = %d): offset from MPB lower edge in [%s, %s], upper edge in [%s, %s].\n\n"
+                 % (rc["ny"][1], g(so["lower"][0], 3), g(so["lower"][1], 3), g(so["upper"][0], 3), g(so["upper"][1], 3)))
+        o.append(table(["N", "lo - MPB", "hi - MPB"], [[x["N"], g(x["d_lo"], 3), g(x["d_hi"], 3)] for x in so["rows"]]))
+        ob = Ed["odd_band_window"]
+        o.append("\n**Symmetry test.** Window [%s, %s] lies above the all-parity gap top and below the even-parity gap top (an odd-Phi band exists in MPB there but cannot couple to a mirror-symmetric plane wave):\n\n"
+                 % (g(ob["f_window"][0], 5), g(ob["f_window"][1], 5)))
+        o.append(table(["ny", "N", "max T in window", "geometric-mean T"], [[x["ny"], x["N"], g(x["T_max"]), g(x["T_geomean"])] for x in ob["rows"] if x["ny"] in (32, 48)]))
+        o.append("\n**Termination dependence** (crystal faces moved outward by face_offset; ny = 32)\n\n")
+        o.append(table(["N set", "face offset", "thr", "edge lo", "edge hi", "in-gap peak f", "in-gap peak T", "max T over 0.215-0.283"],
+                       [[r["Ns"], g(r["face_offset"]), g(r["thr"]), g(r["edge_lo"], 5), g(r["edge_hi"], 5), g(r["ingap_peak_f"], 4), g(r["ingap_peak_T"]), g(r["ingap_Tmax_overall"])] for r in Ed.get("termination", [])]))
+        o.append("\n**Energy conservation R + T - 1 in the long runs** (worst frequency in the band 0.13-0.34 and in the gap 0.22-0.27)\n\n")
+        rows_ = []
+        for r in At["runs"]:
+            f_ = np.array(r["f"]); s_ = np.abs(np.array(r["T"]) + np.array(r["R"]) - 1)
+            mb, mg = (f_ >= 0.13) & (f_ <= 0.34), (f_ >= 0.22) & (f_ <= 0.27)
+            rows_.append([r["ny"], r["N"], g(r["t_end"], 5), g(float(s_[mb].max())), g(float(f_[mb][np.argmax(s_[mb])]), 4), g(float(np.median(s_[mb]))), g(float(s_[mg].max()))])
+        o.append(table(["ny", "N", "t_end", "max band", "at f", "median band", "max gap"], rows_))
+        hdr = ["value", "N", "ny", "edge lo -3dB", "edge hi -3dB", "edge lo -20dB", "edge hi -20dB", "T gap geomean", "T gap max", "max |R+T-1| gap", "max |R+T-1| all", "t_end"]
         def rows2(rr):
             return [[g(r["value"]), r["N"], r["ny"], g(r["edge_lo_3dB"], 5), g(r["edge_hi_3dB"], 5), g(r["edge_lo_20dB"], 5), g(r["edge_hi_20dB"], 5),
-                     g(r["T_gap_geomean"]), g(r["T_gap_max"]), g(r["max_abs_RplusT_minus_1_gap"]), g(r["max_abs_RplusT_minus_1_all"]), g(r["t_end"], 4), r["hit_max_time"]] for r in rr]
-        for key, title in (("length", "Number of columns N"), ("resolution", "Resolution (ny pixels across sqrt(3))"), ("pml", "PML thickness"),
-                           ("decay", "Decay tolerance"), ("source_width", "Source fwidth"), ("placement_monitor", "Monitor distance from faces"),
-                           ("placement_source", "Source distance from face")):
+                     g(r["T_gap_geomean"]), g(r["T_gap_max"]), g(r["max_abs_RplusT_minus_1_gap"]), g(r["max_abs_RplusT_minus_1_all"]), g(r["t_end"], 4)] for r in rr]
+        o.append("\n### Single-length (N = 8) numerical-setting sensitivity (edges = first crossing of T = 0.5 / 1e-2 outward from mid-gap; default minimum run time)\n")
+        for key, title in (("resolution", "Resolution (ny pixels across sqrt(3))"), ("pml", "PML thickness"), ("decay", "Decay tolerance"),
+                           ("source_width", "Source fwidth"), ("placement_monitor", "Monitor distance from faces"), ("placement_source", "Source distance from face")):
             o.append(f"\n**{title}**\n\n")
             o.append(table(hdr, rows2(D[key])))
     o.append("\n## Test run\n\n```\n" + (RES / "pytest_output.txt").read_text()[-1800:] + "\n```\n" if (RES / "pytest_output.txt").exists() else "")

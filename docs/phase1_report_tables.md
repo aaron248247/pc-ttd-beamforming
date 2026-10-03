@@ -9,7 +9,7 @@ Base (res 40): mean delay error 0.002236, max |error| 0.004492, max |measured - 
 **Resolution** (observed order: mean-error 2.002, max-error 1.994)
 
 
-| res | mean err | max |err| | max |meas - Yee| | dt |
+| res | mean err | max \|err\| | max \|meas - Yee\| | dt |
 |---|---|---|---|---|
 | 10 | 0.0362 | 0.0715 | 0.00321 | 0.05 |
 | 20 | 0.00896 | 0.0179 | 0.000113 | 0.025 |
@@ -33,7 +33,7 @@ Base (res 40): mean delay error 0.002236, max |error| 0.004492, max |measured - 
 **PML thickness**
 
 
-| dpml | mean err | max |meas - Yee| | |H| dev | coverage | t_end |
+| dpml | mean err | max \|meas - Yee\| | \|H\| dev | coverage | t_end |
 |---|---|---|---|---|---|
 | 0.25 | 0.00223 | 0.00138 | 5.4e-05 | 0.00716 | 69.26 |
 | 0.5 | 0.00224 | 0.00057 | 1.64e-05 | 0.00716 | 62.59 |
@@ -45,7 +45,7 @@ Base (res 40): mean delay error 0.002236, max |error| 0.004492, max |measured - 
 **Decay tolerance**
 
 
-| decay_tol | mean err | max |meas - Yee| | |H| dev | coverage | t_end |
+| decay_tol | mean err | max \|meas - Yee\| | \|H\| dev | coverage | t_end |
 |---|---|---|---|---|---|
 | 0.01 | -0.0975 | 2.62 | 0.444 | 0.00716 | 40.34 |
 | 0.001 | 0.061 | 1.25 | 0.0412 | 0.00716 | 42.56 |
@@ -59,7 +59,7 @@ Base (res 40): mean delay error 0.002236, max |error| 0.004492, max |measured - 
 **Source fwidth (spectral sigma = fwidth/2pi)**
 
 
-| fwidth | mean err | max |meas - Yee| | |H| dev | coverage | t_end |
+| fwidth | mean err | max \|meas - Yee\| | \|H\| dev | coverage | t_end |
 |---|---|---|---|---|---|
 | 0.02 | -10.4 | 41.5 | 1.65 | 7.48e-08 | 500.9 |
 | 0.05 | -5.28 | 111 | 166 | 4.59e-09 | 209.4 |
@@ -74,7 +74,7 @@ Base (res 40): mean delay error 0.002236, max |error| 0.004492, max |measured - 
 **DFT decimation (0 = automatic)**
 
 
-| decim | mean err | max |meas - Yee| | |H| dev | coverage | t_end |
+| decim | mean err | max \|meas - Yee\| | \|H\| dev | coverage | t_end |
 |---|---|---|---|---|---|
 | 0 | 0.0022 | 0.000421 | 1.98e-05 | 0.00716 | 51.89 |
 | 1 | 0.00224 | 1.46e-05 | 8.74e-07 | 0.00716 | 51.46 |
@@ -84,7 +84,7 @@ Base (res 40): mean delay error 0.002236, max |error| 0.004492, max |measured - 
 **Source-to-monitor distance**
 
 
-| d | mean err | max |meas - Yee| | |H| dev | coverage | t_end |
+| d | mean err | max \|meas - Yee\| | \|H\| dev | coverage | t_end |
 |---|---|---|---|---|---|
 | 0.25 | 0.00224 | 2.74e-05 | 1.11e-06 | 0.00716 | 46.74 |
 | 0.5 | 0.00224 | 1.75e-05 | 6.62e-07 | 0.00716 | 46.74 |
@@ -97,7 +97,7 @@ Base (res 40): mean delay error 0.002236, max |error| 0.004492, max |measured - 
 **Monitor-to-PML distance**
 
 
-| d | mean err | max |meas - Yee| | |H| dev | coverage | t_end |
+| d | mean err | max \|meas - Yee\| | \|H\| dev | coverage | t_end |
 |---|---|---|---|---|---|
 | 0.25 | 0.00224 | 4.12e-06 | 1.38e-07 | 0.00716 | 51.46 |
 | 0.5 | 0.00224 | 3.49e-06 | 1.32e-07 | 0.00716 | 51.46 |
@@ -109,7 +109,7 @@ Base (res 40): mean delay error 0.002236, max |error| 0.004492, max |measured - 
 **Both monitors shifted (L fixed)**
 
 
-| shift | mean err | max |meas - Yee| | |H| dev | coverage | t_end |
+| shift | mean err | max \|meas - Yee\| | \|H\| dev | coverage | t_end |
 |---|---|---|---|---|---|
 | -2 | 0.00224 | 1.12e-05 | 4.41e-07 | 0.00716 | 48.96 |
 | 0 | 0.00224 | 1.46e-05 | 8.74e-07 | 0.00716 | 51.46 |
@@ -129,7 +129,7 @@ Base (res 40): mean delay error 0.002236, max |error| 0.004492, max |measured - 
 Resolution, n = sqrt(12), L = 10: observed order (mean error) 2.038, (max error) 2.061
 
 
-| res | mean err | max |err| | max |meas - Yee| |
+| res | mean err | max \|err\| | max \|meas - Yee\| |
 |---|---|---|---|
 | 10 | 2.18 | 4.71 | 7.47e-05 |
 | 20 | 0.499 | 1.02 | 8.24e-05 |
@@ -141,7 +141,7 @@ Resolution, n = sqrt(12), L = 10: observed order (mean error) 2.038, (max error)
 Slab (thickness 5, monitors at 0 and 10 in vacuum) vs TMM; delay compared with the SAME estimator applied to TMM data
 
 
-| n | res | max |dt| | max |dT| | max |dR| | max |R+T-1| | max |excess-delay diff| | estimator truncation | max TMM excess delay |
+| n | res | max \|dt\| | max \|dT\| | max \|dR\| | max \|R+T-1\| | max \|excess-delay diff\| | estimator truncation | max TMM excess delay |
 |---|---|---|---|---|---|---|---|---|
 | 2 | 20 | 0.0785 | 0.0341 | 0.0341 | 2.05e-06 | 0.465 | 0.0367 | 7.5 |
 | 2 | 40 | 0.0191 | 0.00857 | 0.00856 | 2.6e-05 | 0.117 | 0.0367 | 7.5 |
@@ -162,7 +162,7 @@ slab_order_n3.464: observed order |dt| = 1.96, excess delay = 1.96
 PML (n = 2) and decay tolerance (n = 2)
 
 
-| dpml | mean err | max |meas - Yee| |
+| dpml | mean err | max \|meas - Yee\| |
 |---|---|---|
 | 0.25 | 0.0223 | 0.00355 |
 | 0.5 | 0.0224 | 0.000163 |
@@ -172,7 +172,7 @@ PML (n = 2) and decay tolerance (n = 2)
 
 
 
-| decay tol | mean err | max |meas - Yee| | |H| dev |
+| decay tol | mean err | max \|meas - Yee\| | \|H\| dev |
 |---|---|---|---|
 | 0.0001 | 0.0278 | 0.147 | 0.0155 |
 | 1e-06 | 0.022 | 0.00905 | 0.000337 |
@@ -189,7 +189,7 @@ Analytic infinite-lattice gap edges (0.20224, 0.4421); quarter-wave frequency f0
 **Resolution** (N = 8). Observed orders: max_abs_dT: 1.67, max_abs_dR: 1.68, max_rel_complex_t: 2, max_abs_delay_err: 1.72, rms_dT_unscaled: 1.83, rms_dT_after_scale: 1.86, abs_freq_scale_minus1: 1.94, abs_edge_err_hi: 1.93, abs_edge_err_lo: 2.43
 
 
-| res | s-1 | rms dT | rms dT (after s) | edge err lo | edge err hi | median rel err t | median |delay err| | max |delay err| | max |R+T-1| |
+| res | s-1 | rms dT | rms dT (after s) | edge err lo | edge err hi | median rel err t | median \|delay err\| | max \|delay err\| | max \|R+T-1\| |
 |---|---|---|---|---|---|---|---|---|---|
 | 20 | 0.00544 | 0.104 | 0.0439 | -0.000184 | -0.00251 | 0.315 | 1.54 | 126 | 0.000213 |
 | 40 | 0.00213 | 0.0503 | 0.0225 | 5.74e-05 | -0.00113 | 0.104 | 0.512 | 82.2 | 0.000621 |
@@ -201,7 +201,7 @@ Analytic infinite-lattice gap edges (0.20224, 0.4421); quarter-wave frequency f0
 **Number of periods** (res 80; -3 dB stop-band edges, MEEP vs TMM)
 
 
-| N | edge lo TMM | edge lo MEEP | edge hi TMM | edge hi MEEP | rms dT | max |R+T-1| |
+| N | edge lo TMM | edge lo MEEP | edge hi TMM | edge hi MEEP | rms dT | max \|R+T-1\| |
 |---|---|---|---|---|---|---|
 | 2 | 0.16153 | 0.16154 | 0.48281 | 0.48245 | 0.00205 | 3.07e-05 |
 | 3 | 0.17808 | 0.1781 | 0.46625 | 0.46595 | 0.00335 | 1.6e-05 |
@@ -215,7 +215,7 @@ Analytic infinite-lattice gap edges (0.20224, 0.4421); quarter-wave frequency f0
 **PML thickness** (self-comparison with the last, most-converged setting; and vs TMM)
 
 
-| value | self max |dT| | self max |dR| | self max |delay| | self max rel t | vs-TMM rms dT | max |R+T-1| | source coverage |
+| value | self max \|dT\| | self max \|dR\| | self max \|delay\| | self max rel t | vs-TMM rms dT | max \|R+T-1\| | source coverage |
 |---|---|---|---|---|---|---|---|
 | 0.25 | 4.25e-06 | 1.4e-05 | 0.000243 | 3.56e-06 | 0.0135 | 0.000138 | 0.00194 |
 | 0.5 | 4.16e-06 | 1.83e-06 | 5.4e-05 | 3.22e-06 | 0.0135 | 0.000138 | 0.00194 |
@@ -227,7 +227,7 @@ Analytic infinite-lattice gap edges (0.20224, 0.4421); quarter-wave frequency f0
 **Decay tolerance** (self-comparison with the last, most-converged setting; and vs TMM)
 
 
-| value | self max |dT| | self max |dR| | self max |delay| | self max rel t | vs-TMM rms dT | max |R+T-1| | source coverage |
+| value | self max \|dT\| | self max \|dR\| | self max \|delay\| | self max rel t | vs-TMM rms dT | max \|R+T-1\| | source coverage |
 |---|---|---|---|---|---|---|---|
 | 0.0001 | 0.732 | 0.645 | 619 | 1.18 | 0.106 | 0.56 | 0.00194 |
 | 1e-06 | 0.108 | 0.0555 | 58.7 | 0.179 | 0.0166 | 0.104 | 0.00194 |
@@ -240,7 +240,7 @@ Analytic infinite-lattice gap edges (0.20224, 0.4421); quarter-wave frequency f0
 **Source fwidth** (self-comparison with the last, most-converged setting; and vs TMM)
 
 
-| value | self max |dT| | self max |dR| | self max |delay| | self max rel t | vs-TMM rms dT | max |R+T-1| | source coverage |
+| value | self max \|dT\| | self max \|dR\| | self max \|delay\| | self max rel t | vs-TMM rms dT | max \|R+T-1\| | source coverage |
 |---|---|---|---|---|---|---|---|
 | 0.15 | 1.99 | 1.19 | 952 | 1.87 | 0.186 | 2.53 | 7.91e-08 |
 | 0.25 | 157 | 134 | 797 | 14.3 | 4.73 | 291 | 2.41e-09 |
@@ -254,7 +254,7 @@ Analytic infinite-lattice gap edges (0.20224, 0.4421); quarter-wave frequency f0
 **Left monitor distance** (self-comparison with the last, most-converged setting; and vs TMM)
 
 
-| value | self max |dT| | self max |dR| | self max |delay| | self max rel t | vs-TMM rms dT | max |R+T-1| | source coverage |
+| value | self max \|dT\| | self max \|dR\| | self max \|delay\| | self max rel t | vs-TMM rms dT | max \|R+T-1\| | source coverage |
 |---|---|---|---|---|---|---|---|
 | 0.5 | 0.000549 | 0.00027 | 0.899 | 0.00119 | 0.0135 | 0.000185 | 0.00194 |
 | 1 | 0.000671 | 0.000229 | 0.381 | 0.000883 | 0.0135 | 0.000268 | 0.00194 |
@@ -265,7 +265,7 @@ Analytic infinite-lattice gap edges (0.20224, 0.4421); quarter-wave frequency f0
 **Right monitor distance** (self-comparison with the last, most-converged setting; and vs TMM)
 
 
-| value | self max |dT| | self max |dR| | self max |delay| | self max rel t | vs-TMM rms dT | max |R+T-1| | source coverage |
+| value | self max \|dT\| | self max \|dR\| | self max \|delay\| | self max rel t | vs-TMM rms dT | max \|R+T-1\| | source coverage |
 |---|---|---|---|---|---|---|---|
 | 0.5 | 0.000388 | 9.91e-05 | 0.702 | 0.000926 | 0.0135 | 0.000361 | 0.00194 |
 | 1 | 0.000741 | 0.000576 | 1.03 | 0.00148 | 0.0135 | 0.00115 | 0.00194 |
@@ -276,7 +276,7 @@ Analytic infinite-lattice gap edges (0.20224, 0.4421); quarter-wave frequency f0
 **Source distance** (self-comparison with the last, most-converged setting; and vs TMM)
 
 
-| value | self max |dT| | self max |dR| | self max |delay| | self max rel t | vs-TMM rms dT | max |R+T-1| | source coverage |
+| value | self max \|dT\| | self max \|dR\| | self max \|delay\| | self max rel t | vs-TMM rms dT | max \|R+T-1\| | source coverage |
 |---|---|---|---|---|---|---|---|
 | 1 | 0.00101 | 0.000385 | 0.669 | 0.00121 | 0.0135 | 0.000648 | 0.00194 |
 | 2 | 0.0011 | 0.000605 | 0.516 | 0.000957 | 0.0135 | 0.000378 | 0.00194 |
@@ -293,3 +293,280 @@ Analytic infinite-lattice gap edges (0.20224, 0.4421); quarter-wave frequency f0
 | 0.23 | 1.5945 | 1.5913 | 0.00202 |
 | 0.25 | 1.9829 | 1.9857 | -0.00141 |
 
+
+## T1D. Finite 2-D triangular air-hole crystal (r/a = 0.30, eps = 12, TE) vs MPB
+
+MPB directional (k_y = 0) even-Phi gap at res 32/64/128: [0.20715, 0.28925]; [0.2071, 0.28905]; [0.20705, 0.289]. All-parity gap, res 128: [0.20705, 0.2744]. Bulk omnidirectional gap (n=1, res 64): [0.20706, 0.27442].
+
+
+**Stop band from Tmax(f) = max over section lengths N of T_N(f), contiguous interval around mid-gap with Tmax < thr** (long runs, minimum run time 20000, decay tolerance 1e-8)
+
+
+| ny | N set | thr | edge lo | edge hi | lo - MPB | hi - MPB |
+|---|---|---|---|---|---|---|
+| 24 | [8, 10, 12] | 0.01 | 0.20788 | 0.28873 | 0.000829 | -0.000275 |
+| 24 | [8, 10, 12] | 0.001 | nan | nan | nan | nan |
+| 24 | [10, 12, 16] | 0.01 | 0.20788 | 0.28873 | 0.000829 | -0.000275 |
+| 24 | [10, 12, 16] | 0.001 | 0.20996 | 0.28761 | 0.00291 | -0.00139 |
+| 24 | [8, 10, 12, 16] | 0.01 | 0.20788 | 0.28873 | 0.000829 | -0.000275 |
+| 24 | [8, 10, 12, 16] | 0.001 | nan | nan | nan | nan |
+| 24 | [6, 8, 10, 12, 16] | 0.01 | 0.20975 | 0.28853 | 0.0027 | -0.000467 |
+| 24 | [6, 8, 10, 12, 16] | 0.001 | nan | nan | nan | nan |
+| 24 | [6] | 0.01 | 0.20975 | 0.29174 | 0.0027 | 0.00274 |
+| 24 | [6] | 0.001 | nan | nan | nan | nan |
+| 24 | [8] | 0.01 | 0.20649 | 0.29037 | -0.000557 | 0.00137 |
+| 24 | [8] | 0.001 | nan | nan | nan | nan |
+| 24 | [10] | 0.01 | 0.20786 | 0.28915 | 0.000806 | 0.000151 |
+| 24 | [10] | 0.001 | 0.20996 | 0.28761 | 0.00291 | -0.00139 |
+| 24 | [12] | 0.01 | 0.20733 | 0.28912 | 0.000284 | 0.000116 |
+| 24 | [12] | 0.001 | 0.20834 | 0.28853 | 0.00129 | -0.000473 |
+| 24 | [16] | 0.01 | 0.20674 | 0.29117 | -0.000307 | 0.00217 |
+| 24 | [16] | 0.001 | 0.20755 | 0.29032 | 0.000496 | 0.00132 |
+| 32 | [8, 10, 12] | 0.01 | 0.20825 | 0.2887 | 0.0012 | -0.000299 |
+| 32 | [8, 10, 12] | 0.001 | nan | nan | nan | nan |
+| 32 | [10, 12, 16] | 0.01 | 0.20825 | 0.2887 | 0.0012 | -0.000299 |
+| 32 | [10, 12, 16] | 0.001 | 0.21037 | 0.28802 | 0.00332 | -0.000978 |
+| 32 | [8, 10, 12, 16] | 0.01 | 0.20825 | 0.2887 | 0.0012 | -0.000299 |
+| 32 | [8, 10, 12, 16] | 0.001 | nan | nan | nan | nan |
+| 32 | [6, 8, 10, 12, 16] | 0.01 | 0.21006 | 0.28845 | 0.00301 | -0.000555 |
+| 32 | [6, 8, 10, 12, 16] | 0.001 | nan | nan | nan | nan |
+| 32 | [6] | 0.01 | 0.21006 | 0.2918 | 0.00301 | 0.0028 |
+| 32 | [6] | 0.001 | nan | nan | nan | nan |
+| 32 | [8] | 0.01 | 0.20674 | 0.29065 | -0.00031 | 0.00165 |
+| 32 | [8] | 0.001 | nan | nan | nan | nan |
+| 32 | [10] | 0.01 | 0.20825 | 0.28986 | 0.0012 | 0.000857 |
+| 32 | [10] | 0.001 | 0.21037 | 0.28806 | 0.00332 | -0.000943 |
+| 32 | [12] | 0.01 | 0.20762 | 0.28906 | 0.000574 | 5.88e-05 |
+| 32 | [12] | 0.001 | 0.20867 | 0.28857 | 0.00162 | -0.000433 |
+| 32 | [16] | 0.01 | 0.20716 | 0.29124 | 0.000108 | 0.00224 |
+| 32 | [16] | 0.001 | 0.20787 | 0.29024 | 0.000822 | 0.00124 |
+| 40 | [8, 10, 12] | 0.01 | 0.20836 | 0.2888 | 0.00131 | -0.0002 |
+| 40 | [8, 10, 12] | 0.001 | nan | nan | nan | nan |
+| 40 | [10, 12, 16] | 0.01 | 0.20836 | 0.2888 | 0.00131 | -0.0002 |
+| 40 | [10, 12, 16] | 0.001 | 0.21046 | 0.28806 | 0.00341 | -0.000937 |
+| 40 | [8, 10, 12, 16] | 0.01 | 0.20836 | 0.2888 | 0.00131 | -0.0002 |
+| 40 | [8, 10, 12, 16] | 0.001 | nan | nan | nan | nan |
+| 40 | [6, 8, 10, 12, 16] | 0.01 | 0.21018 | 0.28852 | 0.00313 | -0.000484 |
+| 40 | [6, 8, 10, 12, 16] | 0.001 | nan | nan | nan | nan |
+| 40 | [6] | 0.01 | 0.21018 | 0.29198 | 0.00313 | 0.00298 |
+| 40 | [6] | 0.001 | nan | nan | nan | nan |
+| 40 | [8] | 0.01 | 0.20676 | 0.29078 | -0.000292 | 0.00178 |
+| 40 | [8] | 0.001 | nan | nan | nan | nan |
+| 40 | [10] | 0.01 | 0.20836 | 0.29001 | 0.00131 | 0.00101 |
+| 40 | [10] | 0.001 | 0.21046 | 0.28816 | 0.00341 | -0.000842 |
+| 40 | [12] | 0.01 | 0.20775 | 0.28917 | 0.000696 | 0.000169 |
+| 40 | [12] | 0.001 | 0.20883 | 0.28866 | 0.00178 | -0.000342 |
+| 40 | [16] | 0.01 | 0.20723 | 0.29151 | 0.000177 | 0.00251 |
+| 40 | [16] | 0.001 | 0.20798 | 0.29045 | 0.000928 | 0.00145 |
+| 48 | [8, 10, 12] | 0.01 | 0.20845 | 0.28916 | 0.0014 | 0.000161 |
+| 48 | [8, 10, 12] | 0.001 | nan | nan | nan | nan |
+| 48 | [10, 12, 16] | 0.01 | 0.20845 | 0.28916 | 0.0014 | 0.000161 |
+| 48 | [10, 12, 16] | 0.001 | 0.21055 | 0.28812 | 0.0035 | -0.000885 |
+| 48 | [8, 10, 12, 16] | 0.01 | 0.20845 | 0.28916 | 0.0014 | 0.000161 |
+| 48 | [8, 10, 12, 16] | 0.001 | nan | nan | nan | nan |
+| 48 | [6, 8, 10, 12, 16] | 0.01 | 0.21023 | 0.28884 | 0.00318 | -0.000163 |
+| 48 | [6, 8, 10, 12, 16] | 0.001 | nan | nan | nan | nan |
+| 48 | [6] | 0.01 | 0.21023 | 0.2921 | 0.00318 | 0.0031 |
+| 48 | [6] | 0.001 | nan | nan | nan | nan |
+| 48 | [8] | 0.01 | 0.20678 | 0.29095 | -0.000269 | 0.00195 |
+| 48 | [8] | 0.001 | nan | nan | nan | nan |
+| 48 | [10] | 0.01 | 0.20845 | 0.29016 | 0.0014 | 0.00116 |
+| 48 | [10] | 0.001 | 0.21055 | 0.28822 | 0.0035 | -0.000781 |
+| 48 | [12] | 0.01 | 0.20779 | 0.28948 | 0.000735 | 0.000483 |
+| 48 | [12] | 0.001 | 0.2089 | 0.28884 | 0.00185 | -0.000161 |
+| 48 | [16] | 0.01 | 0.20725 | 0.2917 | 0.000202 | 0.0027 |
+| 48 | [16] | 0.001 | 0.20803 | 0.29026 | 0.000979 | 0.00126 |
+
+
+Spread over all variants at the finest resolution (ny = 48, 13 variants with a defined interval): lower edge [0.20678, 0.21055], upper edge [0.28812, 0.2921]; offsets from MPB: lower [-0.000269, 0.0035], upper [-0.000885, 0.0031]. Over all resolutions (52 variants): lower offset [-0.000557, 0.0035], upper offset [-0.00139, 0.0031].
+
+
+**Deep-gap attenuation** (mean ln T over 0.222-0.268 using only frequencies where T > 3e-7 for N = 6, 8, 10)
+
+
+| ny | frequencies used | mean ln T (N=6, 8, 10) | decay per column |
+|---|---|---|---|
+| 24 | 14 | -7.1407, -10.026, -12.953 | 1.453 |
+| 32 | 15 | -7.1742, -10.036, -13.022 | 1.462 |
+| 40 | 15 | -7.2357, -10.005, -12.983 | 1.437 |
+| 48 | 15 | -7.1991, -9.9377, -12.982 | 1.446 |
+
+
+**Contributions to the edge uncertainty (thr = 1e-2)**
+
+Discretization: change of each single-length edge from ny = 24 to 48: N=8: lo 0.000289, hi 0.000576; N=10: lo 0.000595, hi 0.00101; N=12: lo 0.000451, hi 0.000367; N=16: lo 0.000508, hi 0.000532; largest |change| = 0.00101.
+
+
+Finite length / fringes / threshold (single lengths N = 8..16, ny = 48): offset from MPB lower edge in [-0.000269, 0.0014], upper edge in [0.000483, 0.0027].
+
+
+| N | lo - MPB | hi - MPB |
+|---|---|---|
+| 8 | -0.000269 | 0.00195 |
+| 10 | 0.0014 | 0.00116 |
+| 12 | 0.000735 | 0.000483 |
+| 16 | 0.000202 | 0.0027 |
+
+
+**Symmetry test.** Window [0.2754, 0.288] lies above the all-parity gap top and below the even-parity gap top (an odd-Phi band exists in MPB there but cannot couple to a mirror-symmetric plane wave):
+
+
+| ny | N | max T in window | geometric-mean T |
+|---|---|---|---|
+| 32 | 6 | 0.00283 | 0.000959 |
+| 32 | 8 | 0.000181 | 2.75e-06 |
+| 32 | 10 | 0.000929 | 3.72e-05 |
+| 32 | 12 | 7.06e-05 | 1.24e-07 |
+| 32 | 16 | 5.46e-05 | 2e-07 |
+| 48 | 6 | 0.00265 | 0.00093 |
+| 48 | 8 | 0.000147 | 2.44e-06 |
+| 48 | 10 | 0.000776 | 3.5e-05 |
+| 48 | 12 | 4.99e-05 | 1.23e-07 |
+| 48 | 16 | 1.99e-05 | 1.57e-07 |
+
+
+**Termination dependence** (crystal faces moved outward by face_offset; ny = 32)
+
+
+| N set | face offset | thr | edge lo | edge hi | in-gap peak f | in-gap peak T | max T over 0.215-0.283 |
+|---|---|---|---|---|---|---|---|
+| [8, 10] | -0.15 | 0.01 | 0.20765 | 0.27184 | 0.268 | 0.00138 | 0.0183 |
+| [8, 10] | -0.15 | 0.001 | 0.21152 | 0.26743 | 0.268 | 0.00138 | 0.0183 |
+| [8, 10] | 0 | 0.01 | 0.20825 | 0.28986 | 0.244 | 0.00161 | 0.00161 |
+| [8, 10] | 0 | 0.001 | nan | nan | 0.244 | 0.00161 | 0.00161 |
+| [8, 10] | 0.15 | 0.01 | 0.20653 | 0.28832 | 0.224 | 0.00128 | 0.00128 |
+| [8, 10] | 0.15 | 0.001 | 0.22512 | 0.2861 | 0.224 | 0.00128 | 0.00128 |
+| [8, 10] | 0.3 | 0.01 | 0.21133 | 0.28392 | 0.268 | 5.83e-05 | 0.00635 |
+| [8, 10] | 0.3 | 0.001 | 0.21335 | 0.27487 | 0.268 | 5.83e-05 | 0.00635 |
+| [12, 16] | -0.15 | 0.01 | 0.20638 | 0.28936 | 0.268 | 3.86e-06 | 0.000169 |
+| [12, 16] | -0.15 | 0.001 | 0.20911 | 0.28858 | 0.268 | 3.86e-06 | 0.000169 |
+| [12, 16] | 0 | 0.01 | 0.20762 | 0.28906 | 0.244 | 1.22e-06 | 1.22e-06 |
+| [12, 16] | 0 | 0.001 | 0.20867 | 0.28857 | 0.244 | 1.22e-06 | 1.22e-06 |
+| [12, 16] | 0.15 | 0.01 | 0.20635 | 0.28847 | 0.222 | 6.38e-06 | 1.24e-05 |
+| [12, 16] | 0.15 | 0.001 | 0.20708 | 0.28739 | 0.222 | 6.38e-06 | 1.24e-05 |
+| [12, 16] | 0.3 | 0.01 | 0.2102 | 0.28758 | 0.268 | 4.57e-08 | 0.000195 |
+| [12, 16] | 0.3 | 0.001 | 0.2118 | 0.28486 | 0.268 | 4.57e-08 | 0.000195 |
+
+
+**Energy conservation R + T - 1 in the long runs** (worst frequency in the band 0.13-0.34 and in the gap 0.22-0.27)
+
+
+| ny | N | t_end | max band | at f | median band | max gap |
+|---|---|---|---|---|---|---|
+| 24 | 6 | 20200 | 0.003 | 0.336 | 2.64e-05 | 3.02e-05 |
+| 24 | 8 | 20066 | 0.00778 | 0.184 | 3.06e-05 | 8.52e-05 |
+| 24 | 10 | 20002 | 0.0208 | 0.184 | 0.000235 | 0.000247 |
+| 24 | 12 | 20269 | 0.351 | 0.184 | 6e-05 | 0.000157 |
+| 24 | 16 | 20694 | 0.00486 | 0.288 | 0.000119 | 0.000167 |
+| 32 | 6 | 20201 | 0.00606 | 0.186 | 3.23e-05 | 2.23e-05 |
+| 32 | 8 | 20324 | 0.00314 | 0.184 | 2.04e-05 | 3.63e-05 |
+| 32 | 10 | 20118 | 0.0363 | 0.336 | 0.000229 | 0.00026 |
+| 32 | 12 | 20589 | 0.0105 | 0.184 | 0.000111 | 0.000237 |
+| 32 | 16 | 20106 | 0.14 | 0.184 | 0.000148 | 0.000167 |
+| 40 | 6 | 20148 | 0.0045 | 0.186 | 3.35e-05 | 3.51e-05 |
+| 40 | 8 | 20148 | 0.00474 | 0.184 | 3.83e-05 | 6.33e-05 |
+| 40 | 10 | 20151 | 0.0127 | 0.336 | 0.000232 | 0.000215 |
+| 40 | 12 | 20224 | 0.0133 | 0.184 | 0.000106 | 0.000298 |
+| 40 | 16 | 20165 | 0.0709 | 0.184 | 8.06e-05 | 8.55e-05 |
+| 48 | 6 | 20005 | 0.00189 | 0.338 | 2.48e-05 | 1.58e-05 |
+| 48 | 8 | 20130 | 0.00419 | 0.186 | 3.17e-05 | 7.7e-05 |
+| 48 | 10 | 20933 | 0.00625 | 0.292 | 0.000203 | 0.000186 |
+| 48 | 12 | 20086 | 0.00684 | 0.184 | 0.000105 | 0.0002 |
+| 48 | 16 | 20678 | 0.115 | 0.184 | 0.000112 | 0.00012 |
+
+
+### Single-length (N = 8) numerical-setting sensitivity (edges = first crossing of T = 0.5 / 1e-2 outward from mid-gap; default minimum run time)
+
+
+**Resolution (ny pixels across sqrt(3))**
+
+
+| value | N | ny | edge lo -3dB | edge hi -3dB | edge lo -20dB | edge hi -20dB | T gap geomean | T gap max | max \|R+T-1\| gap | max \|R+T-1\| all | t_end |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 24 | 8 | 24 | 0.20498 | 0.31746 | 0.2065 | 0.29044 | 2.97e-05 | 0.00151 | 0.000926 | 0.0343 | 2956 |
+| 32 | 8 | 32 | 0.20504 | 0.31692 | 0.20672 | 0.29069 | 3.62e-05 | 0.00165 | 0.00171 | 0.0658 | 2180 |
+| 40 | 8 | 40 | 0.20507 | 0.29279 | 0.20675 | 0.29078 | 2.86e-05 | 0.0016 | 0.000269 | 0.0136 | 6924 |
+| 48 | 8 | 48 | 0.20508 | 0.29322 | 0.20678 | 0.29094 | 3.41e-05 | 0.00162 | 0.000254 | 0.0364 | 4357 |
+| 64 | 8 | 64 | 0.20514 | 0.30302 | 0.2068 | 0.29117 | 3.52e-05 | 0.00159 | 0.0033 | 0.231 | 1834 |
+
+
+**PML thickness**
+
+
+| value | N | ny | edge lo -3dB | edge hi -3dB | edge lo -20dB | edge hi -20dB | T gap geomean | T gap max | max \|R+T-1\| gap | max \|R+T-1\| all | t_end |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 8 | 40 | 0.20507 | 0.29279 | 0.20675 | 0.29078 | 2.86e-05 | 0.0016 | 0.000265 | 0.0136 | 6924 |
+| 2 | 8 | 40 | 0.20507 | 0.29279 | 0.20675 | 0.29078 | 2.86e-05 | 0.0016 | 0.000269 | 0.0136 | 6924 |
+| 3 | 8 | 40 | 0.20507 | 0.29279 | 0.20675 | 0.29078 | 2.86e-05 | 0.0016 | 0.00027 | 0.0136 | 6924 |
+
+
+**Decay tolerance**
+
+
+| value | N | ny | edge lo -3dB | edge hi -3dB | edge lo -20dB | edge hi -20dB | T gap geomean | T gap max | max \|R+T-1\| gap | max \|R+T-1\| all | t_end |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1e-06 | 8 | 40 | 0.20521 | 0.30337 | 0.20728 | 0.2906 | 7.61e-05 | 0.00174 | 0.0138 | 0.504 | 494.4 |
+| 1e-08 | 8 | 40 | 0.20507 | 0.29279 | 0.20675 | 0.29078 | 2.86e-05 | 0.0016 | 0.000269 | 0.0136 | 6924 |
+| 1e-10 | 8 | 40 | 0.20507 | 0.29279 | 0.20676 | 0.29078 | 3.01e-05 | 0.0016 | 4.34e-05 | 0.00179 | 2.635e+04 |
+
+
+**Source fwidth**
+
+
+| value | N | ny | edge lo -3dB | edge hi -3dB | edge lo -20dB | edge hi -20dB | T gap geomean | T gap max | max \|R+T-1\| gap | max \|R+T-1\| all | t_end |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0.2 | 8 | 40 | 0.20508 | 0.29314 | 0.20675 | 0.29075 | 3.27e-05 | 0.00159 | 0.000162 | 0.239 | 2723 |
+| 0.3 | 8 | 40 | 0.20507 | 0.29286 | 0.20676 | 0.29077 | 3.24e-05 | 0.0016 | 0.00029 | 0.0771 | 4237 |
+| 0.4 | 8 | 40 | 0.20507 | 0.29279 | 0.20675 | 0.29078 | 2.86e-05 | 0.0016 | 0.000269 | 0.0136 | 6924 |
+| 0.6 | 8 | 40 | 0.20508 | 0.29284 | 0.20676 | 0.29077 | 3.27e-05 | 0.00159 | 0.000304 | 0.0523 | 4723 |
+
+
+**Monitor distance from faces**
+
+
+| value | N | ny | edge lo -3dB | edge hi -3dB | edge lo -20dB | edge hi -20dB | T gap geomean | T gap max | max \|R+T-1\| gap | max \|R+T-1\| all | t_end |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0.5 | 8 | 40 | 0.20508 | 0.29341 | 0.20676 | 0.29082 | 3.37e-05 | 0.00163 | 0.000934 | 0.134 | 3136 |
+| 1 | 8 | 40 | 0.20507 | 0.29279 | 0.20675 | 0.29078 | 2.86e-05 | 0.0016 | 0.000269 | 0.0136 | 6924 |
+| 2 | 8 | 40 | 0.20507 | 0.29355 | 0.20673 | 0.29065 | 3.19e-05 | 0.0016 | 0.00154 | 0.386 | 1983 |
+
+
+**Source distance from face**
+
+
+| value | N | ny | edge lo -3dB | edge hi -3dB | edge lo -20dB | edge hi -20dB | T gap geomean | T gap max | max \|R+T-1\| gap | max \|R+T-1\| all | t_end |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 8 | 40 | 0.20508 | 0.29325 | 0.20676 | 0.29082 | 3.23e-05 | 0.00163 | 0.000322 | 0.0201 | 4899 |
+| 2 | 8 | 40 | 0.20508 | 0.29286 | 0.20676 | 0.29078 | 3.37e-05 | 0.00161 | 0.000306 | 0.0739 | 4296 |
+| 3 | 8 | 40 | 0.20507 | 0.29279 | 0.20675 | 0.29078 | 2.86e-05 | 0.0016 | 0.000269 | 0.0136 | 6924 |
+| 5 | 8 | 40 | 0.20507 | 0.29279 | 0.20675 | 0.29078 | 3.19e-05 | 0.00159 | 0.000224 | 0.0137 | 6932 |
+
+
+## Test run
+
+```
+:test_mpb_group_velocity_matches_finite_difference_in_real_structure PASSED [ 78%]
+tests/test_mpb_analytic.py::test_symmetric_structure_is_mirror_symmetric_on_the_grid PASSED [ 79%]
+tests/test_tmm.py::test_single_interface_fresnel PASSED                  [ 80%]
+tests/test_tmm.py::test_vacuum_layer_is_pure_delay_with_positive_sign PASSED [ 81%]
+tests/test_tmm.py::test_dielectric_layer_in_matching_medium_delay_is_nL PASSED [ 82%]
+tests/test_tmm.py::test_referenced_excess_delay_of_vacuum_layer_is_zero PASSED [ 84%]
+tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[0] PASSED [ 85%]
+tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[1] PASSED [ 86%]
+tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[2] PASSED [ 87%]
+tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[3] PASSED [ 88%]
+tests/test_tmm.py::test_energy_conservation_random_lossless_multilayer[4] PASSED [ 89%]
+tests/test_tmm.py::test_reciprocity_of_transmission_under_layer_reversal PASSED [ 90%]
+tests/test_tmm.py::test_half_wave_layer_is_transparent PASSED            [ 92%]
+tests/test_tmm.py::test_quarter_wave_peak_reflectance_closed_form[1] PASSED [ 93%]
+tests/test_tmm.py::test_quarter_wave_peak_reflectance_closed_form[2] PASSED [ 94%]
+tests/test_tmm.py::test_quarter_wave_peak_reflectance_closed_form[4] PASSED [ 95%]
+tests/test_tmm.py::test_quarter_wave_peak_reflectance_closed_form[8] PASSED [ 96%]
+tests/test_tmm.py::test_quarter_wave_gap_edges_match_bloch_condition PASSED [ 97%]
+tests/test_tmm.py::test_finite_stack_transmission_follows_bloch_decay_in_stop_band PASSED [ 98%]
+tests/test_tmm.py::test_delay_in_stop_band_saturates_with_length PASSED  [100%]
+
+============================= 88 passed in 33.90s ==============================
+
+
+```

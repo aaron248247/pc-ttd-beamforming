@@ -121,36 +121,64 @@ def fig_bragg():
 
 
 def fig_pc2d():
+    E = pio.load_json(RES / "1d_edges.json")
     D = pio.load_json(RES / "1d_pc2d.json")
-    M = pio.load_json(RES / "1d_mpb_directional.json")
-    ev = D["mpb_even_gap_res128"]; ev64 = D["mpb_even_gap_res64"]; an = D["mpb_any_gap_res128"]
-    fig, axs = plt.subplots(2, 2, figsize=(10, 7))
+    A = pio.load_json(RES / "1d_attenuation.json")
+    ev = E["mpb_even_gap_res128"]
+    om = D["mpb_any_gap_res128"]
+    fig, axs = plt.subplots(2, 3, figsize=(12, 7))
     ax = axs[0, 0]
-    cols = [BLUE, ORANGE, AQUA, MAG]
-    for r, c in zip([x for x in D["length"] if x["N"] in (2, 4, 8, 16)], cols):
-        cv = r["curve"]
-        ax.semilogy(cv["f"], np.maximum(cv["T"], 1e-9), color=c, lw=1.2, label="N = %d" % r["N"])
-    ax.axvspan(ev[0], ev[1], color=MUTED, alpha=0.18, lw=0, label="MPB even-Φ gap (k$_y$=0)")
-    ax.axvline(an[1], color=MUTED, ls=":", lw=1)
-    ax.set_ylim(1e-8, 2); ax.set_xlabel("f = a/λ"); ax.set_ylabel("T"); ax.set_title("finite crystal transmission (r/a = 0.30, ny = %d)" % D["config"]["ny"], fontsize=9); ax.legend(frameon=False, fontsize=7)
+    cols = {6: MAG, 8: AQUA, 10: ORANGE, 12: BLUE, 16: "#4a3aa7"}
+    for N, c in cols.items():
+        r = [x for x in A["runs"] if x["ny"] == 48 and x["N"] == N][0]
+        ax.semilogy(r["f"], np.maximum(r["T"], 1e-9), color=c, lw=1.0, label="N = %d" % N)
+    ax.axvspan(ev[0], ev[1], color=MUTED, alpha=0.18, lw=0)
+    ax.axhline(1e-2, color=INK, ls=":", lw=0.8)
+    ax.axvline(om[1], color=MUTED, ls="--", lw=0.8)
+    ax.set_ylim(1e-9, 2); ax.set_xlabel("f = a/λ"); ax.set_ylabel("T")
+    ax.set_title("ny = 48: shaded = MPB even-Φ gap; dashed = all-parity gap top", fontsize=8); ax.legend(frameon=False, fontsize=6, ncol=2)
     ax = axs[0, 1]
-    L = D["length"]; Ns = [r["N"] for r in L]
-    ax.plot(Ns, [r["edge_lo_3dB"] for r in L], "o-", color=BLUE, label="−3 dB lower"); ax.plot(Ns, [r["edge_hi_3dB"] for r in L], "o-", color=ORANGE, label="−3 dB upper")
-    ax.plot(Ns, [r["edge_lo_20dB"] for r in L], "s--", color=BLUE, ms=3, label="−20 dB lower"); ax.plot(Ns, [r["edge_hi_20dB"] for r in L], "s--", color=ORANGE, ms=3, label="−20 dB upper")
-    ax.axhline(ev[0], color=MUTED, ls=":"); ax.axhline(ev[1], color=MUTED, ls=":")
-    ax.set_xlabel("columns N"); ax.set_ylabel("stop-band edge (f)"); ax.set_title("edges → MPB band edges (dotted) as N grows", fontsize=9); ax.legend(frameon=False, fontsize=7)
+    nys = sorted({r["ny"] for r in E["rows"]})
+    for ns, ls, mk in (([8, 10, 12], "-", "o"), ([10, 12, 16], "--", "s")):
+        for key, c, lab in (("d_lo", BLUE, "lower"), ("d_hi", ORANGE, "upper")):
+            xs, ys = [], []
+            for ny in nys:
+                rr = [r for r in E["rows"] if r["ny"] == ny and r["thr"] == 1e-2 and r["Ns"] == ns and np.isfinite(r[key])]
+                if rr:
+                    xs.append(ny); ys.append(rr[0][key] * 1e3)
+            ax.plot(xs, ys, mk + ls, color=c, ms=4, label="%s edge, N = %s" % (lab, ns))
+    ax.axhline(0, color=MUTED, lw=1)
+    ax.set_xlabel("ny (pixels across √3 a)"); ax.set_ylabel("(FDTD edge at T < 1e-2) − (MPB edge)  × 10$^3$")
+    ax.set_title("edge offsets vs MPB even-Φ gap", fontsize=8); ax.legend(frameon=False, fontsize=6)
+    ax = axs[0, 2]
+    for d, c in zip(E["deep_gap_decay"], (BLUE, ORANGE, AQUA, MAG)):
+        ax.plot(d["N"], d["mean_lnT"], "o-", color=c, ms=4, label="ny %d: %.3f / column" % (d["ny"], d["decay_per_column"]))
+    ax.set_xlabel("columns N"); ax.set_ylabel("⟨ln T⟩ over 0.222–0.268"); ax.set_title("deep-gap decay (values with T > 3e-7 only)", fontsize=8); ax.legend(frameon=False, fontsize=7)
     ax = axs[1, 0]
-    R_ = D["resolution"]; nyv = np.array([r["ny"] for r in R_], float)
-    ax.plot(nyv, [r["edge_lo_20dB"] for r in R_], "s--", color=BLUE, ms=3, label="−20 dB lower"); ax.plot(nyv, [r["edge_hi_20dB"] for r in R_], "s--", color=ORANGE, ms=3, label="−20 dB upper")
-    ax.plot(nyv, [r["edge_lo_3dB"] for r in R_], "o-", color=BLUE, label="−3 dB lower"); ax.plot(nyv, [r["edge_hi_3dB"] for r in R_], "o-", color=ORANGE, label="−3 dB upper")
-    ax.axhline(ev[0], color=MUTED, ls=":"); ax.axhline(ev[1], color=MUTED, ls=":")
-    ax.set_xlabel("ny (pixels across √3 a)"); ax.set_ylabel("edge (f)"); ax.set_title("resolution (N = %d)" % D["config"]["N"], fontsize=9); ax.legend(frameon=False, fontsize=7)
+    T_ = E.get("termination", [])
+    offs = sorted({r["face_offset"] for r in T_})
+    for o, c in zip(offs, (BLUE, ORANGE, AQUA, MAG)):
+        r = [x for x in pio.load_json(RES / "1d_termination.json")["runs"] if x["N"] == 8 and abs(x["face_offset"] - o) < 1e-9][0]
+        ax.semilogy(r["f"], np.maximum(r["T"], 1e-9), color=c, lw=1.0, label="face offset %+.2f" % o)
+    ax.axvspan(ev[0], ev[1], color=MUTED, alpha=0.18, lw=0)
+    ax.set_xlim(0.19, 0.31); ax.set_ylim(1e-8, 2); ax.set_xlabel("f"); ax.set_ylabel("T")
+    ax.set_title("N = 8, ny = 32: in-gap resonance moves with termination", fontsize=8); ax.legend(frameon=False, fontsize=6)
     ax = axs[1, 1]
-    for key, c, lab in (("decay", BLUE, "decay tol"), ):
-        rr = D[key]
-        ax.semilogx([r["value"] for r in rr], [r["max_abs_RplusT_minus_1_all"] for r in rr], "o-", color=c, label="max |R+T−1| (band)")
-        ax.semilogx([r["value"] for r in rr], [r["max_abs_RplusT_minus_1_gap"] for r in rr], "s-", color=ORANGE, label="max |R+T−1| (gap)")
-    ax.set_yscale("log"); ax.set_xlabel("decay tolerance"); ax.set_title("energy conservation vs termination", fontsize=9); ax.legend(frameon=False, fontsize=7); ax.invert_xaxis()
+    p = RES / "1d_termination_N12_16.json"
+    if p.exists():
+        TT = pio.load_json(p)
+        for o, c in zip(TT["offsets"], (BLUE, ORANGE, AQUA, MAG)):
+            r = [x for x in TT["runs"] if x["N"] == 12 and abs(x["face_offset"] - o) < 1e-9][0]
+            ax.semilogy(r["f"], np.maximum(r["T"], 1e-9), color=c, lw=1.0, label="face offset %+.2f" % o)
+        ax.axvspan(ev[0], ev[1], color=MUTED, alpha=0.18, lw=0)
+        ax.set_xlim(0.19, 0.31); ax.set_ylim(1e-9, 2); ax.legend(frameon=False, fontsize=6)
+    ax.set_xlabel("f"); ax.set_ylabel("T"); ax.set_title("N = 12: resonance amplitude much smaller", fontsize=8)
+    ax = axs[1, 2]
+    L = D["decay"]
+    ax.semilogx([r["value"] for r in L], [r["max_abs_RplusT_minus_1_gap"] for r in L], "s-", color=ORANGE, label="max |R+T−1| in gap")
+    ax.semilogx([r["value"] for r in L], [r["max_abs_RplusT_minus_1_all"] for r in L], "o-", color=BLUE, label="max |R+T−1| whole band")
+    ax.set_yscale("log"); ax.set_xlabel("decay tolerance (N = 8)"); ax.invert_xaxis(); ax.legend(frameon=False, fontsize=7)
+    ax.set_title("energy conservation vs termination criterion", fontsize=8)
     fig.tight_layout(); fig.savefig(FIG / "p1_pc2d.png"); plt.close(fig)
 
 

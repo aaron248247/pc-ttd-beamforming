@@ -54,15 +54,17 @@ class Cfg2D:
     src_fcen: float = 0.24
     src_fwidth: float = 0.40
     decay_tol: float = 1e-8
-    max_time: float = 30000.0
+    max_time: float = 60000.0
+    min_time: float | None = None       # None -> transit time + 30; set larger to outlast band-edge ring-down
     decimation: int = 1
+    face_offset: float = 0.0           # extra host material beyond each end face (termination study); faces at -0.5-offset, N-0.5+offset
 
     @property
     def res(self):
         return self.ny / SQRT3
 
     def faces(self):
-        return -0.5, self.N - 0.5
+        return -0.5 - self.face_offset, self.N - 0.5 + self.face_offset
 
 
 def _build(cfg: Cfg2D, with_crystal: bool):
@@ -105,7 +107,8 @@ def _min_time(cfg):
 def run_2d(cfg: Cfg2D) -> dict:
     xl_face, xr_face = cfg.faces()
     xr_mon, xt_mon = xl_face - cfg.mon_dist, xr_face + cfg.mon_dist
-    stop = lambda: mp.stop_when_dft_decayed(cfg.decay_tol, _min_time(cfg), cfg.max_time)
+    mt = cfg.min_time if cfg.min_time is not None else _min_time(cfg)
+    stop = lambda: mp.stop_when_dft_decayed(cfg.decay_tol, mt, cfg.max_time)
     # 1. empty run: incident flux and the incident field at the reflection plane
     s0 = _build(cfg, False)
     refl0, tran0 = _flux(s0, cfg, xr_mon), _flux(s0, cfg, xt_mon)
