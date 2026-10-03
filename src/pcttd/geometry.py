@@ -5,7 +5,7 @@ Pure Python/NumPy so the layout logic is unit-testable without MPB.
 Conventions
 -----------
 * The waveguide axis is x; the supercell has period 1 along x and height ``H`` along y.
-* y = 0 is the defect centre line, so the whole structure has y -> -y mirror symmetry.
+* y = 0 is the defect center line, so the whole structure has y -> -y mirror symmetry.
 * ``Scatterer(x, y, radius)``: air holes for the triangular candidate, dielectric rods for the square one.
 * Positions are returned inside one supercell; periodic images are handled by the MPB solver.
 """

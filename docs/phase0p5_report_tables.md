@@ -44,7 +44,7 @@ All pairings select the same family: **True** (H).
 
 ## T5. Plain W1 and best-GBP design per configuration
 
-| config | design | f1/s | max modes in gap | SM-strict(even) frac | SM even-only frac | flat-window n_g | its frac. BW | its GBP | strip frac | edge frac (window max) | n_g at window centre [min–max] |
+| config | design | f1/s | max modes in gap | SM-strict(even) frac | SM even-only frac | flat-window n_g | its frac. BW | its GBP | strip frac | edge frac (window max) | n_g at window center [min–max] |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | H | plain W1 | 1/+0.00 | 3 | 0.106 | 0.237 | — | — | — | 0.9995 | 2.1e-05 | 3.92 [3.92–21] |
 | H | best GBP(≥10) | 0.8/-0.10 | 7 | 0.132 | 0.254 | 10.2 | 0.005 | 0.048 | 0.9967 | 2.1e-04 | 4.06 [3.97–489] |
@@ -58,7 +58,7 @@ All pairings select the same family: **True** (H).
 
 ## T6. Numerical convergence (same analysis code)
 
-| config | f1/s | case vs base | bands ok | Δ gap_lo | Δ gap_hi | SM-even frac base → case | GBP(≥10) base → case | n_g at window centre | median |v_g,MPB−FD|/v_g |
+| config | f1/s | case vs base | bands ok | Δ gap_lo | Δ gap_hi | SM-even frac base → case | GBP(≥10) base → case | n_g at window center | median |v_g,MPB−FD|/v_g |
 |---|---|---|---|---|---|---|---|---|---|
 | H | 0.8/-0.10 | res48_tol1e-8 | True | -0.20% | +0.06% | 0.132 → 0.132 | 0.0483 → 0.0447 | 4.06 → 4.06 | 0.004 |
 | H | 0.8/-0.10 | M+1 | True | -0.00% | -0.00% | 0.132 → 0.113 | 0.0483 → 0.0476 | 4.06 → 4.02 | 0.004 |
@@ -94,7 +94,7 @@ All pairings select the same family: **True** (H).
  "meep": "1.33.0-beta",
  "meep_with_mpi": true,
  "mpb_available": true,
- "git_head": null
+ "git_head": "7783a200de84b17cd4c0913fc84f1a2f5033f73c"
 }
 ```
 

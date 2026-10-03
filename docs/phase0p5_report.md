@@ -21,12 +21,12 @@ The declared comparison (H vs R) selects H, and so do all three sensitivity pair
 * R wins C2 (single-mode bandwidth) decisively: 0.385 vs 0.154 (H) and 0.138 (H_r030).
 
 So the choice of H rests on **C4 (flat slow-light potential) and C5 (FDTD cost)**; R's strength is a wide, clean single-mode band.
-Given the project's purpose (slow-light delay) that is the right tie-breaker, but it is a judgement the rule encodes, and I flag it.
+Given the project's purpose (slow-light delay) that is the right tie-breaker, but it is a judgment the rule encodes, and I flag it.
 
 ## 2. Why H (what the data show physically)
 
 * **Candidate R is, physically, an air-channel waveguide.** Removing one rod row gives one even TM band with a fractional bandwidth of 0.337
-  (plain W1, T5; the gap is 0.391 wide) with a cutoff at k = 0, group index ≈ 2.03 at the window centre, and a large n_g only very close to cutoff
+  (plain W1, T5; the gap is 0.391 wide) with a cutoff at k = 0, group index ≈ 2.03 at the window center, and a large n_g only very close to cutoff
   and near the zone edge. There is no extended flat slow-light region: its best n_g ≥ 10 flat window has n_g ≈ 10 over
   0.3% fractional bandwidth. It is, in effect, a strong candidate for the **conventional-waveguide baseline** in the
   Phase 3/4 comparison, which is a useful by-product.
@@ -53,7 +53,7 @@ Phase 0 plan (bandwidth too narrow) the leading threat, and the conventional-wav
 | Unit/regression tests | 30 pass (`results/phase0p5/pytest_output.txt`): 24 analytic/non-MPB (band analysis, geometry, regressions) and 6 MPB-vs-closed-form |
 | MPB vs closed forms | n_g = √12 (homogeneous ε = 12) and = 1 (vacuum) to rtol 1e-4; degenerate cos/sin parity pair detected; strip/edge energy fraction on a uniform wave matches area fraction to the grid quantum |
 | MPB v_g vs finite difference | median relative difference ≤ 0.4% across the converged cases (T6) |
-| Resolution 24 → 48 | band-gap edges move ≤ 0.2%; n_g at window centre unchanged to the digits shown (T6) |
+| Resolution 24 → 48 | band-gap edges move ≤ 0.2%; n_g at window center unchanged to the digits shown (T6) |
 | Solver tolerance 1e-7 → 1e-9 | no change in any reported quantity (T6) |
 | Supercell M → M+1 | gap and n_g unchanged; **window-threshold metrics move** (below) |
 | Band sufficiency | enforced (`branches_sufficient`); selection aborts if any design fails |
@@ -158,7 +158,7 @@ All pairings select the same family: **True** (H).
 
 ## T5. Plain W1 and best-GBP design per configuration
 
-| config | design | f1/s | max modes in gap | SM-strict(even) frac | SM even-only frac | flat-window n_g | its frac. BW | its GBP | strip frac | edge frac (window max) | n_g at window centre [min–max] |
+| config | design | f1/s | max modes in gap | SM-strict(even) frac | SM even-only frac | flat-window n_g | its frac. BW | its GBP | strip frac | edge frac (window max) | n_g at window center [min–max] |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | H | plain W1 | 1/+0.00 | 3 | 0.106 | 0.237 | — | — | — | 0.9995 | 2.1e-05 | 3.92 [3.92–21] |
 | H | best GBP(≥10) | 0.8/-0.10 | 7 | 0.132 | 0.254 | 10.2 | 0.005 | 0.048 | 0.9967 | 2.1e-04 | 4.06 [3.97–489] |
@@ -172,7 +172,7 @@ All pairings select the same family: **True** (H).
 
 ## T6. Numerical convergence (same analysis code)
 
-| config | f1/s | case vs base | bands ok | Δ gap_lo | Δ gap_hi | SM-even frac base → case | GBP(≥10) base → case | n_g at window centre | median |v_g,MPB−FD|/v_g |
+| config | f1/s | case vs base | bands ok | Δ gap_lo | Δ gap_hi | SM-even frac base → case | GBP(≥10) base → case | n_g at window center | median |v_g,MPB−FD|/v_g |
 |---|---|---|---|---|---|---|---|---|---|
 | H | 0.8/-0.10 | res48_tol1e-8 | True | -0.20% | +0.06% | 0.132 → 0.132 | 0.0483 → 0.0447 | 4.06 → 4.06 | 0.004 |
 | H | 0.8/-0.10 | M+1 | True | -0.00% | -0.00% | 0.132 → 0.113 | 0.0483 → 0.0476 | 4.06 → 4.02 | 0.004 |
@@ -208,7 +208,7 @@ All pairings select the same family: **True** (H).
  "meep": "1.33.0-beta",
  "meep_with_mpi": true,
  "mpb_available": true,
- "git_head": null
+ "git_head": "7783a200de84b17cd4c0913fc84f1a2f5033f73c"
 }
 ```
 

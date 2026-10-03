@@ -30,12 +30,12 @@ Polarization convention is MPB/MEEP: TE = (Ex, Ey, Hz); TM = (Ez, Hx, Hy).
 
 ## Step 2 — Defect sweep (same for both)
 
-Parameters: first-neighbour-row radius scale `f1 = r1/r in {0.8, 0.9, 1.0, 1.1, 1.2}` and
-first-neighbour-row outward lateral shift `s in {-0.10, -0.05, 0, +0.05, +0.10}` (units of a;
+Parameters: first-neighbor-row radius scale `f1 = r1/r in {0.8, 0.9, 1.0, 1.1, 1.2}` and
+first-neighbor-row outward lateral shift `s in {-0.10, -0.05, 0, +0.05, +0.10}` (units of a;
 positive = rows move away from the defect). 25 designs per candidate, `f1=1, s=0` is the plain W1.
 
 At each of 41 k-points on [0, 0.5], all supercell bands with frequency inside the bulk gap are defect bands.
-Per band: out-of-plane-field parity (Phi = Hz for TE, Ez for TM) about the defect centre line,
+Per band: out-of-plane-field parity (Phi = Hz for TE, Ez for TM) about the defect center line,
 group velocity from MPB (Hellmann-Feynman), cross-checked against finite differences.
 
 Definitions:
@@ -47,7 +47,7 @@ Definitions:
   is within +-10% of the interval-mean `n_g`, with mean `n_g >= n_min`.
   `GBP = mean(n_g) * (w_hi - w_lo)/w_center`. Reported for `n_min` in {5, 10, 20}.
 * **Strip energy fraction**: fraction of `|D|^2/eps + |H|^2` inside `|y| <= 1.5 * row_pitch`
-  (row pitch = sqrt(3)/2 a for H, a for R), evaluated for the band at the centre of its window.
+  (row pitch = sqrt(3)/2 a for H, a for R), evaluated for the band at the center of its window.
   **Edge energy fraction**: same within 1 row pitch of the supercell boundary (supercell-convergence guard).
 
 ## Gates (a candidate must pass all to be eligible)

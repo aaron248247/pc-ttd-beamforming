@@ -16,7 +16,7 @@ def test_triangular_counts_and_height(M):
 def test_triangular_symmetry_and_nn_distance():
     H, sc = triangular_w1(5, 0.3)
     assert is_mirror_symmetric(sc, H)
-    # undisturbed rows: nearest-neighbour distance between adjacent rows is exactly a=1
+    # undisturbed rows: nearest-neighbor distance between adjacent rows is exactly a=1
     ys = sorted({round(s.y, 9) for s in sc})
     row = [s for s in sc if abs(s.y - SQRT3 / 2 * 2) < 1e-9][0]
     nxt = [s for s in sc if abs(s.y - SQRT3 / 2 * 3) < 1e-9][0]
@@ -47,7 +47,7 @@ def test_tuning_parameters_keep_symmetry_and_move_correct_rows():
     dn = [s for s in tuned if s.y < 0 and s.y > -1.2][0]
     assert dn.y == pytest.approx(-(SQRT3 / 2 + 0.1))   # outward = away from the defect on both sides
     far = [s for s in tuned if abs(s.y - SQRT3) < 1e-9][0]
-    assert far.radius == pytest.approx(0.3)            # only first-neighbour rows are tuned
+    assert far.radius == pytest.approx(0.3)            # only first-neighbor rows are tuned
 
 
 def test_asymmetric_structure_detected():

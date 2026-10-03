@@ -1,4 +1,4 @@
-"""Step 2: 25-design defect sweep per candidate (first-neighbour-row radius scale f1 x outward shift s)."""
+"""Step 2: 25-design defect sweep per candidate (first-neighbor-row radius scale f1 x outward shift s)."""
 import multiprocessing as mp_
 import time
 import numpy as np

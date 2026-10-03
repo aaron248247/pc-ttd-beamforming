@@ -78,7 +78,7 @@ if __name__ == "__main__":
                           if d["window"] else "—")])
     o.append(table(["config", "design", "f1/s", "max modes in gap", "SM-strict(even) frac", "SM even-only frac",
                     "flat-window n_g", "its frac. BW", "its GBP", "strip frac", "edge frac (window max)",
-                    "n_g at window centre [min–max]"], rows))
+                    "n_g at window center [min–max]"], rows))
 
     import glob
     cfiles = sorted(glob.glob(str(RES / "convergence_*.json")))
@@ -95,7 +95,7 @@ if __name__ == "__main__":
                              (f"{r['ng_at_center_base']:.2f} → {r['ng_at_center_case']:.2f}" if "ng_at_center_base" in r else "—"),
                              f"{r['vg_fd_rel_err_case']['median']:.3f}" if r["vg_fd_rel_err_case"]["median"] is not None else "—"])
         o.append(table(["config", "f1/s", "case vs base", "bands ok", "Δ gap_lo", "Δ gap_hi", "SM-even frac base → case",
-                        "GBP(≥10) base → case", "n_g at window centre", "median |v_g,MPB−FD|/v_g"], rows))
+                        "GBP(≥10) base → case", "n_g at window center", "median |v_g,MPB−FD|/v_g"], rows))
     o.append("\n## Environment\n\n" + "```\n" + json.dumps(env, indent=1) + "\n```\n")
     o.append("\nSweep provenance: `" + json.dumps(sel.get("provenance", {})) + "`\n")
     o.append("\n## T7. Supercell edge-energy fraction over all solved designs (window max)\n")

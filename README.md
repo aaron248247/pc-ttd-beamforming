@@ -2,15 +2,16 @@
 
 Computational study of **dispersion-engineered photonic-crystal (PhC) line-defect waveguides as true-time-delay
 elements for broadband phased-array beamforming**, including a conventional-waveguide baseline.
-The answer is not assumed to be favourable. See [docs/research_plan.md](docs/research_plan.md).
+The answer is not assumed to be favorable. See [docs/research_plan.md](docs/research_plan.md).
 
 ## Status
 
 | Phase | State |
 |---|---|
 | 0 Research design | done ([docs/research_plan.md](docs/research_plan.md)) |
-| 0.5 Geometry selection (MPB) | **done, awaiting review** — [docs/phase0p5_report.md](docs/phase0p5_report.md) |
-| 1–7 | not started |
+| 0.5 Geometry selection (MPB) | done and approved — [docs/phase0p5_report.md](docs/phase0p5_report.md); decisions in [docs/decisions.md](docs/decisions.md) |
+| 1 FDTD verification ladder | in progress |
+| 2–7 | not started |
 
 No performance claim about delay, bandwidth, or beam squint is made anywhere in this repository yet: those need the FDTD phases.
 
@@ -48,4 +49,8 @@ results/          machine-readable outputs with provenance; figures/ is regenera
 ## Data-integrity rule
 
 Every number in the docs is either read from `results/` by a script (`06_report.py` tables) or copied from those tables.
-Planned-but-not-run results are labelled planned.
+Planned-but-not-run results are labeled planned.
+
+## Conventions
+
+American English spelling in all prose, comments, and documentation. Normalized units: a = 1, c = 1, frequency f = omega a / (2 pi c) = a/lambda.

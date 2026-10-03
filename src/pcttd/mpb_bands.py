@@ -4,7 +4,7 @@ Everything dimensionless: a = 1, c = 1, w = a/lambda.
 
 Polarization (MPB and MEEP agree): TE = (Ex, Ey, Hz); TM = (Ez, Hx, Hy).
 ``Phi`` denotes the out-of-plane field (Hz for TE, Ez for TM); parity is that of Phi under y -> -y about the
-defect centre line.
+defect center line.
 """
 from __future__ import annotations
 
