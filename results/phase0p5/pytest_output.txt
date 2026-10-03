@@ -1,0 +1,42 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.19, pytest-7.4.0, pluggy-1.6.0 -- /home/accurtis247/miniconda3/envs/MEEP-GPU/bin/python
+cachedir: .pytest_cache
+rootdir: /home/accurtis247/MEEP/pc-ttd-beamforming
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-4.1.0, anyio-4.10.0
+collecting ... collected 30 items
+
+tests/test_bands.py::test_find_gaps PASSED                               [  3%]
+tests/test_bands.py::test_hermite_reproduces_smooth_function_and_slope PASSED [  6%]
+tests/test_bands.py::test_constant_group_index_gbp_matches_analytic PASSED [ 10%]
+tests/test_bands.py::test_flat_window_rejects_non_flat_band PASSED       [ 13%]
+tests/test_bands.py::test_single_mode_windows_and_parity_split PASSED    [ 16%]
+tests/test_bands.py::test_negative_slope_in_folded_zone_is_a_valid_forward_mode PASSED [ 20%]
+tests/test_bands.py::test_turning_point_gives_two_modes_not_one PASSED   [ 23%]
+tests/test_bands.py::test_zone_edge_slow_light_group_index_diverges PASSED [ 26%]
+tests/test_bands.py::test_class_branches_separates_parity_and_avoids_kink PASSED [ 30%]
+tests/test_bands.py::test_defect_branch_not_lost_when_it_leaves_the_computed_set PASSED [ 33%]
+tests/test_bands.py::test_insufficient_bands_are_detected_not_silent PASSED [ 36%]
+tests/test_geometry.py::test_triangular_counts_and_height[3] PASSED      [ 40%]
+tests/test_geometry.py::test_triangular_counts_and_height[5] PASSED      [ 43%]
+tests/test_geometry.py::test_triangular_counts_and_height[6] PASSED      [ 46%]
+tests/test_geometry.py::test_triangular_symmetry_and_nn_distance PASSED  [ 50%]
+tests/test_geometry.py::test_triangular_stacking_is_periodic PASSED      [ 53%]
+tests/test_geometry.py::test_square_counts_and_symmetry PASSED           [ 56%]
+tests/test_geometry.py::test_tuning_parameters_keep_symmetry_and_move_correct_rows PASSED [ 60%]
+tests/test_geometry.py::test_asymmetric_structure_detected PASSED        [ 63%]
+tests/test_geometry.py::test_min_gap_flags_overlap PASSED                [ 66%]
+tests/test_geometry.py::test_negative_shift_moves_first_rows_toward_the_defect[triangular_w1-0.8660254037844386] PASSED [ 70%]
+tests/test_geometry.py::test_negative_shift_moves_first_rows_toward_the_defect[square_w1-1.0] PASSED [ 73%]
+tests/test_geometry.py::test_plus_and_minus_shift_give_different_structures[triangular_w1] PASSED [ 76%]
+tests/test_geometry.py::test_plus_and_minus_shift_give_different_structures[square_w1] PASSED [ 80%]
+tests/test_mpb_analytic.py::test_group_index_equals_sqrt_eps PASSED      [ 83%]
+tests/test_mpb_analytic.py::test_lowest_band_is_even_and_degenerate_pair_has_both_parities PASSED [ 86%]
+tests/test_mpb_analytic.py::test_strip_energy_fraction_uniform_field PASSED [ 90%]
+tests/test_mpb_analytic.py::test_vacuum_group_index_is_one PASSED        [ 93%]
+tests/test_mpb_analytic.py::test_mpb_group_velocity_matches_finite_difference_in_real_structure PASSED [ 96%]
+tests/test_mpb_analytic.py::test_symmetric_structure_is_mirror_symmetric_on_the_grid PASSED [100%]
+
+============================= 30 passed in 26.15s ==============================
+

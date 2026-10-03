@@ -8,7 +8,7 @@ from pcttd import io as pio, bands as B
 
 FIG = ROOT / "figures" / "phase0p5"
 FIG.mkdir(parents=True, exist_ok=True)
-COL = {"H": "#2a78d6", "R": "#eb6834", "H_r030": "#1baf7a"}     # fixed categorical order
+COL = {"H": "#2a78d6", "R": "#eb6834", "H_r030": "#1baf7a", "R_M6": "#e87ba4"}     # fixed categorical order
 LABEL = {"H": "H: air holes, r=0.40 (rule)", "R": "R: rods, r=0.19 (rule)", "H_r030": "H$_{r030}$: air holes, r=0.30 (suppl.)"}
 INK, MUTED = "#0b0b0b", "#898781"
 plt.rcParams.update({"font.size": 9, "axes.edgecolor": MUTED, "axes.labelcolor": INK, "xtick.color": INK,
@@ -133,8 +133,10 @@ def fig_ng():
         for f1, s, lab, ls in picks:
             d = load_design(n, f1, s); lv, c = crossings(d)
             sa, se, eo = B.single_mode_masks(c)
+            ng = np.full(len(lv), np.nan)
             idx = np.nonzero(se[c.level_idx])[0]
-            ax.plot(lv[c.level_idx[idx]], 1 / np.abs(c.vg[idx]), ls, color=COL[n], lw=1.6, label=lab)
+            ng[c.level_idx[idx]] = 1 / np.abs(c.vg[idx])      # NaN elsewhere: no connector lines across windows
+            ax.plot(lv, ng, ls, color=COL[n], lw=1.6, label=lab)
         ax.set_yscale("log"); ax.set_xlabel("ω a / 2πc"); ax.set_title(LABEL[n], fontsize=8)
         ax.legend(frameon=False, fontsize=7)
     axs[0].set_ylabel("group index n$_g$ (single-mode even window only)")
@@ -143,14 +145,16 @@ def fig_ng():
 
 def fig_criteria():
     sel = pio.load_json(RES / "selection.json")["metrics"]
+    names = [n for n in ("H", "R", "R_M6", "H_r030") if n in sel]
     keys = [("rel_gap", "C1 gap"), ("c2_max_sm_frac", "C2 SM bandwidth"), ("c3_median_strip", "C3 confinement"),
             ("c4_max_gbp10", "C4 GBP(10)"), ("c5_pixels_per_period", "C5 px/period (lower=better)"),
             ("c6_fraction", "C6 FDTD-suitable fraction")]
     fig, axs = plt.subplots(1, 6, figsize=(11, 2.8))
     for ax, (k, t) in zip(axs, keys):
-        vals = [sel[n][k] or 0 for n in ("H", "R", "H_r030")]
-        ax.bar(range(3), vals, color=[COL[n] for n in ("H", "R", "H_r030")], width=0.6)
-        ax.set_xticks(range(3), ["H", "R", "H$_{r030}$"]); ax.set_title(t, fontsize=8)
+        vals = [sel[n][k] or 0 for n in names]
+        ax.bar(range(len(names)), vals, color=[COL.get(n, "#e87ba4") for n in names], width=0.6)
+        ax.set_xticks(range(len(names)), [n.replace("_r030", "$_{r030}$").replace("_M6", "$_{M6}$") for n in names], fontsize=7)
+        ax.set_title(t, fontsize=8)
         for i, v in enumerate(vals): ax.text(i, v, f"{v:.3g}", ha="center", va="bottom", fontsize=7)
     fig.tight_layout(); fig.savefig(FIG / "f6_criteria_summary.png"); plt.close(fig)
 

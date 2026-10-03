@@ -9,5 +9,5 @@
   "meep": "1.33.0-beta",
   "meep_with_mpi": true,
   "mpb_available": true,
-  "git_head": null
+  "git_head": "7783a200de84b17cd4c0913fc84f1a2f5033f73c"
 }

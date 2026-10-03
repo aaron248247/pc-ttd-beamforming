@@ -133,3 +133,24 @@ implementation bug, not a rule change). Square TM gap n=1 peaks in the interior 
    r/a = 0.30, and the decision outcome is reported both with and without it. The decision rule (above) is evaluated on
    the declared configurations H (r_base from rule) and R. If H_r030 would change the outcome, that is reported as a
    finding, "decision sensitive to baseline radius", and the choice is referred to review.
+
+---
+
+## Revision 3 (dated 2026-10-03; made after the first full defect sweep — disclosed, no rule or threshold changed)
+
+Defect results had been seen when these were made. None of them alters a gate threshold, criterion definition,
+margin, or the decision rule. They are code-correctness fixes and *added* sensitivity analyses, listed so the record is complete.
+
+**Code-correctness fixes found during the phase (all with regression tests):**
+1. `geometry.py`: `math.copysign(s, j)` returned `|s|` with the sign of `j`, so every inward shift (`s < 0`) was built as the
+   outward shift. The whole first sweep was discarded and re-run after the fix.
+2. `bands.class_branches`: a frequency cut (`wcut`) plus minimum-count truncation silently dropped the even defect
+   branch at small k for some designs. Replaced by an explicit sufficiency check (`branches_sufficient`); designs that
+   fail the check are rejected by the selection script. H and H_r030 were re-solved with 20 extra bands (R passes with 8).
+3. The scan script's refinement overshot the declared radius range (Revision 2, item 1).
+
+**Added sensitivity analyses (reported next to, never instead of, the declared comparison):**
+* `R_M6`: the R configuration with a wider supercell (M = 6), because R at the declared M = 4 failed G3 solely through the
+  edge-energy criterion. R_M6 is eligible and its metrics match R to the digits reported.
+* `H_r030`: as defined in Revision 2.
+* Four pairings are evaluated (H|R, H|R_M6, H_r030|R, H_r030|R_M6). The **declared** decision is H vs R.
