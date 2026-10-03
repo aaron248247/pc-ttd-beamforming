@@ -7,4 +7,4 @@ requires-python = ">=3.10"
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
-markers = ["mpb: needs the MPB solver (meep.mpb)"]
+markers = ["mpb: needs the MPB solver (meep.mpb)", "meep: runs MEEP FDTD simulations"]
