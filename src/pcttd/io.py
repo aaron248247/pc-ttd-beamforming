@@ -21,9 +21,10 @@ def _git(*args):
 def provenance() -> dict:
     import meep, scipy
     dirty = _git("status", "--porcelain")
+    code_dirty = _git("status", "--porcelain", "--", "src", "experiments", "tests", "pyproject.toml")
     return dict(
         timestamp_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
-        git_head=_git("rev-parse", "HEAD"), git_dirty=bool(dirty),
+        git_head=_git("rev-parse", "HEAD"), git_dirty=bool(dirty), code_dirty=bool(code_dirty),
         meep=meep.__version__, numpy=np.__version__, scipy=scipy.__version__,
     )
 
