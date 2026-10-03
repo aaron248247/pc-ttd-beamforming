@@ -87,14 +87,29 @@ def decide(name_a, ma, ga, name_b, mb, gb):
 
 
 if __name__ == "__main__":
+    import json, os
     bulk = pio.load_json(RES / "bulk_gap_scan.json")
     sweep = pio.load_json(RES / "defect_sweep.json")
+    supp_path = RES / "defect_sweep_supp.json"
+    if supp_path.exists():
+        sweep.update({k: v for k, v in pio.load_json(supp_path).items() if k != "provenance"})
     M_, G_ = {}, {}
     for n, cfg in ((k, v) for k, v in sweep.items() if k != "provenance"):
+        bad = [d for d in cfg["designs"] if "skipped" not in d and not d["bands_sufficient"]]
+        assert not bad, f"{n}: {len(bad)} designs computed with too few bands; re-run with more (extra=...)"
         M_[n], G_[n] = metrics(cfg, bulk)
-    dec = decide("H", M_["H"], G_["H"], "R", M_["R"], G_["R"])
-    sens = decide("H_r030", M_["H_r030"], G_["H_r030"], "R", M_["R"], G_["R"])
-    out = dict(metrics=M_, gates=G_, decision=dec, sensitivity_H_r030_vs_R=sens,
-               decision_robust_to_H_radius=(dec["selected"] == ("H" if sens["selected"] == "H_r030" else sens["selected"])))
+        M_[n]["supercell_height"] = next(d["H"] for d in cfg["designs"] if "skipped" not in d)
+    pairs = {"declared: H vs R": ("H", "R"),
+             "H vs R_M6 (R with converged supercell)": ("H", "R_M6"),
+             "H_r030 vs R (suppl. radius)": ("H_r030", "R"),
+             "H_r030 vs R_M6": ("H_r030", "R_M6")}
+    decisions = {k: decide(a, M_[a], G_[a], b, M_[b], G_[b]) for k, (a, b) in pairs.items() if a in M_ and b in M_}
+    selected = {k: v["selected"] for k, v in decisions.items()}
+    fam = {v if v in ("H", "R") else ("H" if v.startswith("H") else "R") for v in selected.values() if v}
+    out = dict(metrics=M_, gates=G_, decisions=decisions,
+               selected_by_pairing=selected, families_selected=sorted(fam),
+               unanimous=(len(fam) == 1 and None not in selected.values()))
     pio.save_json(RES / "selection.json", out)
-    import json; print(json.dumps(out, indent=1, default=float))
+    for k, d in decisions.items():
+        print(k, "| eligible", d["eligible"], "| wins", d["wins"], "->", d["selected"], "|", d["rule"])
+    print("unanimous across pairings:", out["unanimous"], sorted(fam))

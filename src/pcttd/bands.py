@@ -94,28 +94,42 @@ class Crossings:
 def class_branches(freq, vg, parity, strip, edge):
     """Split bands at each k into parity classes and sort within each class by frequency.
 
-    Sorting within a parity class removes the spurious kinks that sorting across classes would
-    create at (symmetry-allowed) even/odd crossings. Returns a list of dicts, one per (class, branch).
-    Only bands below the lowest 'highest computed band' are kept so the branch count is k-independent.
+    Sorting within a parity class removes the spurious kinks that sorting across classes would create at
+    (symmetry-allowed) even/odd crossings. The computed bands are always the lowest ``nb`` bands at each k, so the
+    b-th lowest member of a class is the same physical branch at every k for which it was computed. Branches that
+    are not computed at every k (the highest ones) are dropped; ``branches_sufficient`` checks that nothing
+    relevant to the gap was dropped.
     """
     freq, vg, parity, strip, edge = (np.asarray(a) for a in (freq, vg, parity, strip, edge))
     nk, nb = freq.shape
-    wcut = freq[:, -1].min()
     out = []
     for p in (+1, -1):
-        orders, counts = [], []
+        orders = []
         for ik in range(nk):
-            sel = np.where((parity[ik] == p) & (freq[ik] < wcut))[0]
-            sel = sel[np.argsort(freq[ik, sel])]
-            orders.append(sel)
-            counts.append(len(sel))
-        m = min(counts)
+            sel = np.where(parity[ik] == p)[0]
+            orders.append(sel[np.argsort(freq[ik, sel])])
+        m = min(len(o) for o in orders)
         for b in range(m):
             rows = np.arange(nk)
             cols = np.array([orders[ik][b] for ik in range(nk)])
             out.append(dict(parity=p, w=freq[rows, cols], vg=vg[rows, cols],
                             strip=strip[rows, cols], edge=edge[rows, cols]))
     return out
+
+
+def branches_sufficient(branches, gap_hi: float) -> bool:
+    """True if, in each parity class, the highest kept branch lies entirely above the gap top.
+
+    Branches are frequency-ordered within a class, so every dropped (higher) branch is then also above the gap
+    at every k, i.e. nothing that can appear inside the gap has been dropped. If False, more bands are needed.
+    """
+    for p in (+1, -1):
+        cls = [b for b in branches if b["parity"] == p]
+        if not cls:
+            return False
+        if not np.all(cls[-1]["w"] > gap_hi):
+            return False
+    return True
 
 
 def find_crossings(k, branches, levels, per_interval: int = 24) -> Crossings:

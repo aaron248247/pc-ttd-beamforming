@@ -187,11 +187,12 @@ def analyze_design(d: dict, gap: B.Gap, n_levels: int = 1500) -> dict:
     k = d["k"]
     br = B.class_branches(d["freq"], d["vg"], d["parity"], d["strip"], d["edge"])
     levels = np.linspace(gap.w_lo, gap.w_hi, n_levels + 2)[1:-1]
+    sufficient = B.branches_sufficient(br, gap.w_hi)
     c = B.find_crossings(k, br, levels)
     sa, se, eo = B.single_mode_masks(c)
     cnt = c.counts()
 
-    res = dict(gap_w_lo=gap.w_lo, gap_w_hi=gap.w_hi, gap_rel=gap.rel, max_modes_in_gap=int(cnt.max()),
+    res = dict(bands_sufficient=bool(sufficient), gap_w_lo=gap.w_lo, gap_w_hi=gap.w_hi, gap_rel=gap.rel, max_modes_in_gap=int(cnt.max()),
                n_defect_branches_in_gap=int(sum(((b["w"] > gap.w_lo) & (b["w"] < gap.w_hi)).any() for b in br)))
 
     def longest(mask):

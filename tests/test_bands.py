@@ -142,3 +142,47 @@ def test_class_branches_separates_parity_and_avoids_kink():
     even = [b for b in br if b["parity"] == +1]
     assert len(even) >= 1
     assert np.allclose(even[0]["w"], fa) and np.allclose(even[0]["vg"], 0.1)
+
+
+def _toy_computed_bands(nb):
+    """Four physical bands; only the lowest ``nb`` are 'computed' at each k (as in a real solver run).
+    A: even bulk (0.10), B: odd bulk (0.15), D: odd bulk (0.25), C: even defect w = 0.35 - 0.4 k (0.35 -> 0.15)."""
+    k = K
+    A = np.full_like(k, 0.10); Bo = np.full_like(k, 0.15); D = np.full_like(k, 0.25); C = 0.35 - 0.4 * k
+    vgC = np.full_like(k, -0.4)
+    allb = [(A, 0.0, +1), (Bo, 0.0, -1), (D, 0.0, -1), (C, -0.4, +1)]
+    freq = np.zeros((len(k), nb)); vg = np.zeros_like(freq); par = np.zeros_like(freq, int)
+    for i in range(len(k)):
+        rows = sorted(((w[i], v, p) for w, v, p in allb), key=lambda t: t[0])[:nb]
+        for j, (w, v, p) in enumerate(rows):
+            freq[i, j], vg[i, j], par[i, j] = w, v, p
+    z = np.zeros_like(freq)
+    return freq, vg, par, z, z
+
+
+def test_defect_branch_not_lost_when_it_leaves_the_computed_set():
+    # regression: with nb=4 the defect band C is computed at every k. A previous version cut classes at the lowest
+    # top-band frequency and silently dropped C, so a plain W1 looked like it had no even guided mode.
+    freq, vg, par, st, ed = _toy_computed_bands(nb=4)
+    br = B.class_branches(freq, vg, par, st, ed)
+    even = [b for b in br if b["parity"] == +1]
+    assert len(even) == 2 and np.allclose(even[1]["w"], 0.35 - 0.4 * K)
+    levels = np.linspace(0.19, 0.30, 100)       # a 'gap' that only C crosses
+    c = B.find_crossings(K, br, levels)
+    assert (c.counts() == 1).all() and (c.parity == +1).all()
+
+
+def test_insufficient_bands_are_detected_not_silent():
+    # nb=3: at k=0 the defect band C (0.35) is not computed, so the kept even class is only A (0.10), which is not
+    # above a gap whose top is 0.14 -> the check must flag that a relevant branch may have been dropped.
+    freq, vg, par, st, ed = _toy_computed_bands(nb=3)
+    br = B.class_branches(freq, vg, par, st, ed)
+    assert [b["parity"] for b in br].count(+1) == 1
+    assert B.branches_sufficient(br, gap_hi=0.14) is False
+    # nb=4: even class keeps A and C (C >= 0.15 everywhere), odd class keeps B and D (>= 0.15): all kept classes end
+    # above a gap top of 0.14, so nothing relevant to that gap was dropped.
+    freq, vg, par, st, ed = _toy_computed_bands(nb=4)
+    br = B.class_branches(freq, vg, par, st, ed)
+    assert B.branches_sufficient(br, gap_hi=0.14) is True
+    # ... but for a higher gap top (0.30) the top kept even branch (C, min 0.15) dips into it -> conservatively False
+    assert B.branches_sufficient(br, gap_hi=0.30) is False
