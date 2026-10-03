@@ -85,3 +85,51 @@ A candidate "wins" a criterion if better by more than 10% (relative); otherwise 
 * Only two defect parameters are swept. Other known slow-light levers (second-row shifts, etc.) are not explored.
 * 2-D plane-wave results have no light line; real slab devices will be worse.
 * Screening resolution is lower than the final check resolution; the winner is re-checked at higher resolution.
+
+---
+
+## Revision 1 (dated 2026-10-03, after inspecting one raw dispersion — disclosed)
+
+**What triggered it.** While debugging the first end-to-end MPB run I inspected the raw in-gap bands of one
+plain triangular-lattice W1 (r = 0.30, M = 4, coarse resolution). The even guided mode spans nearly the whole gap but has
+`dw/dk < 0` on the folded zone `k in [0, 0.5]`. My declared "SM-strict ... and `v_g > 0`" rule, and gate G3's
+"`v_g > 0` throughout", therefore classified the principal guided mode as invalid. That rule was a physics error, not a
+property of either geometry.
+
+**Why the original rule was wrong.** Bloch wavevectors are defined modulo `2*pi/a`. A band crossing at reduced
+`k in [0, 0.5]` with negative slope is a positive-power-flow mode whose true Bloch wavevector lies in `(0.5, 1)`; its
+time-reversed partner `(-k, -v_g)` always exists. So every crossing of a level over `[0, 0.5]` is exactly one forward-propagating
+mode, regardless of the sign of `dw/dk` there. A backward-power-flow mode is not a distinct physical category in a periodic
+waveguide at the single-band level.
+
+**Changes (applied identically to H and R; no threshold or weight changed):**
+* `N_fwd(w)` = number of crossings (unchanged), but the extra condition `v_g > 0` is **removed** from SM-strict / SM-even.
+* `n_g = c/|v_g|` (absolute value).
+* G3 now reads: window has a single crossing at every level (so `v_g` cannot change sign inside it; recorded as
+  `vg_sign_constant`) **and** edge energy fraction < 1e-3.
+* Everything else (G1, G2, G4, C1–C6 definitions, 10% margin, decision rule) is unchanged.
+
+**Consistency note.** At the time of this revision I had seen: the bulk gap of each candidate at its first-guess radius
+(H: r = 0.30, R: r = 0.20) and the raw H dispersion above. I had not seen any R defect dispersion nor any ranked metric.
+
+---
+
+## Revision 2 (dated 2026-10-03; made after the bulk-gap scan and **before any defect sweep was run**)
+
+**Bulk results seen at this point (so the record is complete).** Triangular TE gap n=1 relative width increases
+monotonically with r over the whole declared range and is still increasing at the limit r/a = 0.40
+(0.490 at 0.40; the scan script's refinement had overshot to 0.42, 0.509, outside the declared range — an
+implementation bug, not a rule change). Square TM gap n=1 peaks in the interior near r/a = 0.19 (0.391).
+
+**Changes.**
+1. *Clip clarification (bug fix, not a rule change).* The refinement around the peak is restricted to the declared scan
+   range. For H this gives `r_base = 0.40` (the range limit; the unconstrained maximum lies at larger r).
+2. *Resolution-validity exclusion (new, applies to both lattices, declared before the defect sweep).* A sweep design
+   is **unresolved** at the screening resolution if its smallest edge-to-edge wall `min_edge_gap < 3/res`
+   (= 0.125 a at res 24). Unresolved designs are recorded but not solved, and are excluded from every ranked
+   metric and gate. This is a numerical-validity condition; it does not depend on any band-structure result.
+3. *Supplementary sensitivity configuration "H_r030" (not decision-bearing).* Because the gap-optimal H radius sits on a range
+   limit with thin (0.2 a) walls, the identical sweep and analysis are also run for triangular holes at the conventional
+   r/a = 0.30, and the decision outcome is reported both with and without it. The decision rule (above) is evaluated on
+   the declared configurations H (r_base from rule) and R. If H_r030 would change the outcome, that is reported as a
+   finding, "decision sensitive to baseline radius", and the choice is referred to review.

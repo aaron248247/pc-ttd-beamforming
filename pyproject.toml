@@ -1,0 +1,10 @@
+[project]
+name = "pcttd"
+version = "0.0.1"
+description = "Photonic-crystal true-time-delay beamforming research lab"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = ["mpb: needs the MPB solver (meep.mpb)"]
