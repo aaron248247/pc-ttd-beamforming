@@ -46,7 +46,7 @@ def triangular_w1(M: int, r: float, f1: float = 1.0, s: float = 0.0) -> tuple[fl
         y = j * SQRT3 / 2.0
         rad = r
         if abs(j) == 1:
-            y += math.copysign(s, j)
+            y += math.copysign(1.0, j) * s
             rad = f1 * r
         out.append(Scatterer(x, y, rad))
     return H, out
@@ -64,7 +64,7 @@ def square_w1(M: int, r: float, f1: float = 1.0, s: float = 0.0) -> tuple[float,
         y = float(j)
         rad = r
         if abs(j) == 1:
-            y += math.copysign(s, j)
+            y += math.copysign(1.0, j) * s
             rad = f1 * r
         out.append(Scatterer(0.0, y, rad))
     return H, out

@@ -61,3 +61,23 @@ def test_min_gap_flags_overlap():
     assert min_gap(sc, H) == pytest.approx(1 - 0.6)
     H, sc = triangular_w1(5, 0.52)
     assert min_gap(sc, H) < 0
+
+
+@pytest.mark.parametrize("builder,rowy", [(triangular_w1, SQRT3 / 2), (square_w1, 1.0)])
+def test_negative_shift_moves_first_rows_toward_the_defect(builder, rowy):
+    # regression: copysign(s, j) used to return |s|, silently turning every inward shift into an outward one
+    H, sc = builder(5 if builder is triangular_w1 else 4, 0.2, f1=1.0, s=-0.1)
+    ys = sorted(abs(s.y) for s in sc)
+    assert ys[0] == pytest.approx(rowy - 0.1)
+    up = [s for s in sc if s.y > 0 and s.y < rowy + 0.3][0]
+    dn = [s for s in sc if s.y < 0 and s.y > -(rowy + 0.3)][0]
+    assert up.y == pytest.approx(rowy - 0.1) and dn.y == pytest.approx(-(rowy - 0.1))
+    assert is_mirror_symmetric(sc, H)
+
+
+@pytest.mark.parametrize("builder", [triangular_w1, square_w1])
+def test_plus_and_minus_shift_give_different_structures(builder):
+    Mv = 5 if builder is triangular_w1 else 4
+    _, a = builder(Mv, 0.2, s=+0.1)
+    _, b = builder(Mv, 0.2, s=-0.1)
+    assert sorted(s.y for s in a) != sorted(s.y for s in b)
