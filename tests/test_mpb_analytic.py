@@ -38,16 +38,19 @@ def test_lowest_band_is_even_and_degenerate_pair_has_both_parities(uniform_eps12
 
 def test_strip_energy_fraction_uniform_field(uniform_eps12):
     d, H = uniform_eps12
-    expected = (2 * 1.5 * G.row_pitch("triangular")) / H     # uniform ky=0 wave -> area fraction
-    assert d["strip"][3, 0] == pytest.approx(expected, rel=0.03)
+    # uniform ky=0 wave -> energy fraction equals area fraction, up to the grid quantum (2 rows of ny = H*res pixels)
+    quantum = 2.0 / (H * 16)
+    expected = (2 * 1.5 * G.row_pitch("triangular")) / H
+    assert d["strip"][3, 0] == pytest.approx(expected, abs=quantum)
     edge_expected = (2 * G.row_pitch("triangular")) / H
-    assert d["edge"][3, 0] == pytest.approx(edge_expected, rel=0.03)
+    assert d["edge"][3, 0] == pytest.approx(edge_expected, abs=quantum)
 
 
 def test_vacuum_group_index_is_one():
     H = 9.0
     d = MB.defect_bands("square", 4, 0.2, res=16, nk=9, _override=(H, []))
     assert np.allclose(1.0 / np.abs(d["vg"][1:, 0]), 1.0, rtol=1e-4)
+    assert (d["parity"] != 0).all()          # every band has a defined parity (guard for vanishing Phi)
 
 
 def test_mpb_group_velocity_matches_finite_difference_in_real_structure():

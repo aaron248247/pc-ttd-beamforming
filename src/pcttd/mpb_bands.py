@@ -158,8 +158,12 @@ def defect_bands(lattice: str, M: int, r: float, f1: float = 1.0, s: float = 0.0
         Hf = np.array(ms_.get_hfield(b))[:, :, 0, :]
         Df = np.array(ms_.get_dfield(b))[:, :, 0, :]
         phi = Hf[:, :, 2] if pol == "te" else np.array(ms_.get_efield(b))[:, :, 0, 2]
-        ov = np.vdot(phi, phi[:, state["flip"]]) / np.vdot(phi, phi)
-        parity[ik, b - 1] = +1 if ov.real >= 0 else -1
+        nrm = np.vdot(phi, phi).real
+        if nrm < 1e-20:                      # e.g. the w=0 band at k=0: parity undefined, fixed up below
+            parity[ik, b - 1] = 0
+        else:
+            ov = np.vdot(phi, phi[:, state["flip"]]) / nrm
+            parity[ik, b - 1] = +1 if ov.real >= 0 else -1
         u = (np.abs(Df) ** 2).sum(-1) / state["eps"] + (np.abs(Hf) ** 2).sum(-1)
         tot = u.sum()
         strip[ik, b - 1] = u[:, state["strip_mask"]].sum() / tot
@@ -168,6 +172,10 @@ def defect_bands(lattice: str, M: int, r: float, f1: float = 1.0, s: float = 0.0
     t0 = time.time()
     _run(ms, pol, cb)
     wall = time.time() - t0
+    # undefined-parity entries (vanishing Phi) inherit the parity of the same band at the nearest k with a field
+    for ik, b in zip(*np.nonzero(parity == 0)):
+        good = np.nonzero(parity[:, b] != 0)[0]
+        parity[ik, b] = parity[good[np.argmin(np.abs(good - ik))], b]
     return dict(k=ks, freq=freq, vg=vg, parity=parity, strip=strip, edge=edge, H=H, n_scatterers=len(sc),
                 r_min=min((s_.radius for s_ in sc), default=float('nan')), wall_s=wall, eps_mirror_asym=state["asym"],
                 lattice=lattice, M=M, r=r, f1=f1, s=s, eps=eps, res=res, nk=nk)
