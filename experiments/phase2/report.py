@@ -61,5 +61,25 @@ w("\n## T7. Time-domain pulse check (plain W1, Gaussian pulse, Hz at two on-axis
 w("| f_cen | width | n_g observed (centroid shift / 20) | n_g MPB, spectrum-weighted | n_g MPB at f_cen | difference |\n|---|---|---|---|---|---|")
 for d in P:
     w(f"| {d['fcen']} | {d['fwidth']} | {d['ng_obs']:.4f} | {d['ng_pred_mpb_weighted']:.4f} | {d['ng_mpb_at_fcen']:.4f} | {100 * d['rel_diff']:+.2f}% |")
+w("\n## T8. Validated sub-interval and transverse-cell study (res 30/40, tol 1e-7; J = hole rows each side in the analyzed cross-section, MPB supercell M = J)\n")
+SUB = (0.231, 0.268)       # chosen AFTER inspecting the data (Revision 2 of docs/phase2_5_criteria.md); the pre-declared interval is T1
+from scipy.interpolate import CubicSpline
+def _ng(p, band):
+    b = np.load(RES / p); k = b["vg"][:, band - 1] < -2e-3
+    return CubicSpline(b["freq"][k, band - 1][::-1], (1 / np.abs(b["vg"][k, band - 1]))[::-1])
+refs = {"tol7_res30": _ng("2a_mpb_plain_fine.npz", 8), "tol7_res40": _ng("2a_mpb_plain_fine.npz", 8), "J8_res30": _ng("2a_mpb_M8.npz", 10)}
+w("| run | N | max unitarity defect, [0.231, 0.268] | max unitarity defect, (0.268, 0.2742] | mean signed defect, [0.270, 0.2742] | n_g error vs same-M MPB, [0.231, 0.268]: median / rms / max (N = 24 row; 3-length fit) | n_g error, [0.270, 0.2742], mean |\n|---|---|---|---|---|---|---|")
+for t in ("tol7_res30", "tol7_res40", "J8_res30"):
+    z = np.load(RES / f"2c_{t}.npz"); fq = z["f"]
+    m1 = (fq >= SUB[0]) & (fq <= SUB[1]); m2 = (fq > SUB[1]) & (fq <= 0.2742); m3 = (fq >= 0.270) & (fq <= 0.2742)
+    r = z["ng_fit"][m1] / refs[t](fq[m1]) - 1; r3 = z["ng_fit"][m3] / refs[t](fq[m3]) - 1
+    for N in (6, 12, 24):
+        sg = 1 - np.abs(z[f"S11_N{N}"]) ** 2 - np.abs(z[f"S21_N{N}"]) ** 2
+        tail = f"{100 * np.median(r):+.2f}% / {100 * np.sqrt(np.mean(r ** 2)):.2f}% / {100 * np.abs(r).max():.2f}% | {100 * r3.mean():+.2f}% |" if N == 24 else " | |"
+        w(f"| {t} | {N} | {np.abs(sg[m1]).max():.4f} | {np.abs(sg[m2]).max():.4f} | {sg[m3].mean():+.4f} | " + tail)
+mm = _ng("2a_mpb_M8.npz", 10); m6 = _ng("2a_mpb_plain_fine.npz", 8)
+for lo, hi in ((0.23, 0.25), (0.25, 0.265), (0.265, 0.27), (0.27, 0.2742)):
+    g = np.linspace(lo, hi, 60)
+    w(f"\nMPB n_g(M = 8) / n_g(M = 6) - 1 in [{lo}, {hi}]: {100 * np.mean(mm(g) / m6(g) - 1):+.2f}%")
 (ROOT / "docs" / "phase2_report_tables.md").write_text("\n".join(o) + "\n")
 print("\n".join(o)[:3000])

@@ -7,7 +7,7 @@ import json
 from pcttd.io import save_json
 
 REP = {"ordinary 0.2564 (n_g minimum)": 0.2564, "moderate slow 0.235": 0.235, "difficult 0.2245 (n_g rising to band edge)": 0.2245, "upper 0.270": 0.270}
-VARIANTS = [("base", 20), ("base", 30), ("base", 40), ("dsrc6", 30), ("dmon5", 30), ("pml", 30), ("tol7", 30), ("tol8", 30), ("tol7", 40)]
+VARIANTS = [("base", 20), ("base", 30), ("base", 40), ("dsrc6", 30), ("dmon5", 30), ("pml", 30), ("tol7", 30), ("tol8", 30), ("tol7", 40), ("J8", 30)]
 PAIR = "ng_6_12"
 ints = json.loads((RES / "2a_mpb_plain.json").read_text())["useful_interval"]
 

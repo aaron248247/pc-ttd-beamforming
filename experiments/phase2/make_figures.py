@@ -87,7 +87,7 @@ def fig_length():
 
 def fig_convergence():
     C = json.loads((RES / "2e_convergence.json").read_text())["variants"]
-    names = [k for k in ["base_res20", "base_res30", "base_res40", "dsrc6_res30", "dmon5_res30", "pml_res30", "tol7_res30", "tol8_res30", "tol7_res40"] if k in C]
+    names = [k for k in ["base_res20", "base_res30", "base_res40", "dsrc6_res30", "dmon5_res30", "pml_res30", "tol7_res30", "tol8_res30", "tol7_res40", "J8_res30"] if k in C]
     reps = list(next(iter(C.values()))["rep"])
     fig, ax = plt.subplots(1, 2, figsize=(10.5, 3.4))
     w = 0.2
