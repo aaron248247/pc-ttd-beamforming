@@ -1,0 +1,133 @@
+{
+ "useful_interval": [
+  0.2311863491826857,
+  0.27417556387946185
+ ],
+ "results": {
+  "tol7_res40": {
+   "df=0.0005_central": {
+    "rms_vs_mpb": 0.008056475733233225,
+    "max_vs_mpb": 0.029273726069752648,
+    "median_vs_mpb": 0.0037065808762749564,
+    "rms_change_vs_ref": 0.0,
+    "max_change_vs_ref": 0.0
+   },
+   "df=0.0005_poly": {
+    "rms_vs_mpb": 0.008215585460443592,
+    "max_vs_mpb": 0.03308249291022847,
+    "median_vs_mpb": 0.0025467403919291476,
+    "rms_change_vs_ref": 0.0020911476971884066,
+    "max_change_vs_ref": 0.006739462956687259
+   },
+   "df=0.001_central": {
+    "rms_vs_mpb": 0.008641973976269961,
+    "max_vs_mpb": 0.034406882533948524,
+    "median_vs_mpb": 0.0037797821339631277,
+    "rms_change_vs_ref": 0.0045240610953901994,
+    "max_change_vs_ref": 0.01202109034790566
+   },
+   "df=0.001_poly": {
+    "rms_vs_mpb": 0.009422304300023724,
+    "max_vs_mpb": 0.03361872166397806,
+    "median_vs_mpb": 0.0029689845006430904,
+    "rms_change_vs_ref": 0.003582996933238595,
+    "max_change_vs_ref": 0.010625581283100871
+   },
+   "df=0.002_central": {
+    "rms_vs_mpb": 0.006782046019938876,
+    "max_vs_mpb": 0.020540065933898122,
+    "median_vs_mpb": 0.0034175352827063854,
+    "rms_change_vs_ref": 0.0059107350140865655,
+    "max_change_vs_ref": 0.021104789383950995
+   },
+   "df=0.002_poly": {
+    "rms_vs_mpb": 0.006743235885942753,
+    "max_vs_mpb": 0.020540065933897234,
+    "median_vs_mpb": 0.003380041490343766,
+    "rms_change_vs_ref": 0.003923052807915445,
+    "max_change_vs_ref": 0.010830644028508862
+   },
+   "df=0.004_central": {
+    "rms_vs_mpb": 0.005229991196502144,
+    "max_vs_mpb": 0.012978370338557088,
+    "median_vs_mpb": 0.002382946806217312,
+    "rms_change_vs_ref": 0.007710289192522101,
+    "max_change_vs_ref": 0.024006269765068478
+   },
+   "df=0.004_poly": {
+    "rms_vs_mpb": 0.005391785716420053,
+    "max_vs_mpb": 0.012978370338556422,
+    "median_vs_mpb": 0.002645275250555801,
+    "rms_change_vs_ref": 0.002786272881866974,
+    "max_change_vs_ref": 0.004551793550303218
+   }
+  },
+  "tol7_res30": {
+   "df=0.0005_central": {
+    "rms_vs_mpb": 0.009418289205091319,
+    "max_vs_mpb": 0.03239169620530946,
+    "median_vs_mpb": 0.005399151490815712,
+    "rms_change_vs_ref": 0.0,
+    "max_change_vs_ref": 0.0
+   },
+   "df=0.0005_poly": {
+    "rms_vs_mpb": 0.008348207053024678,
+    "max_vs_mpb": 0.03253805421542166,
+    "median_vs_mpb": 0.003895995491277726,
+    "rms_change_vs_ref": 0.005237168994330271,
+    "max_change_vs_ref": 0.012752543856749954
+   },
+   "df=0.001_central": {
+    "rms_vs_mpb": 0.008740613910844151,
+    "max_vs_mpb": 0.03145013827553522,
+    "median_vs_mpb": 0.004139864627092482,
+    "rms_change_vs_ref": 0.004067957301831533,
+    "max_change_vs_ref": 0.009498449951101495
+   },
+   "df=0.001_poly": {
+    "rms_vs_mpb": 0.009542904809598402,
+    "max_vs_mpb": 0.030463245150344376,
+    "median_vs_mpb": 0.0038483757080325365,
+    "rms_change_vs_ref": 0.00520775459030915,
+    "max_change_vs_ref": 0.012109005155023
+   },
+   "df=0.002_central": {
+    "rms_vs_mpb": 0.007340017667372568,
+    "max_vs_mpb": 0.021089842802545666,
+    "median_vs_mpb": 0.0043437037031415215,
+    "rms_change_vs_ref": 0.008121441026763515,
+    "max_change_vs_ref": 0.025006769464348655
+   },
+   "df=0.002_poly": {
+    "rms_vs_mpb": 0.007374471402515387,
+    "max_vs_mpb": 0.021089842802545,
+    "median_vs_mpb": 0.004282842270274978,
+    "rms_change_vs_ref": 0.006270616194690553,
+    "max_change_vs_ref": 0.014416503417756465
+   },
+   "df=0.004_central": {
+    "rms_vs_mpb": 0.006042309506706557,
+    "max_vs_mpb": 0.013448790336455074,
+    "median_vs_mpb": 0.00394553251129004,
+    "rms_change_vs_ref": 0.00842683680601,
+    "max_change_vs_ref": 0.02040729032819022
+   },
+   "df=0.004_poly": {
+    "rms_vs_mpb": 0.00630726558017684,
+    "max_vs_mpb": 0.013448790336454408,
+    "median_vs_mpb": 0.004149565439753644,
+    "rms_change_vs_ref": 0.006038790156707834,
+    "max_change_vs_ref": 0.011366638185434708
+   }
+  }
+ },
+ "provenance": {
+  "timestamp_utc": "2026-10-04T05:50:21+00:00",
+  "git_head": "d71b5d1d607e0826cc19b5a4df47054d3785c47d",
+  "git_dirty": true,
+  "code_dirty": false,
+  "meep": "1.33.0-beta",
+  "numpy": "1.24.3",
+  "scipy": "1.11.1"
+ }
+}

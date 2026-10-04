@@ -10,10 +10,11 @@ The answer is not assumed to be favorable. See [docs/research_plan.md](docs/rese
 |---|---|
 | 0 Research design | done ([docs/research_plan.md](docs/research_plan.md)) |
 | 0.5 Geometry selection (MPB) | done and approved — [docs/phase0p5_report.md](docs/phase0p5_report.md); decisions in [docs/decisions.md](docs/decisions.md) |
-| 1 FDTD verification ladder | done, **awaiting review** — [docs/phase1_report.md](docs/phase1_report.md) |
-| 2–7 | not started |
+| 1 FDTD verification ladder | done and accepted — [docs/phase1_report.md](docs/phase1_report.md) |
+| 2 Finite W1 guided-wave verification | gate passed with a documented restriction — [docs/phase2_report.md](docs/phase2_report.md) |
+| 3–7 | not started (3: dispersion engineering / trade study, 4: TTD channel family, 5: array, 6: robustness, 7: documentation) |
 
-No claim about photonic-crystal delay, bandwidth, or beam-squint performance is made anywhere in this repository yet. Phase 1 only verifies the measurement pipeline on cases with known answers.
+No claim about photonic-crystal delay-bandwidth tradeoffs or beam-squint performance is made anywhere in this repository yet. Phases 1 and 2 only verify the measurement pipeline (Phase 2: FDTD guided-wave n_g of the plain W1 agrees with MPB to a median 0.4% and max 1.4% over the validated interval 0.231-0.268).
 
 ## Environment
 

@@ -1,0 +1,22 @@
+{
+ "fcen": 0.235,
+ "fwidth": 0.02,
+ "res": 30,
+ "L": 20,
+ "dt_obs": 82.16096135938625,
+ "ng_obs": 4.108048067969312,
+ "ng_pred_mpb_weighted": 4.092472951370516,
+ "ng_mpb_at_fcen": 4.08342082425728,
+ "rel_diff": 0.0038057958559214455,
+ "wall_s": 1538.8564138412476,
+ "t_end": 819.5,
+ "provenance": {
+  "timestamp_utc": "2026-10-04T05:34:02+00:00",
+  "git_head": "4095253508da37d3d02e98d8805262ba6b03d65a",
+  "git_dirty": true,
+  "code_dirty": false,
+  "meep": "1.33.0-beta",
+  "numpy": "1.24.3",
+  "scipy": "1.11.1"
+ }
+}

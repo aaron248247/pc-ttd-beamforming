@@ -1,0 +1,114 @@
+{
+ "band_index_even_class": 8,
+ "parity": "Hz even under y -> -y (MPB run_te_yodd == Phase 0.5 parity +1)",
+ "M": 6,
+ "r": 0.3,
+ "eps": 12.0,
+ "mpb_res": 32,
+ "nk": 101,
+ "vg_floor": 0.002,
+ "band_identity": {
+  "max_freq_difference_all_9_even_bands": 2.6874167787516168e-06,
+  "max_freq_difference_band8": 4.4261315471083584e-07
+ },
+ "guided_band_confinement": {
+  "strip_energy_fraction_min": 0.3526498911924639,
+  "strip_energy_fraction_median": 0.9554494991710119,
+  "edge_energy_fraction_max": 0.033893015618163665,
+  "n_scatterer_rows": 11
+ },
+ "ng_min": 3.868175282885039,
+ "f_at_ng_min": 0.2564179328106068,
+ "useful_interval_rule": "contiguous n_g <= 1.10 n_g,min around the minimum",
+ "useful_interval": [
+  0.2311863491826857,
+  0.27417556387946185
+ ],
+ "useful_fractional_bandwidth": 0.1701323886332901,
+ "ng_range_in_interval": [
+  3.868175282885039,
+  4.226432593458681
+ ],
+ "guided_band_frequency_range": [
+  0.21337759718189905,
+  0.2829622498799373
+ ],
+ "omnidirectional_gap_phase0p5_res24": [
+  0.20721447488539896,
+  0.27455168679705266
+ ],
+ "derivative_grid_convergence": {
+  "reference": "Hellmann-Feynman n_g at nk = 201, res 32",
+  "test_freq_range": [
+   0.215,
+   0.28
+  ],
+  "spline_derivative_of_band_vs_nk": {
+   "26": {
+    "max_rel_err_in_useful_interval": 0.007170318438421752,
+    "max_rel_err_whole_branch": 0.23076676500974047,
+    "frac_of_branch_within_1pct": 0.93
+   },
+   "51": {
+    "max_rel_err_in_useful_interval": 0.00012908528397703734,
+    "max_rel_err_whole_branch": 0.003339829926003235,
+    "frac_of_branch_within_1pct": 1.0
+   },
+   "101": {
+    "max_rel_err_in_useful_interval": 3.6948486528465274e-05,
+    "max_rel_err_whole_branch": 0.0005854214116898238,
+    "frac_of_branch_within_1pct": 1.0
+   },
+   "201": {
+    "max_rel_err_in_useful_interval": 3.725507456275867e-05,
+    "max_rel_err_whole_branch": 0.0005937741704331589,
+    "frac_of_branch_within_1pct": 1.0
+   }
+  },
+  "hellmann_feynman_nk101_vs_nk201": {
+   "max_rel_err_in_useful_interval": 6.077185286978981e-05,
+   "max_rel_err_whole_branch": 0.0016541683868047663
+  }
+ },
+ "ng_resolution_check": {
+  "freqs": [
+   0.23,
+   0.24,
+   0.25,
+   0.26,
+   0.27
+  ],
+  "table": {
+   "24": [
+    4.290753868095561,
+    3.9757085201529043,
+    3.881276776255488,
+    3.8722778560921123,
+    3.9873591190821602
+   ],
+   "32": [
+    4.289592848482295,
+    3.9762786081224184,
+    3.8824238977773793,
+    3.8741165360588474,
+    3.992044676261978
+   ],
+   "48": [
+    4.2944520984374455,
+    3.9762952615393856,
+    3.88315898387944,
+    3.875739347087452,
+    4.000766687723788
+   ]
+  }
+ },
+ "provenance": {
+  "timestamp_utc": "2026-10-04T05:30:29+00:00",
+  "git_head": "4095253508da37d3d02e98d8805262ba6b03d65a",
+  "git_dirty": true,
+  "code_dirty": false,
+  "meep": "1.33.0-beta",
+  "numpy": "1.24.3",
+  "scipy": "1.11.1"
+ }
+}
