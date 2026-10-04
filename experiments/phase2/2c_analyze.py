@@ -13,15 +13,15 @@ BAND, M = 8, 6
 USEFUL = None
 
 
-def mode_profiles(f):
-    p = RES / "2c_mode_profiles.npz"
+def mode_profiles(f, J=6):
+    p = RES / ("2c_mode_profiles.npz" if J == 6 else f"2c_mode_profiles_M{J}.npz")
     if p.exists():
         z = np.load(p)
         if np.array_equal(z["f"], f):
             return z["y"], z["Ey"], z["Hz"], float(z["H"]), z["kappa"]
-    b = dict(np.load(RES / "2a_mpb_plain_fine.npz"))
-    kap = WM.kappa_of_f(b, BAND, f)
-    P = WM.forward_profiles(kap, BAND, M=M, res=32)
+    b = dict(np.load(RES / "2a_mpb_plain_fine.npz")) if J == 6 else dict(np.load(RES / f"2a_mpb_M{J}.npz"))
+    kap = WM.kappa_of_f(b, J + 2, f)
+    P = WM.forward_profiles(kap, J + 2, M=J, res=32)
     # sanity: the solver's frequency at kappa equals the requested frequency
     assert np.max(np.abs(P["freq"] - f)) < 2e-4, np.max(np.abs(P["freq"] - f))
     np.savez(p, f=f, y=P["y"], Ey=P["Ey"], Hz=P["Hz"], H=P["H"], kappa=kap, vg=P["vg"])
@@ -38,7 +38,8 @@ def mpb_ng(f):
 def analyze(tag, res, Ns):
     raws = {N: dict(np.load(RAW / f"{tag}_res{res}_N{N}.npz")) for N in Ns}
     f = raws[Ns[0]]["f"]
-    y, Ey, Hz, H, kap = mode_profiles(f)
+    J = int(json.loads(str(raws[Ns[0]]["cfg_json"]))["J"])
+    y, Ey, Hz, H, kap = mode_profiles(f, J)
     S = {N: WA.modal_sparams(raws[N], y, Ey, Hz, H) for N in Ns}
     S21 = {N: S[N]["S21"] for N in Ns}; S11 = {N: S[N]["S11"] for N in Ns}
     ng_ref = mpb_ng(f)
