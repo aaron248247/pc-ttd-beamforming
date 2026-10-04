@@ -1,6 +1,8 @@
 """Phase 2B (and reused for Phase 3/4): run finite W1 devices and save the raw (Ey, Hz) plane fields at the two reference planes.
 
-usage: python 2b_fdtd.py <tag> <res> <f1> <s> <N> [<N> ...]    -> results/phase2/raw/<tag>_res<res>_N<N>.npz (raw, git-ignored)
+usage: python 2b_fdtd.py <tag> <res> <f1> <s> <N> [<N> ...] [--key=value ...]    -> results/phase2/raw/<tag>_res<res>_N<N>.npz (raw, git-ignored)
+Overrides (--d_src=6 --d_mon=5 --decay_tol=1e-7 --dpml_y=2.5 --J_pml=4 --dpml_x=5 --lead_pad=4 ...) change the W1Cfg defaults below; the
+effective configuration is stored in each file (cfg_json).
 Each run is a separate single-thread process (parallel across runs; no run depends on another, so concurrency cannot change a result).
 """
 from _common import RES, RAW, np, ROOT
@@ -21,8 +23,9 @@ def source_profile(f_src=0.2475):
 
 
 def one(job):
-    tag, res, f1, s, N, outdir = job
-    cfg = W.W1Cfg(N=N, res=res, f1=f1, s=s, d_src=10, freqs=FREQS, fcen=0.2475, fwidth=0.25, decay_tol=1e-6)
+    tag, res, f1, s, N, over = job
+    kw = dict(d_src=10, decay_tol=1e-6); kw.update(over)
+    cfg = W.W1Cfg(N=N, res=res, f1=f1, s=s, freqs=FREQS, fcen=0.2475, fwidth=0.25, **kw)
     t = time.time()
     r = W.run_w1(cfg, source_profile())
     r["wall_s"] = time.time() - t
@@ -37,5 +40,10 @@ def one(job):
 if __name__ == "__main__":
     from _common import pool_map
     tag, res, f1, s = sys.argv[1], int(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4])
-    Ns = [int(x) for x in sys.argv[5:]]
-    print(pool_map(one, [(tag, res, f1, s, N, None) for N in Ns], n=len(Ns)))
+    Ns = [int(x) for x in sys.argv[5:] if not x.startswith("--")]
+    over = {}
+    for x in sys.argv[5:]:
+        if x.startswith("--"):
+            k, v = x[2:].split("=")
+            over[k] = int(v) if v.lstrip("-").isdigit() else float(v)
+    print(pool_map(one, [(tag, res, f1, s, N, over) for N in Ns], n=len(Ns)))
