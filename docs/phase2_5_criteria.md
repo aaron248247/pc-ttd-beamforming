@@ -109,3 +109,16 @@ Not done in this sprint: exhaustive geometry optimization, eight channels, Monte
 3. *Time-domain pulse check* uses two carrier frequencies (0.235, 0.2564), not three.
 4. *Phase 2 gate wording.* The n_g criterion (5%, aspirational 3%) is applied to the *3-length phase slope* estimator (the others are reported). Max error over the full useful interval at the
    finest resolution: 2.9% (res 40), 3.2% (res 30); inside the validated sub-interval <= 1.4%.
+
+**Revision 3 (2026-10-09, Phase 3 start; written after the Phase 3 MPB screening 3a was regenerated but BEFORE any Phase 3 FDTD result was inspected).** This fills a gap; it
+relaxes or tightens no existing criterion.
+1. *Target delay for the "required length" metric (not previously fixed).* A fixed, design-independent normalization: **25 carrier cycles** at each band's own
+   center frequency, tau_target = 25 / f_center (in a/c); equivalently the same physical delay for every design once each lattice is scaled to the same operating
+   frequency. Reported as periods L = tau_target / tau_pp, and in free-space wavelengths at the band center, L f_center. A second target of 100 a/c is not used.
+2. *Validated-domain restriction.* The Phase 3 FDTD usable band is searched inside the Phase-2-derived validated range [0.231, 0.268] (a Phase 2 pipeline
+   validation limit, NOT a Phase 3 predeclared criterion; its upper edge was itself chosen post hoc, Revision 2). The same search without that restriction (analysis range
+   0.22-0.275) is also reported and labeled "not validated". The primary usable band for gate purposes is the restricted one.
+3. *Delay estimator.* tau_pp(f) = (1/dN) d phi_section / d omega from the three-length linear fit of the S21 phase (branch fixed by MPB of the device section),
+   cross-checked by the wave-cascade phases of the pairs (4,8), (8,12), (4,12). Frequency grid 5e-4. The +-10% rule is primary; +-5% and +-25% are sensitivity only.
+4. *Production numerics.* res 30, decay_tol = 1e-7, source/monitor distances as in Phase 2 (d_src = 10, d_mon = 3); res 40 confirmation for selected cases.
+5. *R reference.* MPB only; usable band by the same +-10% n_g rule inside its single-mode TM air-channel band; incomplete reference comparison.
