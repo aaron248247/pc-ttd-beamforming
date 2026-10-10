@@ -1,0 +1,931 @@
+{
+ "A_band_low": {
+  "value": 0.231,
+  "unit": "c/a",
+  "source": "phase4_handoff.json:common_band",
+  "note": "post hoc Phase 2 validation limits, not physical band edges"
+ },
+ "A_band_high": {
+  "value": 0.268,
+  "unit": "c/a",
+  "source": "phase4_handoff.json:common_band",
+  "note": ""
+ },
+ "A_band_center_f0": {
+  "value": 0.2495,
+  "unit": "c/a",
+  "source": "phase4_handoff.json:f0",
+  "note": ""
+ },
+ "A_fractional_bandwidth": {
+  "value": 0.14829659318637275,
+  "unit": "fraction",
+  "source": "computed (f_high - f_low)/f_center",
+  "note": "domain-limited lower bound; unrestricted ~18 % in Phase 3 (not validated)"
+ },
+ "B_D0_res30_median_tau": {
+  "value": 3.9323019857262693,
+  "unit": "a/c",
+  "source": "phase3/3e_D0_res30.json:bands[tau_fit|validated|tol10].median_tau",
+  "note": ""
+ },
+ "B_D0_res30_frac_bw": {
+  "value": 0.14829659318637275,
+  "unit": "fraction",
+  "source": "phase3/3e_D0_res30.json:bands[tau_fit|validated|tol10].frac_bw",
+  "note": ""
+ },
+ "B_D0_res30_f_low": {
+  "value": 0.231,
+  "unit": "c/a",
+  "source": "phase3/3e_D0_res30.json:bands[tau_fit|validated|tol10].f_low",
+  "note": ""
+ },
+ "B_D0_res30_f_high": {
+  "value": 0.268,
+  "unit": "c/a",
+  "source": "phase3/3e_D0_res30.json:bands[tau_fit|validated|tol10].f_high",
+  "note": ""
+ },
+ "B_D0_res30_gbp": {
+  "value": 0.5831469878632143,
+  "unit": "1",
+  "source": "phase3/3e_D0_res30.json:bands[tau_fit|validated|tol10].gbp",
+  "note": ""
+ },
+ "B_D0_res30_ripple": {
+  "value": 0.1320287715260097,
+  "unit": "fraction",
+  "source": "phase3/3e_D0_res30.json:bands[tau_fit|validated|tol10].ripple",
+  "note": ""
+ },
+ "B_D0_res30_L_periods": {
+  "value": 25.48135956122324,
+  "unit": "periods",
+  "source": "phase3/3e_D0_res30.json:bands[tau_fit|validated|tol10].L_periods",
+  "note": ""
+ },
+ "B_D0_res30_L_wavelengths": {
+  "value": 6.357599210525199,
+  "unit": "lambda",
+  "source": "phase3/3e_D0_res30.json:bands[tau_fit|validated|tol10].L_wavelengths",
+  "note": ""
+ },
+ "B_D0_res30_gdd_band_avg_linfit": {
+  "value": -0.9078219235936389,
+  "unit": "(a/c)^2 per period",
+  "source": "phase3/3e_D0_res30.json:bands[tau_fit|validated|tol10].gdd_band_avg_linfit",
+  "note": ""
+ },
+ "B_D0_res30_R_max": {
+  "value": 0.0025585894335743917,
+  "unit": "1",
+  "source": "phase3/3e_D0_res30.json:bands[tau_fit|validated|tol10].R_max",
+  "note": ""
+ },
+ "B_D0_res30_T_min": {
+  "value": 0.9912855301969152,
+  "unit": "1",
+  "source": "phase3/3e_D0_res30.json:bands[tau_fit|validated|tol10].T_min",
+  "note": ""
+ },
+ "B_D0_res40_median_tau": {
+  "value": 3.9307571829306482,
+  "unit": "a/c",
+  "source": "phase3/3e_D0_res40.json:bands[tau_fit|validated|tol10].median_tau",
+  "note": ""
+ },
+ "B_D0_res40_frac_bw": {
+  "value": 0.14829659318637275,
+  "unit": "fraction",
+  "source": "phase3/3e_D0_res40.json:bands[tau_fit|validated|tol10].frac_bw",
+  "note": ""
+ },
+ "B_D0_res40_f_low": {
+  "value": 0.231,
+  "unit": "c/a",
+  "source": "phase3/3e_D0_res40.json:bands[tau_fit|validated|tol10].f_low",
+  "note": ""
+ },
+ "B_D0_res40_f_high": {
+  "value": 0.268,
+  "unit": "c/a",
+  "source": "phase3/3e_D0_res40.json:bands[tau_fit|validated|tol10].f_high",
+  "note": ""
+ },
+ "B_D0_res40_gbp": {
+  "value": 0.5829178988714789,
+  "unit": "1",
+  "source": "phase3/3e_D0_res40.json:bands[tau_fit|validated|tol10].gbp",
+  "note": ""
+ },
+ "B_D0_res40_ripple": {
+  "value": 0.1217194596181446,
+  "unit": "fraction",
+  "source": "phase3/3e_D0_res40.json:bands[tau_fit|validated|tol10].ripple",
+  "note": ""
+ },
+ "B_D0_res40_L_periods": {
+  "value": 25.49137383421302,
+  "unit": "periods",
+  "source": "phase3/3e_D0_res40.json:bands[tau_fit|validated|tol10].L_periods",
+  "note": ""
+ },
+ "B_D0_res40_L_wavelengths": {
+  "value": 6.360097771636149,
+  "unit": "lambda",
+  "source": "phase3/3e_D0_res40.json:bands[tau_fit|validated|tol10].L_wavelengths",
+  "note": ""
+ },
+ "B_D0_res40_gdd_band_avg_linfit": {
+  "value": -0.9112221758857962,
+  "unit": "(a/c)^2 per period",
+  "source": "phase3/3e_D0_res40.json:bands[tau_fit|validated|tol10].gdd_band_avg_linfit",
+  "note": ""
+ },
+ "B_D0_res40_R_max": {
+  "value": 0.0024334997910306845,
+  "unit": "1",
+  "source": "phase3/3e_D0_res40.json:bands[tau_fit|validated|tol10].R_max",
+  "note": ""
+ },
+ "B_D0_res40_T_min": {
+  "value": 0.9888488884792066,
+  "unit": "1",
+  "source": "phase3/3e_D0_res40.json:bands[tau_fit|validated|tol10].T_min",
+  "note": ""
+ },
+ "B_D1_res30_median_tau": {
+  "value": 4.204116386054537,
+  "unit": "a/c",
+  "source": "phase3/3e_D1_res30.json:bands[tau_fit|validated|tol10].median_tau",
+  "note": ""
+ },
+ "B_D1_res30_frac_bw": {
+  "value": 0.0835762876579204,
+  "unit": "fraction",
+  "source": "phase3/3e_D1_res30.json:bands[tau_fit|validated|tol10].frac_bw",
+  "note": ""
+ },
+ "B_D1_res30_f_low": {
+  "value": 0.2465,
+  "unit": "c/a",
+  "source": "phase3/3e_D1_res30.json:bands[tau_fit|validated|tol10].f_low",
+  "note": ""
+ },
+ "B_D1_res30_f_high": {
+  "value": 0.268,
+  "unit": "c/a",
+  "source": "phase3/3e_D1_res30.json:bands[tau_fit|validated|tol10].f_high",
+  "note": ""
+ },
+ "B_D1_res30_gbp": {
+  "value": 0.3513644404282707,
+  "unit": "1",
+  "source": "phase3/3e_D1_res30.json:bands[tau_fit|validated|tol10].gbp",
+  "note": ""
+ },
+ "B_D1_res30_ripple": {
+  "value": 0.14631084391413837,
+  "unit": "fraction",
+  "source": "phase3/3e_D1_res30.json:bands[tau_fit|validated|tol10].ripple",
+  "note": ""
+ },
+ "B_D1_res30_L_periods": {
+  "value": 23.11585144434924,
+  "unit": "periods",
+  "source": "phase3/3e_D1_res30.json:bands[tau_fit|validated|tol10].L_periods",
+  "note": ""
+ },
+ "B_D1_res30_L_wavelengths": {
+  "value": 5.9465527840588415,
+  "unit": "lambda",
+  "source": "phase3/3e_D1_res30.json:bands[tau_fit|validated|tol10].L_wavelengths",
+  "note": ""
+ },
+ "B_D1_res30_gdd_band_avg_linfit": {
+  "value": -3.8597857112717717,
+  "unit": "(a/c)^2 per period",
+  "source": "phase3/3e_D1_res30.json:bands[tau_fit|validated|tol10].gdd_band_avg_linfit",
+  "note": ""
+ },
+ "B_D1_res30_R_max": {
+  "value": 0.00730848941815071,
+  "unit": "1",
+  "source": "phase3/3e_D1_res30.json:bands[tau_fit|validated|tol10].R_max",
+  "note": ""
+ },
+ "B_D1_res30_T_min": {
+  "value": 0.9901423789724091,
+  "unit": "1",
+  "source": "phase3/3e_D1_res30.json:bands[tau_fit|validated|tol10].T_min",
+  "note": ""
+ },
+ "B_D1_res40_median_tau": {
+  "value": 4.19378676693826,
+  "unit": "a/c",
+  "source": "phase3/3e_D1_res40.json:bands[tau_fit|validated|tol10].median_tau",
+  "note": ""
+ },
+ "B_D1_res40_frac_bw": {
+  "value": 0.07953443258971878,
+  "unit": "fraction",
+  "source": "phase3/3e_D1_res40.json:bands[tau_fit|validated|tol10].frac_bw",
+  "note": ""
+ },
+ "B_D1_res40_f_low": {
+  "value": 0.2475,
+  "unit": "c/a",
+  "source": "phase3/3e_D1_res40.json:bands[tau_fit|validated|tol10].f_low",
+  "note": ""
+ },
+ "B_D1_res40_f_high": {
+  "value": 0.268,
+  "unit": "c/a",
+  "source": "phase3/3e_D1_res40.json:bands[tau_fit|validated|tol10].f_high",
+  "note": ""
+ },
+ "B_D1_res40_gbp": {
+  "value": 0.3335504509107057,
+  "unit": "1",
+  "source": "phase3/3e_D1_res40.json:bands[tau_fit|validated|tol10].gbp",
+  "note": ""
+ },
+ "B_D1_res40_ripple": {
+  "value": 0.12818918131689022,
+  "unit": "fraction",
+  "source": "phase3/3e_D1_res40.json:bands[tau_fit|validated|tol10].ripple",
+  "note": ""
+ },
+ "B_D1_res40_L_periods": {
+  "value": 23.127835501774484,
+  "unit": "periods",
+  "source": "phase3/3e_D1_res40.json:bands[tau_fit|validated|tol10].L_periods",
+  "note": ""
+ },
+ "B_D1_res40_L_wavelengths": {
+  "value": 5.961199600582374,
+  "unit": "lambda",
+  "source": "phase3/3e_D1_res40.json:bands[tau_fit|validated|tol10].L_wavelengths",
+  "note": ""
+ },
+ "B_D1_res40_gdd_band_avg_linfit": {
+  "value": -3.672669131973614,
+  "unit": "(a/c)^2 per period",
+  "source": "phase3/3e_D1_res40.json:bands[tau_fit|validated|tol10].gdd_band_avg_linfit",
+  "note": ""
+ },
+ "B_D1_res40_R_max": {
+  "value": 0.007235202398975483,
+  "unit": "1",
+  "source": "phase3/3e_D1_res40.json:bands[tau_fit|validated|tol10].R_max",
+  "note": ""
+ },
+ "B_D1_res40_T_min": {
+  "value": 0.9930142978050427,
+  "unit": "1",
+  "source": "phase3/3e_D1_res40.json:bands[tau_fit|validated|tol10].T_min",
+  "note": ""
+ },
+ "B_D2_res30_median_tau": {
+  "value": 4.468692010381503,
+  "unit": "a/c",
+  "source": "phase3/3e_D2_res30.json:bands[tau_fit|validated|tol10].median_tau",
+  "note": ""
+ },
+ "B_D2_res30_frac_bw": {
+  "value": 0.05560882070949189,
+  "unit": "fraction",
+  "source": "phase3/3e_D2_res30.json:bands[tau_fit|validated|tol10].frac_bw",
+  "note": ""
+ },
+ "B_D2_res30_f_low": {
+  "value": 0.2535,
+  "unit": "c/a",
+  "source": "phase3/3e_D2_res30.json:bands[tau_fit|validated|tol10].f_low",
+  "note": ""
+ },
+ "B_D2_res30_f_high": {
+  "value": 0.268,
+  "unit": "c/a",
+  "source": "phase3/3e_D2_res30.json:bands[tau_fit|validated|tol10].f_high",
+  "note": ""
+ },
+ "B_D2_res30_gbp": {
+  "value": 0.24849869281124387,
+  "unit": "1",
+  "source": "phase3/3e_D2_res30.json:bands[tau_fit|validated|tol10].gbp",
+  "note": ""
+ },
+ "B_D2_res30_ripple": {
+  "value": 0.14964109715832008,
+  "unit": "fraction",
+  "source": "phase3/3e_D2_res30.json:bands[tau_fit|validated|tol10].ripple",
+  "note": ""
+ },
+ "B_D2_res30_L_periods": {
+  "value": 21.455333431481105,
+  "unit": "periods",
+  "source": "phase3/3e_D2_res30.json:bands[tau_fit|validated|tol10].L_periods",
+  "note": ""
+ },
+ "B_D2_res30_L_wavelengths": {
+  "value": 5.594478192258699,
+  "unit": "lambda",
+  "source": "phase3/3e_D2_res30.json:bands[tau_fit|validated|tol10].L_wavelengths",
+  "note": ""
+ },
+ "B_D2_res30_gdd_band_avg_linfit": {
+  "value": -7.069824673478922,
+  "unit": "(a/c)^2 per period",
+  "source": "phase3/3e_D2_res30.json:bands[tau_fit|validated|tol10].gdd_band_avg_linfit",
+  "note": ""
+ },
+ "B_D2_res30_R_max": {
+  "value": 0.009979292146630504,
+  "unit": "1",
+  "source": "phase3/3e_D2_res30.json:bands[tau_fit|validated|tol10].R_max",
+  "note": ""
+ },
+ "B_D2_res30_T_min": {
+  "value": 0.987285043295301,
+  "unit": "1",
+  "source": "phase3/3e_D2_res30.json:bands[tau_fit|validated|tol10].T_min",
+  "note": ""
+ },
+ "B_D2_res40_median_tau": {
+  "value": 4.469338839960898,
+  "unit": "a/c",
+  "source": "phase3/3e_D2_res40.json:bands[tau_fit|validated|tol10].median_tau",
+  "note": ""
+ },
+ "B_D2_res40_frac_bw": {
+  "value": 0.04971319311663484,
+  "unit": "fraction",
+  "source": "phase3/3e_D2_res40.json:bands[tau_fit|validated|tol10].frac_bw",
+  "note": ""
+ },
+ "B_D2_res40_f_low": {
+  "value": 0.255,
+  "unit": "c/a",
+  "source": "phase3/3e_D2_res40.json:bands[tau_fit|validated|tol10].f_low",
+  "note": ""
+ },
+ "B_D2_res40_f_high": {
+  "value": 0.268,
+  "unit": "c/a",
+  "source": "phase3/3e_D2_res40.json:bands[tau_fit|validated|tol10].f_high",
+  "note": ""
+ },
+ "B_D2_res40_gbp": {
+  "value": 0.22218510485465287,
+  "unit": "1",
+  "source": "phase3/3e_D2_res40.json:bands[tau_fit|validated|tol10].gbp",
+  "note": ""
+ },
+ "B_D2_res40_ripple": {
+  "value": 0.14616551103915096,
+  "unit": "fraction",
+  "source": "phase3/3e_D2_res40.json:bands[tau_fit|validated|tol10].ripple",
+  "note": ""
+ },
+ "B_D2_res40_L_periods": {
+  "value": 21.390701819310557,
+  "unit": "periods",
+  "source": "phase3/3e_D2_res40.json:bands[tau_fit|validated|tol10].L_periods",
+  "note": ""
+ },
+ "B_D2_res40_L_wavelengths": {
+  "value": 5.5936685257497105,
+  "unit": "lambda",
+  "source": "phase3/3e_D2_res40.json:bands[tau_fit|validated|tol10].L_wavelengths",
+  "note": ""
+ },
+ "B_D2_res40_gdd_band_avg_linfit": {
+  "value": -6.573642208563716,
+  "unit": "(a/c)^2 per period",
+  "source": "phase3/3e_D2_res40.json:bands[tau_fit|validated|tol10].gdd_band_avg_linfit",
+  "note": ""
+ },
+ "B_D2_res40_R_max": {
+  "value": 0.010561758026193779,
+  "unit": "1",
+  "source": "phase3/3e_D2_res40.json:bands[tau_fit|validated|tol10].R_max",
+  "note": ""
+ },
+ "B_D2_res40_T_min": {
+  "value": 0.9875004471498554,
+  "unit": "1",
+  "source": "phase3/3e_D2_res40.json:bands[tau_fit|validated|tol10].T_min",
+  "note": ""
+ },
+ "B_D0_delay_per_period_a_over_c": {
+  "value": 3.9323019857262693,
+  "unit": "a/c",
+  "source": "phase3/3e_D0_res30.json (equals phase4_handoff.dtau_target)",
+  "note": ""
+ },
+ "B_D0_delay_quantum_cycles": {
+  "value": 0.9811093454387042,
+  "unit": "carrier cycles",
+  "source": "computed f0 * median_tau",
+  "note": ""
+ },
+ "C_channel_delays_bandfit": {
+  "value": [
+   55.03404726520635,
+   58.96559684200881,
+   62.89640495065338,
+   66.82739764451806
+  ],
+  "unit": "a/c",
+  "source": "computed: LS slope of phase_abs_unwrapped over mask_common / (2 pi)",
+  "note": ""
+ },
+ "C_increments_bandfit": {
+  "value": [
+   3.9315495768024604,
+   3.9308081086445696,
+   3.930992693864681
+  ],
+  "unit": "a/c",
+  "source": "computed: adjacent differences",
+  "note": ""
+ },
+ "C_increment_error_vs_target_percent": {
+  "value": [
+   -0.01908356934973697,
+   -0.037939408372466135,
+   -0.03324533060343925
+  ],
+  "unit": "%",
+  "source": "computed vs dtau_target",
+  "note": ""
+ },
+ "C_increment_max_abs_error_percent": {
+  "value": 0.037939408372466135,
+  "unit": "%",
+  "source": "computed",
+  "note": ""
+ },
+ "D_amp_imbalance_max_db": {
+  "value": 0.022660456296804514,
+  "unit": "dB",
+  "source": "phase4_handoff.npz:amp_imbalance_db over mask_common",
+  "note": ""
+ },
+ "D_T_min_common": {
+  "value": 0.9969306417149876,
+  "unit": "1",
+  "source": "phase4_handoff.npz:T",
+  "note": ""
+ },
+ "D_T_max_common": {
+  "value": 1.0024604802434611,
+  "unit": "1",
+  "source": "phase4_handoff.npz:T",
+  "note": "excess over 1 is numerical"
+ },
+ "E_trimmed_phase_residual_max_by_channel_rad": {
+  "value": [
+   4.942305761955897e-17,
+   0.008626107859246446,
+   0.01716472685638415,
+   0.025969920299065308
+  ],
+  "unit": "rad",
+  "source": "computed from phase4_handoff.npz:H_trim",
+  "note": ""
+ },
+ "E_trimmed_phase_residual_max_rad": {
+  "value": 0.025969920299065308,
+  "unit": "rad",
+  "source": "computed",
+  "note": ""
+ },
+ "E_trimmed_phase_residual_max_deg": {
+  "value": 1.4879668274275668,
+  "unit": "deg",
+  "source": "computed",
+  "note": ""
+ },
+ "E_raw_intercept_error_at_f0_rad": {
+  "value": [
+   0.0,
+   -1.2035475829850908,
+   -2.4075009862375385,
+   2.672544907457958
+  ],
+  "unit": "rad",
+  "source": "phase4_handoff.npz:trim_delta",
+  "note": "wrapped; up to 2.7 rad"
+ },
+ "E_raw_intercept_error_max_abs_rad": {
+  "value": 2.672544907457958,
+  "unit": "rad",
+  "source": "phase4_handoff.npz:trim_delta",
+  "note": ""
+ },
+ "F_phase5_pitch_over_lambda0": {
+  "value": 1.9622177000000005,
+  "unit": "lambda0",
+  "source": "phase5_handoff.json:setup.d_over_lambda0",
+  "note": ""
+ },
+ "F_phase5_max_pointing_error_fixed": {
+  "value": 2.6865858354452357,
+  "unit": "deg",
+  "source": "phase5_handoff.json:30.max_abs_err.fixed",
+  "note": ""
+ },
+ "F_phase5_R_squint_fixed": {
+  "value": 1.0,
+  "unit": "1",
+  "source": "phase5_handoff.json:30.R_squint.fixed",
+  "note": ""
+ },
+ "F_phase5_max_pointing_error_ideal": {
+  "value": 3.8049563499953365e-12,
+  "unit": "deg",
+  "source": "phase5_handoff.json:30.max_abs_err.ideal",
+  "note": ""
+ },
+ "F_phase5_R_squint_ideal": {
+  "value": 1.416279465109574e-12,
+  "unit": "1",
+  "source": "phase5_handoff.json:30.R_squint.ideal",
+  "note": ""
+ },
+ "F_phase5_max_pointing_error_raw": {
+  "value": 6.808736745087845,
+  "unit": "deg",
+  "source": "phase5_handoff.json:30.max_abs_err.raw",
+  "note": ""
+ },
+ "F_phase5_R_squint_raw": {
+  "value": 2.534345508435789,
+  "unit": "1",
+  "source": "phase5_handoff.json:30.R_squint.raw",
+  "note": ""
+ },
+ "F_phase5_max_pointing_error_trim": {
+  "value": 0.05009234959855746,
+  "unit": "deg",
+  "source": "phase5_handoff.json:30.max_abs_err.trim",
+  "note": ""
+ },
+ "F_phase5_R_squint_trim": {
+  "value": 0.018645356101289756,
+  "unit": "1",
+  "source": "phase5_handoff.json:30.R_squint.trim",
+  "note": ""
+ },
+ "F_phase5_trim_vs_ideal_max": {
+  "value": 0.050092349594752505,
+  "unit": "deg",
+  "source": "phase5_handoff.json:30.vs_ideal_max.trim",
+  "note": ""
+ },
+ "G_phase5_strongest_other_lobe_db": {
+  "value": 2.1502803088979707e-06,
+  "unit": "dB re design lobe",
+  "source": "phase5_handoff.json:30.strongest_db_max",
+  "note": "0 dB: equal-strength spatial-alias grating lobes (d = 1.96 lambda0)"
+ },
+ "G_phase5_fixed_squint_low_f0_high": {
+  "value": [
+   2.6865858354452357,
+   -3.552713678800501e-15,
+   -2.258380237806346
+  ],
+  "unit": "deg",
+  "source": "phase5_handoff.json:30.err_low_f0_high.fixed",
+  "note": ""
+ },
+ "H_msub1_required_cycles": {
+  "value": 0.24999999999999992,
+  "unit": "carrier cycles",
+  "source": "phase6_handoff.json:architectures.1.req_cycles_f0",
+  "note": ""
+ },
+ "H_msub1_rho": {
+  "value": 3.9244354000000015,
+  "unit": "1",
+  "source": "phase6_handoff.json:architectures.1.rho",
+  "note": ""
+ },
+ "H_msub1_mismatch_percent": {
+  "value": 292.44354000000016,
+  "unit": "%",
+  "source": "phase6_handoff.json:architectures.1.mismatch_rel",
+  "note": ""
+ },
+ "I_msub1_trim_max_pointing_error": {
+  "value": 7.671033143629462,
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.1.max_abs_err.trim",
+  "note": ""
+ },
+ "J_msub1_trim_R_squint": {
+  "value": 2.855309159455334,
+  "unit": "1",
+  "source": "phase6_handoff.json:metrics_res30.1.R_squint.trim",
+  "note": ""
+ },
+ "K_msub1_trim_strongest_other_lobe_db": {
+  "value": -4.831152533898516,
+  "unit": "dB",
+  "source": "phase6_handoff.json:metrics_res30.1.strongest_db_max.trim",
+  "note": ""
+ },
+ "H_msub2_required_cycles": {
+  "value": 0.49999999999999983,
+  "unit": "carrier cycles",
+  "source": "phase6_handoff.json:architectures.2.req_cycles_f0",
+  "note": ""
+ },
+ "H_msub2_rho": {
+  "value": 1.9622177000000007,
+  "unit": "1",
+  "source": "phase6_handoff.json:architectures.2.rho",
+  "note": ""
+ },
+ "H_msub2_mismatch_percent": {
+  "value": 96.22177000000008,
+  "unit": "%",
+  "source": "phase6_handoff.json:architectures.2.mismatch_rel",
+  "note": ""
+ },
+ "I_msub2_trim_max_pointing_error": {
+  "value": 2.366766069780617,
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.2.max_abs_err.trim",
+  "note": ""
+ },
+ "J_msub2_trim_R_squint": {
+  "value": 0.8809568034408044,
+  "unit": "1",
+  "source": "phase6_handoff.json:metrics_res30.2.R_squint.trim",
+  "note": ""
+ },
+ "K_msub2_trim_strongest_other_lobe_db": {
+  "value": -12.175559072819295,
+  "unit": "dB",
+  "source": "phase6_handoff.json:metrics_res30.2.strongest_db_max.trim",
+  "note": ""
+ },
+ "H_msub4_required_cycles": {
+  "value": 0.9999999999999997,
+  "unit": "carrier cycles",
+  "source": "phase6_handoff.json:architectures.4.req_cycles_f0",
+  "note": ""
+ },
+ "H_msub4_rho": {
+  "value": 0.9811088500000004,
+  "unit": "1",
+  "source": "phase6_handoff.json:architectures.4.rho",
+  "note": ""
+ },
+ "H_msub4_mismatch_percent": {
+  "value": -1.8891149999999635,
+  "unit": "%",
+  "source": "phase6_handoff.json:architectures.4.mismatch_rel",
+  "note": ""
+ },
+ "I_msub4_trim_max_pointing_error": {
+  "value": 0.18902232802880192,
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.4.max_abs_err.trim",
+  "note": ""
+ },
+ "J_msub4_trim_R_squint": {
+  "value": 0.07035782200949293,
+  "unit": "1",
+  "source": "phase6_handoff.json:metrics_res30.4.R_squint.trim",
+  "note": ""
+ },
+ "K_msub4_trim_strongest_other_lobe_db": {
+  "value": -12.383875564053806,
+  "unit": "dB",
+  "source": "phase6_handoff.json:metrics_res30.4.strongest_db_max.trim",
+  "note": "ordinary sidelobe"
+ },
+ "H_msub8_required_cycles": {
+  "value": 1.9999999999999993,
+  "unit": "carrier cycles",
+  "source": "phase6_handoff.json:architectures.8.req_cycles_f0",
+  "note": ""
+ },
+ "H_msub8_rho": {
+  "value": 0.4905544250000002,
+  "unit": "1",
+  "source": "phase6_handoff.json:architectures.8.rho",
+  "note": ""
+ },
+ "H_msub8_mismatch_percent": {
+  "value": -50.94455749999997,
+  "unit": "%",
+  "source": "phase6_handoff.json:architectures.8.mismatch_rel",
+  "note": ""
+ },
+ "I_msub8_trim_max_pointing_error": {
+  "value": 1.4170973166525016,
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.8.max_abs_err.trim",
+  "note": ""
+ },
+ "J_msub8_trim_R_squint": {
+  "value": 0.5274714463968531,
+  "unit": "1",
+  "source": "phase6_handoff.json:metrics_res30.8.R_squint.trim",
+  "note": ""
+ },
+ "K_msub8_trim_strongest_other_lobe_db": {
+  "value": -12.435378564786848,
+  "unit": "dB",
+  "source": "phase6_handoff.json:metrics_res30.8.strongest_db_max.trim",
+  "note": ""
+ },
+ "H_phc_delay_quantum_cycles": {
+  "value": 0.98110885,
+  "unit": "carrier cycles",
+  "source": "phase6_handoff.json:architectures.4.phc_cycles_f0",
+  "note": ""
+ },
+ "H_msub4_required_delay_cycles": {
+  "value": 0.9999999999999997,
+  "unit": "carrier cycles",
+  "source": "phase6_handoff.json:architectures.4.req_cycles_f0",
+  "note": ""
+ },
+ "I_msub4_fixed_max_pointing_error": {
+  "value": 2.686585835520866,
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.4.max_abs_err.fixed",
+  "note": ""
+ },
+ "I_msub4_ideal_sub_max_pointing_error": {
+  "value": 0.15643117527647377,
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.4.max_abs_err.ideal_sub",
+  "note": "fixed intra-subarray phases squint even for ideal TTD"
+ },
+ "I_msub4_trim_rms_pointing_error": {
+  "value": 0.11044547547076636,
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.4.rms_err.trim",
+  "note": ""
+ },
+ "I_msub4_trim_vs_ideal_sub_max": {
+  "value": 0.05474138859733202,
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.4.vs_ideal_sub_max.trim",
+  "note": ""
+ },
+ "I_msub4_trim_err_low_f0_high": {
+  "value": [
+   0.15725285921656607,
+   3.552713678800501e-15,
+   -0.18902232802880192
+  ],
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.4.err_low_f0_high.trim",
+  "note": ""
+ },
+ "I_msub4_tracking_tolerance": {
+  "value": 0.367437098321372,
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.4.tol_pt",
+  "note": ""
+ },
+ "I_msub4_raw_max_pointing_error": {
+  "value": 6.682606445768251,
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.4.max_abs_err.raw",
+  "note": ""
+ },
+ "I_msub4_trim_p4_max_pointing_error": {
+  "value": 0.7338337255320901,
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.4.max_abs_err.trim_p4",
+  "note": "Phase 4 trim used unchanged"
+ },
+ "L_msub4_trim_strongest_replica_lobe_db": {
+  "value": -16.620928139696733,
+  "unit": "dB",
+  "source": "phase6_handoff.json:metrics_res30.4.grating_db_max.trim",
+  "note": "subarray replica (quantization) lobe at analytic positions"
+ },
+ "M_msub4_trim_min_peak_power": {
+  "value": 0.9829117943783899,
+  "unit": "1 (re ideal 1)",
+  "source": "phase6_handoff.json:metrics_res30.4.gain_min.trim",
+  "note": ""
+ },
+ "M_msub4_trim_min_peak_power_db": {
+  "value": -0.07485453615996834,
+  "unit": "dB",
+  "source": "computed",
+  "note": ""
+ },
+ "N_msub4_trim_hpbw_low_f0_high": {
+  "value": [
+   7.945292817848377,
+   7.34872864593122,
+   6.825245300637978
+  ],
+  "unit": "deg",
+  "source": "phase6_handoff.json:metrics_res30.4.hpbw_low_f0_high.trim",
+  "note": ""
+ },
+ "O_res30_vs_res40_max_dtheta": {
+  "value": 0.007028329793296706,
+  "unit": "deg",
+  "source": "phase6_handoff.json:res_check.4.trim.max_dtheta_deg",
+  "note": ""
+ },
+ "O_res30_vs_res40_limit": {
+  "value": 0.12247903277379067,
+  "unit": "deg",
+  "source": "phase6_handoff.json:res_check.4.trim.tol_third",
+  "note": ""
+ },
+ "O_res30_vs_res40_dR_squint": {
+  "value": 0.00048442555287954436,
+  "unit": "1",
+  "source": "phase6_handoff.json:res_check.4.trim.d_R_squint",
+  "note": ""
+ },
+ "O_res30_vs_res40_dstrongest_db": {
+  "value": 0.0408145187425184,
+  "unit": "dB",
+  "source": "phase6_handoff.json:res_check.4.trim.d_strongest_db",
+  "note": ""
+ },
+ "P_combined_L2_p95_max_error": {
+  "value": 0.3518236082833985,
+  "unit": "deg",
+  "source": "phase6/6b_robustness.json:combined_L2_p95_max_err",
+  "note": ""
+ },
+ "P_nominal_max_error": {
+  "value": 0.18902217439881142,
+  "unit": "deg",
+  "source": "phase6/6b_robustness.json:nominal_max_err_deg",
+  "note": ""
+ },
+ "P_budget_phase_p95_limit_0p5deg": {
+  "value": 7.590069184773681,
+  "unit": "deg",
+  "source": "phase6/6b_robustness.json:budget.phase.p95",
+  "note": ""
+ },
+ "P_budget_phase_p95_limit_1p0deg": {
+  "value": 20.061791205627753,
+  "unit": "deg",
+  "source": "phase6/6b_robustness.json:budget.phase.p95",
+  "note": ""
+ },
+ "P_budget_delay_uncal_p95_limit_0p5deg_percent": {
+  "value": 1.1734595618483978,
+  "unit": "% of q*tau_PhC",
+  "source": "phase6/6b_robustness.json:budget.delay_uncal.p95",
+  "note": ""
+ },
+ "P_budget_delay_uncal_p95_limit_1p0deg_percent": {
+  "value": 2.9354624132837426,
+  "unit": "% of q*tau_PhC",
+  "source": "phase6/6b_robustness.json:budget.delay_uncal.p95",
+  "note": ""
+ },
+ "P_mc_seed": {
+  "value": 20261010,
+  "unit": "1",
+  "source": "phase6/6b_robustness.json:seed",
+  "note": ""
+ },
+ "P_mc_samples": {
+  "value": 1000,
+  "unit": "1",
+  "source": "phase6/6b_robustness.json:n_samples",
+  "note": ""
+ },
+ "H_subarray_pitch_over_lambda0": {
+  "value": 2.0,
+  "unit": "lambda0",
+  "source": "phase6_handoff.json:architectures.4",
+  "note": ""
+ },
+ "H_n_elements": {
+  "value": 16,
+  "unit": "1",
+  "source": "phase6_handoff.json:architectures.4",
+  "note": ""
+ },
+ "H_element_pitch_over_lambda0": {
+  "value": 0.5,
+  "unit": "lambda0",
+  "source": "phase6_handoff.json:architectures.4",
+  "note": ""
+ }
+}

@@ -1,0 +1,154 @@
+{
+ "final_title": "Subarray-Level Delay Lines from W1 Photonic-Crystal Waveguides for Beam-Squint Reduction: A Computational Study",
+ "final_central_claim": "In a 2-D lossless FDTD/MPB model, a plain W1 photonic-crystal waveguide gives delay increments of 3.93 a/c per period (0.981 carrier cycle, 0.04 % band-fit accuracy) over a validated 14.8 % fractional bandwidth; with one channel and one constant phase trim per four-element lambda0/2 subarray at 30 deg (required 1.000 cycle, 1.9 % mismatch) the maximum pointing error over the band is 0.19 deg against 2.69 deg for fixed phase, strongest sidelobe -12.4 dB, replica lobes <= -16.6 dB. This supports the feasibility of subarray-level PhC delay lines for beam-squint reduction; it does not demonstrate a device.",
+ "wording_decisions": {
+  "dispersion_engineered": "dropped (plain W1 selected; engineering tried and rejected in Phase 3)",
+  "broadband": "qualified as 14.8 % validated, domain-limited fractional bandwidth",
+  "true_time_delay": "delay slope only; trimmed family = TTD slope plus one constant phase trim per channel, never ideal TTD",
+  "suitable": "replaced by 'supports the feasibility of'",
+  "coincidence": "Msub = 4 match is n_g f0 about 0.98 at 30 deg, not a design principle"
+ },
+ "authoritative_commits": {
+  "phase6_final_head": "3c10780",
+  "phase6_gate": "914628b",
+  "phase6_criteria": "65f1ab3",
+  "phase5_gate": "959e4c9",
+  "phase5_criteria": "6553a1d"
+ },
+ "phase7_starting_head": "3c10780",
+ "git_head_at_generation": "3c10780",
+ "validated_band": {
+  "low": 0.231,
+  "high": 0.268,
+  "center": 0.2495,
+  "fractional": 0.14829659318637275,
+  "note": "domain-limited; upper edge post hoc"
+ },
+ "selected_architecture": "Msub = 4 subarray-level delay: 4 PhC channels (N = 8-11), 16 lambda0/2 elements, one constant phase trim per channel re-chosen for the required step, theta0 = 30 deg",
+ "key_metrics": {
+  "A_fractional_bandwidth": 0.14829659318637275,
+  "B_D0_delay_per_period_a_over_c": 3.9323019857262693,
+  "B_D0_delay_quantum_cycles": 0.9811093454387042,
+  "C_increments_bandfit": [
+   3.9315495768024604,
+   3.9308081086445696,
+   3.930992693864681
+  ],
+  "C_increment_max_abs_error_percent": 0.037939408372466135,
+  "D_amp_imbalance_max_db": 0.022660456296804514,
+  "E_trimmed_phase_residual_max_rad": 0.025969920299065308,
+  "E_raw_intercept_error_max_abs_rad": 2.672544907457958,
+  "F_phase5_max_pointing_error_trim": 0.05009234959855746,
+  "F_phase5_max_pointing_error_fixed": 2.6865858354452357,
+  "G_phase5_strongest_other_lobe_db": 2.1502803088979707e-06,
+  "H_msub4_mismatch_percent": -1.8891149999999635,
+  "I_msub4_trim_max_pointing_error": 0.18902232802880192,
+  "I_msub4_fixed_max_pointing_error": 2.686585835520866,
+  "J_msub4_trim_R_squint": 0.07035782200949293,
+  "K_msub4_trim_strongest_other_lobe_db": -12.383875564053806,
+  "L_msub4_trim_strongest_replica_lobe_db": -16.620928139696733,
+  "M_msub4_trim_min_peak_power": 0.9829117943783899,
+  "N_msub4_trim_hpbw_low_f0_high": [
+   7.945292817848377,
+   7.34872864593122,
+   6.825245300637978
+  ],
+  "O_res30_vs_res40_max_dtheta": 0.007028329793296706,
+  "P_combined_L2_p95_max_error": 0.3518236082833985
+ },
+ "final_results_file": "results/final/final_results.json",
+ "restrictions": [
+  "2-D, lossless",
+  "no fabrication disorder",
+  "no channel coupling",
+  "no bends",
+  "no thermal effects",
+  "no realistic couplers",
+  "no propagation loss",
+  "finite validated band only (0.231-0.268)",
+  "post hoc validated upper edge 0.268",
+  "post-data Phase 4 convergence correction (common minimum run time)",
+  "post-data Phase 4 estimator change",
+  "constant phase trim required",
+  "residual subarray replica lobes (<= -16.6 dB)",
+  "robustness is system-level, not fabrication-level",
+  "only four PhC channels",
+  "only one steering angle (30 deg) studied for the architectural match",
+  "Msub = 8 with two-period spacing not simulated",
+  "no conventional-delay-line comparison beyond MPB-only reference",
+  "no literature survey; no novelty claim",
+  "no experiment"
+ ],
+ "historical_corrections": [
+  "Phase 0.5 geometry sign bug and branch-tracking bug (rerun)",
+  "Phase 2 validated-band boundary chosen post hoc",
+  "Phase 3 hole-shift sign bug fixed, D1/D2 rerun",
+  "Phase 4 first FDTD attempt discarded (under-convergence)",
+  "Phase 4 estimator changed post hoc",
+  "Phase 4 cascade step-count erratum",
+  "Phase 6 first Monte Carlo sign convention discarded and rerun",
+  "Phase 6 post hoc diagnostic additions"
+ ],
+ "arxiv_readiness": "B: nearly ready; manuscript gap = references and literature positioning; scientific gap = no conventional-line comparison beyond MPB-only (restricts claim to feasibility); no numerical validation gap blocking; no further simulation recommended",
+ "figures": {
+  "figures/final/fig01_concept.png": "W1 channel and subarray architecture (2-D FDTD domain vs analytic beamforming model)",
+  "figures/final/fig02_verification.png": "FDTD verification (convergence, Bragg vs TMM, W1 n_g vs MPB)",
+  "figures/final/fig03_tradeoff.png": "D0/D1/D2 delay-bandwidth-dispersion trade",
+  "figures/final/fig04_channels.png": "four-channel transfer functions (amplitude, increments, raw and trimmed phase error)",
+  "figures/final/fig05_phase5_limit.png": "element-level array: squint and 0 dB grating lobes",
+  "figures/final/fig06_architecture.png": "delay match, pointing and sidelobe level versus Msub",
+  "figures/final/fig07_patterns.png": "Msub = 4 patterns at band low/center/high",
+  "figures/final/fig08_pointing.png": "pointing error versus frequency",
+  "figures/final/fig09_robustness.png": "system-level perturbation sensitivity"
+ },
+ "figures_pdf": [
+  "figures/final/fig01_concept.pdf",
+  "figures/final/fig02_verification.pdf",
+  "figures/final/fig03_tradeoff.pdf",
+  "figures/final/fig04_channels.pdf",
+  "figures/final/fig05_phase5_limit.pdf",
+  "figures/final/fig06_architecture.pdf",
+  "figures/final/fig07_patterns.pdf",
+  "figures/final/fig08_pointing.pdf",
+  "figures/final/fig09_robustness.pdf"
+ ],
+ "tables": "docs/final_tables.md (Tables 1-7, 5b)",
+ "documents": [
+  "docs/final_report.md",
+  "docs/manuscript_draft.md",
+  "docs/executive_summary.md",
+  "docs/interview_summary.md",
+  "docs/reproducibility.md",
+  "docs/phase7_audit.md",
+  "docs/final_tables.md"
+ ],
+ "upstream_handoffs": {
+  "phase4": "results/phase4/phase4_handoff.npz",
+  "phase5": "results/phase5/phase5_handoff.npz",
+  "phase6": "results/phase6/phase6_handoff.npz"
+ },
+ "protected_result_sha256": {
+  "phase4/phase4_handoff.npz": "20bdd9371a57a0627bc0a85ebd5334772ca16089a8cef06669c9132d68fcbce3",
+  "phase4/phase4_handoff.json": "2e843854a8f4e3217cd92911a26b49c56be21047c524dee29505d4811e0942df",
+  "phase4/4b_res30.npz": "4c8a29e35122a6fc6b58ca495af87fbc27cf90a2fa6e47e3a0fb1849430f764e",
+  "phase4/4b_res30.json": "8ed92a571e4ee9ea4c2c9e75702b2dd485eb74ef712f947df074bdfb3d9bc84b",
+  "phase4/4b_res40.npz": "0e735f676ba534a64c6d815b60d5d6993e233ecab12b37af8232b6b52656e9c9",
+  "phase4/4b_res40.json": "17a3dce12421884b459b37e91a8067e231fc2e414f763eb2c8da047fa7f3eb38",
+  "phase5/5a_array.npz": "996fd5c6ba7f7979162cf046ff796337aedf60682dcbd8f945b257d359dfce8b",
+  "phase5/5a_array.json": "cf2479222ccbc1da1891ceba58931e8ee2f7d9c95e4f93dbdb22613f5058dab9",
+  "phase5/phase5_handoff.npz": "7f0c4bc2cae6150227ced2de75dc515d29f4f3978449bc0697aa516d24c0d23d",
+  "phase5/phase5_handoff.json": "63810cf0e5a1d54f9e8592e93a5c4e6ef094ecc16069bf6ae8b7aa7d008e8713",
+  "phase6/6a_subarrays.npz": "9c8ec288bed9fa4b597171be4b90d2c3148c421bce2ac00774be11498ec9bf58",
+  "phase6/6a_subarrays.json": "a3f1119757519916ca7d90fdee9719e4ad0cdb7356640cb04c5e76cc787d8631",
+  "phase6/6b_robustness.npz": "31c77cd223042b1ef30123051409a6bffa72a5787983c59dba79420552b98673",
+  "phase6/6b_robustness.json": "ba7324dd9b85230e052e43e61d9aca4a590b0aa9ea7c394768a2a18f41e8117b",
+  "phase6/phase6_handoff.npz": "603ba19901d0f68418be2e18b7e87db0c686590acdf77a212ac529e759eecfe6",
+  "phase6/phase6_handoff.json": "f90a77e1699e46aede8b61b369d53d7b5fd2db2c8d9b69cd4097ce5e2f8aca53"
+ },
+ "provenance": {
+  "generated_by": "experiments/phase7/7d_handoff.py",
+  "inputs": "results/final/final_results.json plus the Phase 4-6 result files listed in protected_result_sha256",
+  "simulations_run_in_phase7": false
+ },
+ "reproduce": "cd experiments/phase7 && python 7a_final_results.py && python 7b_figures.py && python 7c_tables.py && python 7d_handoff.py (see docs/reproducibility.md)"
+}

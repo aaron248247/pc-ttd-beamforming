@@ -1,5 +1,8 @@
 # Phase 5 report — four-element array with the actual Phase 4 transfer functions
 
+> **Update after Phase 6 (added in Phase 7).** The grating-lobe limitation reported here (equal-strength lobes at d = 1.96 lambda0) is mitigated at subarray level in Phase 6 (Msub = 4: strongest other lobe -12.4 dB, replica lobes <= -16.6 dB). The Phase 5 numbers and conclusions below are unchanged and still describe the element-level array.
+
+
 **Gate result: PASS WITH RESTRICTIONS.** Criteria: `docs/phase2_5_criteria.md`, Revision 6 (declared and committed, 6553a1d, before any PhC array result was computed). Tables: `docs/phase5_report_tables.md` (generated). Figures: `figures/phase5/`. Results: `results/phase5/5a_array.{npz,json}` and `results/phase5/phase5_handoff.{npz,json}`.
 Code: `src/pcttd/array.py` (unchanged), `src/pcttd/beam.py` (new), `experiments/phase5/5a_array.py`, `5b_figures.py`, `5c_tables.py`, `5d_handoff.py`; tests `tests/test_array.py` (extended), `tests/test_phase5.py`.
 

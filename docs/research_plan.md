@@ -1,5 +1,8 @@
 # Research plan (Phase 0, as approved with modifications)
 
+> **Note (Phase 7).** This is the approved Phase 0 text. The question uses "dispersion-engineered"; in the study the engineered first-row variants (D1, D2) were tested and rejected in Phase 3, so the final delay line is the plain W1. See `docs/phase7_audit.md`.
+
+
 **Question.** Can dispersion-engineered photonic-crystal (PhC) line-defect waveguides serve as true-time-delay (TTD)
 elements for broadband phased-array beamforming, and what is the delay / bandwidth / dispersion / loss trade? Mixed or
 negative results are acceptable if rigorously shown.
