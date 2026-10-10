@@ -117,7 +117,7 @@ def sens(kinds, det_key, xl, name, ttl, xfac=1.0):
         L = [m["level"] for m in jb["monte_carlo"][kind]]
         for st, ls in (("median", "-"), ("p95", "--"), ("worst", ":")):
             axs[0].plot(L, [m["max_err"][st] for m in jb["monte_carlo"][kind]], color=col, ls=ls, label=f"{lab} {st}" if True else None)
-        axs[1].plot(L, [m["strongest_db"]["p95"] for m in jb["monte_carlo"][kind]], color=col, label=lab + " P95"); 
+        axs[1].plot(L, [m["strongest_db"]["p95"] for m in jb["monte_carlo"][kind]], color=col, label=lab + " P95");
     if det_key:
         d = jb["deterministic"][det_key]; axs[0].plot([r["level"] for r in d], [r["shift_max"] for r in d], "k.-", lw=0.8, label="deterministic ramp (numeric shift)")
         axs[0].plot([r["level"] for r in d], [r["pred_max"] for r in d], "k--", lw=0.8, alpha=0.6, label="first-order analytic")
