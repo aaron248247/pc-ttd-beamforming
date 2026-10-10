@@ -151,3 +151,18 @@ relaxes or tightens no existing criterion.
    max amplitude imbalance changes by <= 0.1 dB, max trimmed phase error changes by <= 0.1 rad.
 9. *Phase 4 gate questions* are those listed in the Phase 4 task statement (direct simulation and numerical trust, monotonic delay, increments near target, nontrivial common band, amplitude mismatch, raw phase
    error characterized, trimming effect, cascade agreement, trustworthiness of H_m for Phase 5). PASS WITH RESTRICTIONS if a restriction (band, delay-quantum, noise) must travel with the handoff; FAIL if monotonicity, trust or a nontrivial common band is lost.
+
+**Revision 5 (2026-10-10, written AFTER the first res-30 Phase 4 data were inspected and BEFORE any res-40 Phase 4 data were inspected).** Everything below is post hoc and is labeled as such in the report. None of it loosens the
+amplitude, unitarity, transmission, residual or domain criteria, or the trim definition.
+1. *Stop time (numerical method, not a criterion).* The first attempt (`stop_when_dft_decayed`, tol 1e-7, minimum run time max(150, transit)) stopped at erratic times that were not monotone in length
+   (res 30: t_end = 1965, 801, 2816, 2462 for N = 8, 9, 10, 11; res 40: 636-1043 for N = 9-11), which is the Phase 2 stop-time anomaly. N = 9 was visibly under-converged (unitarity defect 1.9%, T up to 1.018, a
+   spurious increments pattern, and a cascade phase mismatch > 1 rad). The attempt was discarded (kept for transparency in `results/phase4/raw_attempt1/` and `attempt1_*`) and **all** channels were re-run with a common minimum run time
+   `min_after = 3500` after the source (decay tolerance 1e-7 still required), giving t_end = 3524-4586 at res 30 and a defect <= 0.34%. Raw phase errors of the first attempt agreed with the final ones to ~0.01 rad (the phase
+   itself was robust; the amplitude, unitarity and the derivative were not). The same `min_after` is used at res 40.
+2. *Adjacent-increment estimator.* The pre-declared pointwise central difference of the single-period phase ratio (criterion 5(iv)) is noise-limited: the rms difference between it and the local-quadratic
+   (+-3 samples) estimator of the same data is 5.5-7.5% of dtau_target (final res-30 data), comparable to the +-10% tolerance, so it fragments the band into isolated samples (widest run 5.0%, 0.2425-0.2550) even though the underlying
+   phase is smooth. This is the Phase 2/3 finding (pointwise derivatives of FDTD phase are noise-limited), now met at one-period spacing. The **local-quadratic estimator is therefore the primary one for criterion 5(iv)**;
+   the pre-declared central-difference band is reported next to it as the conservative, noise-limited result, and the band-fit (least-squares phase slope over the band) increments and phase errors, which are not derivative-noise limited,
+   are the quantitative basis for the delay statements. The tolerance (+-10% of dtau_target), the target and the other four conditions are unchanged.
+3. *Erratum, cascade step counts.* Criteria Revision 4 item 7 said "three steps" for (8, 9) and "two steps" for (9, 10). The formula given there is the governing one: T(11) = [T(Nb) T(Na)^-1]^((11-Nb)/(Nb-Na)) T(Nb), i.e. two
+   steps from (8, 9) and one step from (9, 10). An additional check predicts N = 10 from (8, 9) (one step). Acceptance thresholds are unchanged (<= 0.1 rad, <= 3%).

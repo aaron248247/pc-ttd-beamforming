@@ -1,0 +1,8 @@
+Using MPI version 4.1, 1 processes
+Using MPI version 4.1, 1 processes
+Using MPI version 4.1, 1 processes
+Using MPI version 4.1, 1 processes
+Using MPI version 4.1, 1 processes
+[(30, 8, 6885.536687850952, 4586.1, False), (30, 9, 5641.682213783264, 3523.95, False), (30, 10, 6016.080304384232, 3633.45, False), (30, 11, 7172.317360877991, 4443.75, False)]
+
+Elapsed run time = 7175.4210 s

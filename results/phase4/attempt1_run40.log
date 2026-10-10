@@ -1,0 +1,13 @@
+Using MPI version 4.1, 1 processes
+Using MPI version 4.1, 1 processes
+Using MPI version 4.1, 1 processes
+Using MPI version 4.1, 1 processes
+Using MPI version 4.1, 1 processes
+
+Elapsed run time = 3733.8853 s
+
+Elapsed run time = 3733.8862 s
+
+Elapsed run time = 3733.9339 s
+/home/accurtis247/miniconda3/envs/MEEP-GPU/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
