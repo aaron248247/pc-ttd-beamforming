@@ -122,3 +122,32 @@ relaxes or tightens no existing criterion.
    cross-checked by the wave-cascade phases of the pairs (4,8), (8,12), (4,12). Frequency grid 5e-4. The +-10% rule is primary; +-5% and +-25% are sensitivity only.
 4. *Production numerics.* res 30, decay_tol = 1e-7, source/monitor distances as in Phase 2 (d_src = 10, d_mon = 3); res 40 confirmation for selected cases.
 5. *R reference.* MPB only; usable band by the same +-10% n_g rule inside its single-mode TM air-channel band; incomplete reference comparison.
+
+**Revision 4 (2026-10-10, Phase 4 start; written BEFORE any Phase 4 FDTD result exists or was inspected).** Fills gaps in Section 3; relaxes or tightens nothing earlier.
+1. *Channel family.* One structure, D0 (plain W1, r/a = 0.30, f1 = 1.0, s = 0.0). Lengths N_m = N0 + m dN with **dN = 1 period** and **N0 = 8** (N = 8, 9, 10, 11).
+   Rationale: an integer-period step is the smallest physically meaningful increment (about one carrier cycle, see Section 4); N0 = 8 lies inside the length range already
+   validated in Phases 2-3 (N = 4-24), keeps all four devices at least two source/monitor-free periods long, and adds no propagation length beyond what the
+   cascade check needs (it predicts N = 11 from N = 8, 9 and N = 9, 10). Chosen without reference to any Phase 4 output. The coarse one-period delay quantum is
+   characterized, not hidden; no sub-period interpolation is done in Phase 4.
+2. *Target delay step.* dtau_target = dN * 3.9323 a/c, where 3.9323 is the Phase 3 D0 median per-period delay over the validated +-10% usable band
+   (`results/phase3/3e_D0_res30.json`, key `tau_fit|validated|tol10`, `median_tau`; res 40 gives 3.9308). Fixed now; never refit to Phase 4 data.
+3. *Center frequency for trimming.* f0 = 0.2495 (center of the Phase 3 D0 validated band [0.231, 0.268]; a point of the 5e-4 frequency grid). The Phase 4 common band center is
+   reported separately; if it differs from f0 by more than 0.001, the handoff additionally carries a secondary trim at that center, labeled as such.
+4. *Reference planes and what H_m contains.* Input plane x = -3, output plane x = N_m + 3 (d_mon = 3), source d_src = 10, res 30 (production) and res 40 (confirmation), decay_tol = 1e-7,
+   frequency grid 0.220-0.275 step 5e-4, lead profiles from the Phase 2 cache. H_m(f) = S21 = a_f(out)/a_f(in) of the full finite device, hence it contains the *entire* propagation phase over N_m + 6 periods;
+   nothing is de-embedded, so the reference-plane offset is common to all channels and cancels in H_m/H_0 (the lead is plain W1, identical to the D0 section: no interface).
+   Convention (unchanged): MEEP exp(-i omega t), MEEP_SIGN = +1, a delay tau gives exp(+i omega tau), tau_g = +d arg H / d omega. Ideal channel m: H_m/H_0 = exp(+i 2 pi f m dtau_target).
+   Branch of the unwrapped phase fixed by the MPB Bloch phase, -2 pi kappa(f) x length (as in Phase 3).
+5. *Common usable band.* Widest contiguous frequency interval inside [0.231, 0.268] on which ALL hold for all four channels: (i) T_m >= 0.5; (ii) |unitarity defect| <= 0.02 (Phase 2 criterion);
+   (iii) projection residual (in and out) <= 0.10; (iv) every adjacent increment dtau_{m+1,m}(f) (central difference of the unwrapped phase of S21_{m+1}/S21_m, grid 5e-4) lies within +-10% of dtau_target
+   (+-5%, +-25% and the local-quadratic estimator are sensitivities only); (v) amplitude imbalance max_m|H_m| / min_m|H_m| <= 1 dB (20 log10, amplitude, not power).
+6. *Errors.* epsilon_tau_m(f) = Dtau_m(f) - m dtau_target with Dtau_m = d arg(H_m/H_0)/d omega, also normalized by m dtau_target. Raw phase error
+   epsilon_phi_m(f) = arg(H_m/H_0)(f) - 2 pi f m dtau_target, unwrapped along f and placed on the 2 pi branch with epsilon_phi_m(f0) in (-pi, pi]. Trim: delta_m = epsilon_phi_m(f0) (identical to the criteria formula of
+   Section 3), H_m^trim = H_m exp(-i delta_m); epsilon_phi,trim_m = epsilon_phi_m - delta_m, exactly 0 at f0. Reporting threshold for "useful broadband phase matching": max |epsilon_phi,trim| over the common band <= pi/8 (0.39 rad); it is not
+   a band criterion and does not change the band.
+7. *Cascade validation.* T-matrix of directly simulated shorter devices predicts the directly simulated N = 11: from (8, 9) with three steps and from (9, 10) with two steps,
+   T(11) = [T(Nb) T(Na)^-1]^(11-Nb) T(Nb). Acceptance (over the common band): max |phase difference| <= 0.1 rad, max relative |S21| difference <= 3%.
+8. *Resolution check (res 40 vs res 30), all four channels.* "Conclusions unchanged" means: band-mean adjacent increment changes by <= 2% (of target), common-band edges move by <= 0.002,
+   max amplitude imbalance changes by <= 0.1 dB, max trimmed phase error changes by <= 0.1 rad.
+9. *Phase 4 gate questions* are those listed in the Phase 4 task statement (direct simulation and numerical trust, monotonic delay, increments near target, nontrivial common band, amplitude mismatch, raw phase
+   error characterized, trimming effect, cascade agreement, trustworthiness of H_m for Phase 5). PASS WITH RESTRICTIONS if a restriction (band, delay-quantum, noise) must travel with the handoff; FAIL if monotonicity, trust or a nontrivial common band is lost.
