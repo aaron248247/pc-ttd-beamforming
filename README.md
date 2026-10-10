@@ -107,3 +107,8 @@ Planned-but-not-run results are labeled planned.
 ## Conventions
 
 American English spelling in all prose, comments, and documentation. Normalized units: a = 1, c = 1, frequency f = omega a / (2 pi c) = a/lambda.
+
+## Phase 6 (delay-granularity mitigation, robustness)
+
+`experiments/phase6/6a_subarrays.py` (hierarchical subarray arrays, Msub = 1, 2, 4, 8) -> `6b_robustness.py` (perturbation sweeps, Monte Carlo seed 20261010, ~6 min on 10 cores) -> `6c_figures.py` -> `6d_tables.py` -> `6e_handoff.py`.
+Result: PASS WITH RESTRICTIONS; Msub = 4 subarray-level TTD matches the one-period PhC delay to 1.9 % and replaces the Phase 5 grating lobes by sidelobes. See `docs/phase6_report.md`, `docs/phase6_report_tables.md`, `results/phase6/phase6_handoff.*`.
