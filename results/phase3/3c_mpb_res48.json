@@ -1,0 +1,27 @@
+{
+ "D1": {
+  "f1": 1.2,
+  "s": -0.05,
+  "res": 48,
+  "nk": 101,
+  "band_edge": 0.22947075500975928,
+  "band_top": 0.28704616811789335
+ },
+ "D2": {
+  "f1": 1.2,
+  "s": -0.1,
+  "res": 48,
+  "nk": 101,
+  "band_edge": 0.23677618244773735,
+  "band_top": 0.2835870773634868
+ },
+ "provenance": {
+  "timestamp_utc": "2026-10-10T01:47:56+00:00",
+  "git_head": "5ceae8b189fa988855fdd0abf7ee811ac27be34b",
+  "git_dirty": true,
+  "code_dirty": true,
+  "meep": "1.33.0-beta",
+  "numpy": "1.24.3",
+  "scipy": "1.11.1"
+ }
+}

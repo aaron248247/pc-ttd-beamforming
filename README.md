@@ -12,14 +12,26 @@ The answer is not assumed to be favorable. See [docs/research_plan.md](docs/rese
 | 0.5 Geometry selection (MPB) | done and approved — [docs/phase0p5_report.md](docs/phase0p5_report.md); decisions in [docs/decisions.md](docs/decisions.md) |
 | 1 FDTD verification ladder | done and accepted — [docs/phase1_report.md](docs/phase1_report.md) |
 | 2 Finite W1 guided-wave verification | gate passed with a documented restriction — [docs/phase2_report.md](docs/phase2_report.md) |
-| 3–7 | not started (3: dispersion engineering / trade study, 4: TTD channel family, 5: array, 6: robustness, 7: documentation) |
+| 3 Dispersion engineering / delay-bandwidth trade study | gate passed with restrictions (candidate for Phase 4: plain W1) — [docs/phase3_report.md](docs/phase3_report.md) |
+| 4–7 | not started (4: TTD channel family, 5: array, 6: robustness, 7: documentation) |
 
-No claim about photonic-crystal delay-bandwidth tradeoffs or beam-squint performance is made anywhere in this repository yet. Phases 1 and 2 only verify the measurement pipeline (Phase 2: FDTD guided-wave n_g of the plain W1 agrees with MPB to a median 0.4% and max 1.4% over the validated interval 0.231-0.268).
+Phase 3 result (3 designs, a tradeoff illustration): in the FDTD-validated range 0.231-0.268 the plain W1 gives a flat n_g of about 3.9 over 14.8% fractional bandwidth; engineered first rows (D1, D2) raise n_g by 7-14% but narrow the +-10% band to 8.4% and 5.6%. No beam-squint claim is made yet (Phases 4-5 not started).
 
 ## Environment
 
 Uses the `MEEP-GPU` conda env (MEEP 1.33.0-beta with MPI, MPB via `meep.mpb`, NumPy 1.24.3, SciPy 1.11.1, Matplotlib 3.10.6,
 pandas 2.0.3, pytest 7.4.0). Versions are recorded in `environment/env_versions.json`; `environment/environment.yml` is the export.
+
+## Reproduce Phase 3
+
+```bash
+PY=~/miniconda3/envs/MEEP-GPU/bin/python
+cd experiments/phase3
+$PY 3a_mpb_designs.py && $PY 3c_mpb_res.py && $PY 3d_mpb_analyze.py       # MPB (about 20 min)
+for d in "D0 1.0 0.0" "D1 1.2 -0.05" "D2 1.2 -0.10"; do set -- $d; $PY 3b_fdtd.py $1 30 $2 $3 4 8 12 & done; wait   # ~1 h; res 40 confirmation: ~2-3 h
+for d in D0 D1 D2; do $PY 3e_analyze.py $d 30; $PY 3e_analyze.py $d 40; done
+$PY 3g_tables.py && $PY 3f_figures.py
+```
 
 ## Reproduce Phase 1 (verification ladder)
 

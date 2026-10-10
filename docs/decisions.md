@@ -34,3 +34,11 @@ filenames, literal quotations, and similar machine-facing values.
 **D5. Phase 1 scope.** FDTD verification only: (A) vacuum, (B) homogeneous dielectric, (C) 1-D Bragg stack vs transfer-matrix
 method, (D) finite 2-D bulk photonic-crystal stop band vs MPB, with r/a = 0.30. No W1 / slow-light device simulation until the
 Phase 1 checkpoint is reviewed.
+
+## 2026-10-10 — Phase 3 (dispersion engineering / delay-bandwidth trade study)
+
+**D6. Phase 3 outcome: PASS WITH RESTRICTIONS; Phase 4 candidate = D0 (plain W1).** Engineered first rows (D1, D2) raise n_g by only 7% and 14% inside the flat region and cost 43% and 62% of the +-10% usable fractional bandwidth
+(FDTD, validated range 0.231-0.268: D0 14.8%, D1 8.4%, D2 5.6%) with 4-8 times higher GDD; transmission and reflection inside the bands are not the problem (T >= 0.987, R <= 1%). See `docs/phase3_report.md`.
+Restrictions: FDTD-validated claims are limited to 0.231-0.268 (the Phase 2 post hoc boundary, which also bounds every primary band); FDTD pointwise GDD is noise-limited; R is MPB only.
+**D7. Target delay for the length metric:** 25 carrier cycles at each band center (criteria Revision 3, 2026-10-09, before the Phase 3 FDTD results).
+**D8. Bug fixed:** `w1fdtd.hole_list` discarded the sign of s (negative s became outward); first D1/D2 runs discarded and re-run; regression test added (`tests/test_w1fdtd_geometry.py`).

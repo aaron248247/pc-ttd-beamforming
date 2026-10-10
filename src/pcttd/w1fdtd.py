@@ -84,7 +84,7 @@ def hole_list(cfg: W1Cfg):
             rad, y = cfg.r, y0
             if abs(j) == 1 and 0.0 <= x < cfg.N:
                 rad = cfg.f1 * cfg.r
-                y = y0 + math.copysign(cfg.s, j)
+                y = y0 + math.copysign(1.0, j) * cfg.s        # same convention as geometry.triangular_w1: positive s = outward
             holes.append((x, y, rad))
     return holes
 
