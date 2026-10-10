@@ -1,0 +1,104 @@
+{
+ "source": "results/phase4/4b_res30.npz (production, res 30; res 40 confirmation arrays carry the suffix _res40)",
+ "sign_convention": "MEEP exp(-i omega t), MEEP_SIGN = +1: a delay tau multiplies a monochromatic signal by exp(+i 2 pi f tau); tau_g = +d arg H / d omega; ideal TTD channel relative to channel 0: H_m/H_0 = exp(+i 2 pi f m dtau_target); array factor AF = sum_m H_m exp(-i k0 x_m sin(theta)) (pcttd.array)",
+ "H_definition": "H_m(f) = S21_m = a_f(out)/a_f(in), guided-mode amplitudes at x = -3 and x = N_m + 3 of the directly simulated D0 device with N_m periods; includes the full propagation phase over N_m + 6 periods; nothing de-embedded; channel 0 is the reference for relative phases",
+ "H_trim_definition": "H_trim_m = H_raw_m exp(-i trim_delta_m); trim_delta_m = raw phase error at f0 (one frequency-independent constant per channel; amplitude and group delay untouched)",
+ "labels": "H_raw = raw PhC; H_trim = phase-intercept-trimmed PhC (never call either ideal TTD)",
+ "N": [
+  8,
+  9,
+  10,
+  11
+ ],
+ "N0": 8,
+ "dN": 1,
+ "f0": 0.2495,
+ "dtau_target": 3.9323,
+ "validated_domain": [
+  0.231,
+  0.268
+ ],
+ "common_band": [
+  0.231,
+  0.268
+ ],
+ "common_band_definition": "4b_res30.json bands.primary_poly_tol10 (see report for the final gate band)",
+ "frequency_grid": "0.220-0.275 step 5e-4 (111 points); use mask_common / mask_validated_domain",
+ "run_config": {
+  "N": 8,
+  "r": 0.3,
+  "f1": 1.0,
+  "s": 0.0,
+  "eps": 12.0,
+  "J": 6,
+  "J_pml": 2,
+  "res": 30,
+  "d_mon": 3,
+  "d_src": 10,
+  "lead_pad": 2,
+  "dpml_x": 3,
+  "dpml_y": 1.5,
+  "fcen": 0.2475,
+  "fwidth": 0.25,
+  "decay_tol": 1e-07,
+  "min_after": 3500.0,
+  "max_time": 30000.0,
+  "freqs": [
+   0.22,
+   0.275,
+   111
+  ]
+ },
+ "run_provenance": {
+  "8": {
+   "timestamp_utc": "2026-10-10T18:46:46+00:00",
+   "git_head": "7a24234b2dd9ec4414c25b07284b0b0258cee8dc",
+   "git_dirty": true,
+   "code_dirty": true,
+   "meep": "1.33.0-beta",
+   "numpy": "1.24.3",
+   "scipy": "1.11.1"
+  },
+  "9": {
+   "timestamp_utc": "2026-10-10T18:26:02+00:00",
+   "git_head": "7a24234b2dd9ec4414c25b07284b0b0258cee8dc",
+   "git_dirty": true,
+   "code_dirty": true,
+   "meep": "1.33.0-beta",
+   "numpy": "1.24.3",
+   "scipy": "1.11.1"
+  },
+  "10": {
+   "timestamp_utc": "2026-10-10T18:32:17+00:00",
+   "git_head": "7a24234b2dd9ec4414c25b07284b0b0258cee8dc",
+   "git_dirty": true,
+   "code_dirty": true,
+   "meep": "1.33.0-beta",
+   "numpy": "1.24.3",
+   "scipy": "1.11.1"
+  },
+  "11": {
+   "timestamp_utc": "2026-10-10T18:51:33+00:00",
+   "git_head": "7a24234b2dd9ec4414c25b07284b0b0258cee8dc",
+   "git_dirty": true,
+   "code_dirty": true,
+   "meep": "1.33.0-beta",
+   "numpy": "1.24.3",
+   "scipy": "1.11.1"
+  }
+ },
+ "analysis_provenance": {
+  "timestamp_utc": "2026-10-10T20:06:34+00:00",
+  "git_head": "1998eefef61b8c5d3793f68cc72b4314c908789b",
+  "git_dirty": true,
+  "code_dirty": true,
+  "meep": "1.33.0-beta",
+  "numpy": "1.24.3",
+  "scipy": "1.11.1"
+ },
+ "restrictions": [
+  "quantitative claims only inside mask_validated_domain (0.231-0.268, post hoc Phase 2 validation limit)",
+  "delay granularity: one period ~ one carrier cycle",
+  "pointwise delay/GDD from H is noise-limited"
+ ]
+}

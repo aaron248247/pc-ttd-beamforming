@@ -13,9 +13,12 @@ The answer is not assumed to be favorable. See [docs/research_plan.md](docs/rese
 | 1 FDTD verification ladder | done and accepted — [docs/phase1_report.md](docs/phase1_report.md) |
 | 2 Finite W1 guided-wave verification | gate passed with a documented restriction — [docs/phase2_report.md](docs/phase2_report.md) |
 | 3 Dispersion engineering / delay-bandwidth trade study | gate passed with restrictions (candidate for Phase 4: plain W1) — [docs/phase3_report.md](docs/phase3_report.md) |
-| 4–7 | not started (4: TTD channel family, 5: array, 6: robustness, 7: documentation) |
+| 4 Four-channel TTD family (D0, N = 8-11) | gate passed with restrictions — [docs/phase4_report.md](docs/phase4_report.md); handoff `results/phase4/phase4_handoff.npz`; Phase 5 awaits authorization |
+| 5–7 | not started (5: array, 6: robustness, 7: documentation) |
 
-Phase 3 result (3 designs, a tradeoff illustration): in the FDTD-validated range 0.231-0.268 the plain W1 gives a flat n_g of about 3.9 over 14.8% fractional bandwidth; engineered first rows (D1, D2) raise n_g by 7-14% but narrow the +-10% band to 8.4% and 5.6%. No beam-squint claim is made yet (Phases 4-5 not started).
+Phase 3 result (3 designs, a tradeoff illustration): in the FDTD-validated range 0.231-0.268 the plain W1 gives a flat n_g of about 3.9 over 14.8% fractional bandwidth; engineered first rows (D1, D2) raise n_g by 7-14% but narrow the +-10% band to 8.4% and 5.6%. No beam-squint claim is made yet (Phase 5 not started).
+
+Phase 4 result (four directly simulated D0 channels, N = 8, 9, 10, 11): adjacent delay steps equal the 3.93 a/c target to better than 0.2% (band-fit) over the validated 0.231-0.268 band (14.8%, domain-limited), amplitude imbalance <= 0.023 dB, T >= 0.997; the raw channels carry a large frequency-independent phase intercept error (up to 2.7 rad), and after one constant trim per channel at f0 the residual phase error is <= 0.026 rad. One lattice period is about one carrier cycle of delay. See the report for the restrictions.
 
 ## Environment
 
@@ -31,6 +34,16 @@ $PY 3a_mpb_designs.py && $PY 3c_mpb_res.py && $PY 3d_mpb_analyze.py       # MPB 
 for d in "D0 1.0 0.0" "D1 1.2 -0.05" "D2 1.2 -0.10"; do set -- $d; $PY 3b_fdtd.py $1 30 $2 $3 4 8 12 & done; wait   # ~1 h; res 40 confirmation: ~2-3 h
 for d in D0 D1 D2; do $PY 3e_analyze.py $d 30; $PY 3e_analyze.py $d 40; done
 $PY 3g_tables.py && $PY 3f_figures.py
+```
+
+## Reproduce Phase 4
+
+```bash
+PY=~/miniconda3/envs/MEEP-GPU/bin/python
+cd experiments/phase4
+$PY 4a_fdtd.py 30 --min_after=3500 & $PY 4a_fdtd.py 40 --min_after=3500 & wait    # 8 runs in parallel; about 2 h (res 30) and 3.5 h (res 40)
+$PY 4b_analyze.py 30; $PY 4b_analyze.py 40; $PY 4c_resolution_handoff.py --handoff
+$PY 4e_tables.py && $PY 4d_figures.py
 ```
 
 ## Reproduce Phase 1 (verification ladder)

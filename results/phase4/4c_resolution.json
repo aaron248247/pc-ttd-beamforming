@@ -1,0 +1,72 @@
+{
+ "rule": "criteria Revision 4 item 8",
+ "checks": {},
+ "band_res30": [
+  0.231,
+  0.268
+ ],
+ "band_res40": [
+  0.231,
+  0.268
+ ],
+ "mean_increment_change_over_target_valid_domain_poly": [
+  0.001278638914379836,
+  0.0011570527740995282,
+  0.0014811303672055275
+ ],
+ "mean_increment_change_over_target_valid_domain_central": [
+  0.0011207321167502745,
+  0.001725813283693907,
+  0.00015603486092004577
+ ],
+ "amp_imbalance_db_max_valid": [
+  0.022660456296804514,
+  0.022101495184247026
+ ],
+ "trim_delta_res30": [
+  0.0,
+  -1.2035475829850908,
+  -2.4075009862375385,
+  2.672544907457958
+ ],
+ "trim_delta_res40": [
+  0.0,
+  -1.204580057715381,
+  -2.408460650753785,
+  2.6688439221568743
+ ],
+ "eps_trim_max_valid": [
+  0.025969920299065308,
+  0.024477539492195888
+ ],
+ "eps_raw_diff_max_valid": 0.005829982482310925,
+ "max_abs_phase_diff_rel_valid": 0.0058299824823105665,
+ "max_amp_rel_diff_valid": 0.002119142858969969,
+ "t_end_res30": {
+  "8": 4586.1,
+  "9": 3523.95,
+  "10": 3633.45,
+  "11": 4443.75
+ },
+ "t_end_res40": {
+  "8": 4495.3125,
+  "9": 4400.7375,
+  "10": 4964.55,
+  "11": 3582.3
+ },
+ "tests": {
+  "mean_inc_change_le_2pct": true,
+  "band_edges_move_le_0p002": true,
+  "imbalance_change_le_0p1dB": true,
+  "eps_trim_change_le_0p1rad": true
+ },
+ "provenance": {
+  "timestamp_utc": "2026-10-10T20:06:34+00:00",
+  "git_head": "1998eefef61b8c5d3793f68cc72b4314c908789b",
+  "git_dirty": true,
+  "code_dirty": true,
+  "meep": "1.33.0-beta",
+  "numpy": "1.24.3",
+  "scipy": "1.11.1"
+ }
+}

@@ -82,8 +82,11 @@ def band_stats(out, f, i0, i1, delta, eps_raw, eps_trim, inc_key="inc"):
     d["inc_band_mean_rel_err"] = [float(np.mean(r) / DTAU_TARGET - 1) for r in inc]
     d["inc_fit_slope"] = [float(np.polyfit(w[sl], np.unwrap(np.angle(out["H"][m + 1, sl] / out["H"][m, sl])), 1)[0]) for m in range(3)]
     _, rel = C.delay_error(out["Dtau"], DTAU_TARGET)
-    d["Dtau_rel_err_max"] = [None] + [float(np.max(np.abs(rel[m, sl]))) for m in range(1, 4)]
-    d["Dtau_f0"] = [float(out["Dtau"][m, int(np.argmin(abs(f - F0)))]) for m in range(4)]
+    d["Dtau_rel_err_max_central"] = [None] + [float(np.max(np.abs(rel[m, sl]))) for m in range(1, 4)]
+    _, relp = C.delay_error(out["Dtau_poly"], DTAU_TARGET)
+    d["Dtau_rel_err_max"] = [None] + [float(np.max(np.abs(relp[m, sl]))) for m in range(1, 4)]
+    d["Dtau_f0"] = [float(out["Dtau_poly"][m, int(np.argmin(abs(f - F0)))]) for m in range(4)]
+    d["Dtau_band_fit"] = [0.0] + [float(np.polyfit(w[sl], out["phi_rel"][m, sl], 1)[0]) for m in range(1, 4)]
     d["eps_raw_max"] = [float(np.max(np.abs(eps_raw[m, sl]))) for m in range(4)]
     d["eps_trim_max"] = [float(np.max(np.abs(eps_trim[m, sl]))) for m in range(4)]
     d["eps_raw_max_all"] = float(max(d["eps_raw_max"])); d["eps_trim_max_all"] = float(max(d["eps_trim_max"]))

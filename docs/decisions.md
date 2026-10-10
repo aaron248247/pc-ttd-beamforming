@@ -42,3 +42,10 @@ Phase 1 checkpoint is reviewed.
 Restrictions: FDTD-validated claims are limited to 0.231-0.268 (the Phase 2 post hoc boundary, which also bounds every primary band); FDTD pointwise GDD is noise-limited; R is MPB only.
 **D7. Target delay for the length metric:** 25 carrier cycles at each band center (criteria Revision 3, 2026-10-09, before the Phase 3 FDTD results).
 **D8. Bug fixed:** `w1fdtd.hole_list` discarded the sign of s (negative s became outward); first D1/D2 runs discarded and re-run; regression test added (`tests/test_w1fdtd_geometry.py`).
+
+## 2026-10-10 — Phase 4 (four-channel TTD family)
+
+**D9. Phase 4 outcome: PASS WITH RESTRICTIONS; Phase 5 not yet authorized.** Four directly simulated D0 channels, N0 = 8, dN = 1 (declared before any Phase 4 FDTD), target step 3.9323 a/c, f0 = 0.2495. Common usable band 0.231-0.268 (14.8%, domain-limited by the post hoc Phase 2 validation limit); band-fit adjacent steps within 0.2% of target, amplitude imbalance <= 0.023 dB, T >= 0.997, raw phase intercept errors up to 2.68 rad, trimmed (one constant per channel at f0) <= 0.026 rad, cascade agreement <= 0.006 rad, res 30 vs 40 agreement 0.006 rad. See `docs/phase4_report.md`; handoff `results/phase4/phase4_handoff.npz`.
+Phase 3 history is unchanged: D0 was selected because D1/D2 traded too much bandwidth for modest extra delay.
+**D10. Method change (criteria Revision 5):** `stop_when_dft_decayed` alone gave erratic, under-converged stop times; all Phase 4 runs use a common minimum run time of 3500 after the source (first attempt discarded, kept as `raw_attempt1`).
+**D11. Estimator change (criteria Revision 5, post hoc, disclosed):** the band criterion on adjacent increments uses the local-quadratic estimator; the pre-declared pointwise central difference is noise-limited (5.5-7.5% rms at one-period spacing) and is reported alongside.
