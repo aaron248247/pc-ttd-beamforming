@@ -1,128 +1,650 @@
 # pc-ttd-beamforming
 
-Computational study of **plain W1 photonic-crystal (PhC) line-defect waveguides as delay lines for broadband phased-array beamforming**, including a conventional-waveguide
-(MPB-only) reference. The project started from the question of dispersion-engineered PhC true-time-delay elements ([docs/research_plan.md](docs/research_plan.md)); the engineered first-row variants were
-tested in Phase 3 and rejected, so the final device is the plain W1 and "dispersion-engineered" is not used for it. Final claim (2-D, lossless, simulation only): four-channel PhC delay lines with one constant phase trim per channel
-reduce beam squint when used at subarray level (Msub = 4, 30 deg); at element level they cannot be used because of grating lobes. See [docs/final_report.md](docs/final_report.md),
-[docs/manuscript_draft.md](docs/manuscript_draft.md), [docs/executive_summary.md](docs/executive_summary.md), [docs/phase7_audit.md](docs/phase7_audit.md), [docs/final_tables.md](docs/final_tables.md), [docs/reproducibility.md](docs/reproducibility.md).
+**Computational electromagnetics study of W1 photonic-crystal delay lines for phased-array beamforming using MPB, MEEP/FDTD, complex transfer-function extraction, and array-level modeling.**
 
-## Status
+<p align="center">
+  <img src="figures/final/fig08_pointing.png" width="850" alt="Beam pointing versus frequency for fixed-phase, ideal-TTD, and photonic-crystal subarray cases">
+</p>
 
-| Phase | State |
-|---|---|
-| 0 Research design | done ([docs/research_plan.md](docs/research_plan.md)) |
-| 0.5 Geometry selection (MPB) | done and approved — [docs/phase0p5_report.md](docs/phase0p5_report.md); decisions in [docs/decisions.md](docs/decisions.md) |
-| 1 FDTD verification ladder | done and accepted — [docs/phase1_report.md](docs/phase1_report.md) |
-| 2 Finite W1 guided-wave verification | gate passed with a documented restriction — [docs/phase2_report.md](docs/phase2_report.md) |
-| 3 Delay-bandwidth trade study (plain W1 vs two first-row variants) | gate passed with restrictions (plain W1 selected) — [docs/phase3_report.md](docs/phase3_report.md) |
-| 4 Four-channel delay family (D0, N = 8-11) | gate passed with restrictions — [docs/phase4_report.md](docs/phase4_report.md); handoff `results/phase4/phase4_handoff.npz` |
-| 5 Four-element array with the actual Phase 4 transfer functions | gate passed with restrictions — [docs/phase5_report.md](docs/phase5_report.md); handoff `results/phase5/phase5_handoff.npz` |
-| 6 Delay-granularity mitigation (subarrays) and robustness | gate passed with restrictions — [docs/phase6_report.md](docs/phase6_report.md); handoff `results/phase6/phase6_handoff.npz` |
-| 7 Final synthesis, audit, manuscript draft | done — [docs/phase7_audit.md](docs/phase7_audit.md); handoff `results/final/final_handoff.json`; arXiv-readiness B (nearly ready; literature positioning and conventional-line comparison outstanding) |
+## Overview
 
-Phase 3 result (3 designs, a tradeoff illustration): in the FDTD-validated range 0.231-0.268 the plain W1 gives a flat n_g of about 3.9 over 14.8% fractional bandwidth (a domain-limited lower bound); engineered first rows (D1, D2) raise n_g by 7-14% but narrow the +-10% band to 8.4% and 5.6%.
+This project investigates whether a physically simulated W1 photonic-crystal (PhC) waveguide can provide useful true-time-delay behavior for wideband phased-array beamforming.
 
-Phase 4 result (four directly simulated D0 channels, N = 8, 9, 10, 11): adjacent delay steps equal the 3.93 a/c target to better than 0.2% (band-fit) over the validated 0.231-0.268 band, amplitude imbalance <= 0.023 dB, T >= 0.997; the raw channels carry a large frequency-independent phase intercept error (up to 2.7 rad), and after one constant trim per channel at f0 the residual phase error is <= 0.026 rad. One lattice period is about one carrier cycle of delay.
+The study follows the full computational chain
 
-Phase 5 result (element-level, four elements, d = 1.96 lambda0, 30 deg): fixed phase squints by +2.69/-2.26 deg; the phase-intercept-trimmed PhC stays within 0.05 deg of ideal TTD (R_squint 0.019); but the sparse pitch forced by the delay quantum gives grating lobes as strong as the design lobe. Superseded in practice by Phase 6.
+$$
+\text{Maxwell / FDTD}
+\rightarrow H(f)
+\rightarrow \phi(f)
+\rightarrow \tau_g
+\rightarrow \text{channel delays}
+\rightarrow \text{array factor}
+\rightarrow \theta(f),
+$$
 
-Phase 6 result: Msub = 4 subarray-level TTD matches the one-period PhC delay (0.981 cycle) to the required 1.000 cycle within 1.9%; trimmed max pointing error 0.189 deg (fixed phase 2.69 deg), R_squint 0.070, strongest sidelobe -12.4 dB, strongest subarray replica lobe -16.6 dB; system-level combined P95 error 0.35 deg. Domain-limited, lossless 2-D model; see all restrictions in the reports.
+rather than assuming ideal delay elements at the array level.
 
-## Environment
+The central result is a **negative-to-positive architecture case study**:
 
-Uses the `MEEP-GPU` conda env (MEEP 1.33.0-beta with MPI, MPB via `meep.mpb`, NumPy 1.24.3, SciPy 1.11.1, Matplotlib 3.10.6,
-pandas 2.0.3, pytest 7.4.0). Versions are recorded in `environment/env_versions.json`; `environment/environment.yml` is the export.
+- At **element level**, the available W1 delay step is too coarse for $\lambda_0/2$ steering and forces a sparse effective array pitch with approximately 0 dB grating lobes.
+- At **subarray level**, the same delay step is close to the required delay for four-element $\lambda_0/2$ subarrays near $30^\circ$, substantially reducing beam squint relative to fixed-phase steering.
 
-## Reproduce Phase 3
+This is a **2-D, lossless computational study**. It is not an experimental demonstration and does not claim a new true-time-delay architecture or new photonic-crystal physics.
+
+---
+
+## Key Results
+
+For the selected plain W1 waveguide:
+
+- validated normalized-frequency range: **0.231–0.268 $c/a$**
+- fractional bandwidth: **14.8%**
+- group index: approximately **3.9**
+- one lattice period provides approximately **0.981 carrier cycle** of delay
+- four directly simulated channels use lengths **$N=8,9,10,11$**
+
+### Element-Level Result
+
+For a four-element array steered to $30^\circ$:
+
+- required delay at $\lambda_0/2$ spacing: approximately **0.25 cycle per element**
+- available W1 delay increment: approximately **0.981 cycle**
+- corresponding effective pitch: approximately **1.96 $\lambda_0$**
+- result: grating lobes approximately as strong as the design lobe
+
+The PhC channels reproduce the desired delay slope well after phase trimming, but the delay granularity is incompatible with element-level spatial sampling.
+
+This is the principal negative result of the study: a delay line can exhibit good electromagnetic delay behavior while still being unsuitable for a particular phased-array architecture.
+
+### Subarray-Level Result
+
+The same W1 delay increment becomes useful when applied between four-element $\lambda_0/2$ subarrays.
+
+At a nominal steering angle of $30^\circ$:
+
+- required adjacent-subarray delay: **1.000 carrier cycle**
+- available W1 delay: **0.981 carrier cycle**
+- delay mismatch: approximately **−1.9%**
+- exact analytic match angle: **29.377°**
+- maximum PhC pointing error over the validated band: **0.189°**
+- fixed-phase maximum pointing error: **2.69°**
+- squint ratio: **$R_{\mathrm{squint}}=0.070$**
+- strongest ordinary sidelobe: approximately **−12.4 dB**
+- strongest subarray replica lobe: approximately **−16.6 dB**
+
+The useful angular range is narrow. Under the stricter post hoc criteria, the principal useful window is approximately
+
+$$
+26^\circ \leq \theta_0 \leq 34^\circ.
+$$
+
+<p align="center">
+  <img src="figures/final/fig10_angle_sweep.png" width="850" alt="Steering-angle sweep showing the useful operating region for the photonic-crystal delay family">
+</p>
+
+---
+
+## What the Project Demonstrates
+
+The main engineering lesson is that **delay-line performance cannot be evaluated independently of array geometry**.
+
+A delay increment can be
+
+- physically well behaved,
+- accurately modeled,
+- nearly linear in phase versus frequency,
+
+and still be unusable at the element level because its minimum delay step is incompatible with the required spatial sampling.
+
+The same physical delay increment can become useful when it is applied at a different hierarchy level in the array.
+
+For half-wave-spaced antenna elements, the required adjacent-subarray delay in carrier cycles is
+
+$$
+q_{\mathrm{req}}
+=
+\frac{M_{\mathrm{sub}}\sin\theta_0}{2},
+$$
+
+while a $k$-period W1 increment provides
+
+$$
+q_{\mathrm{PhC}}
+=
+k f_0 \tau_{\mathrm{PhC}}.
+$$
+
+The matching condition is therefore
+
+$$
+\frac{M_{\mathrm{sub}}\sin\theta_{\mathrm{match}}}{2}
+=
+k f_0 \tau_{\mathrm{PhC}}.
+$$
+
+This relation follows from standard phased-array theory. The contribution of this computational study is to examine the consequences of that relationship using complex transfer functions extracted from a verified full-wave W1 model rather than assuming ideal delay elements.
+
+---
+
+## Numerical Workflow
+
+The project uses a verification-first computational workflow.
+
+### 1. Electromagnetic Verification
+
+Before using the W1 structure as a delay element, the numerical workflow is checked against simpler electromagnetic references.
+
+Verification includes:
+
+- vacuum propagation
+- homogeneous dielectric propagation
+- quarter-wave Bragg stack versus transfer-matrix theory
+- finite photonic-crystal stop bands versus MPB band structure
+- W1 group delay versus MPB group index
+- time-domain pulse propagation versus phase-derived delay
+- resolution and domain-sensitivity studies
+
+These tests establish the numerical conventions used later in the delay-line and array calculations.
+
+### 2. W1 Delay-Line Modeling
+
+The selected device is a W1 line defect in a triangular lattice of air holes in a dielectric with
+
+$$
+\epsilon_r=12.
+$$
+
+The study uses TE polarization.
+
+**MPB** is used for:
+
+- photonic band structure
+- guided-mode identification
+- group index
+- frequency-window selection
+
+**MEEP/FDTD** is used for:
+
+- finite-device propagation
+- modal transmission
+- complex transfer-function extraction
+- convergence and domain studies
+
+The Phase 3 trade study compares a plain W1 geometry with two first-row modifications.
+
+Within the FDTD-validated frequency range, the plain W1 provides a group index of approximately 3.9 across the full 14.8% domain-limited bandwidth. The modified geometries increase group index by approximately 7–14%, but reduce the corresponding $\pm10\%$ group-index bandwidth to approximately 8.4% and 5.6%.
+
+The plain W1 is therefore retained for the final channel family.
+
+### 3. Complex Transfer-Function Extraction
+
+For each simulated channel,
+
+$$
+H_m(f)
+=
+|H_m(f)|e^{i\phi_m(f)}
+$$
+
+is extracted from the projected guided mode.
+
+Using the time convention
+
+$$
+e^{-i\omega t},
+$$
+
+a positive propagation delay corresponds to
+
+$$
+e^{+i\omega\tau}.
+$$
+
+The group delay is obtained from the phase slope,
+
+$$
+\tau_g
+=
+\frac{d\phi}{d\omega}.
+$$
+
+Four channels with lengths
+
+$$
+N=8,9,10,11
+$$
+
+are simulated directly.
+
+Across the validated band:
+
+- adjacent fitted delay increments reproduce the target delay step to better than approximately **0.2%**
+- amplitude imbalance is no greater than approximately **0.023 dB**
+- transmission is at least approximately **0.997**
+- the raw channels contain a large frequency-independent phase-intercept error
+- one constant phase trim per channel reduces the residual phase error to approximately **0.026 rad or less**
+
+The phase trim changes the phase intercept but not the phase slope, and therefore does not alter the group delay.
+
+### 4. Array-Level Modeling
+
+The simulated complex channel responses are propagated directly into the array model as frequency-dependent weights.
+
+The array analysis evaluates:
+
+- beam pointing
+- beam squint
+- peak power
+- half-power beamwidth
+- sidelobes
+- grating lobes
+- subarray replica lobes
+- phase perturbations
+- delay perturbations
+- amplitude perturbations
+- system-level Monte Carlo robustness
+
+This allows the electromagnetic delay-line model and the phased-array model to remain connected through the actual simulated transfer functions.
+
+---
+
+## Element-Level Limitation
+
+At the design angle of $30^\circ$, a half-wave-spaced element array requires an adjacent-element true-time-delay increment of approximately one quarter of a carrier cycle.
+
+The simulated W1 structure instead provides approximately one carrier cycle per lattice-period increment.
+
+Using that delay directly between individual antenna elements requires an effective spacing of approximately
+
+$$
+d \approx 1.96\lambda_0.
+$$
+
+Although the frequency-dependent pointing behavior closely follows ideal true-time delay after phase trimming, this sparse spacing produces grating lobes as strong as the intended beam.
+
+The element-level architecture is therefore rejected.
+
+<p align="center">
+  <img src="figures/final/fig05_phase5_limit.png" width="850" alt="Element-level beamforming limitation caused by the photonic-crystal delay increment">
+</p>
+
+---
+
+## Subarray Mitigation
+
+The delay-granularity problem is mitigated by applying the W1 delay between subarrays rather than between individual antenna elements.
+
+For a four-element subarray,
+
+$$
+M_{\mathrm{sub}}=4,
+$$
+
+the required delay near $30^\circ$ is approximately one carrier cycle, which closely matches the simulated one-period W1 delay.
+
+This changes the role of the PhC device:
+
+- conventional phase relationships are retained within each half-wave-spaced subarray
+- the PhC delay is applied between subarrays
+- the coarse delay step is therefore matched to a larger spatial interval
+
+The resulting architecture avoids the approximately 0 dB element-level grating-lobe failure while retaining much of the beam-squint reduction associated with true-time-delay steering.
+
+<p align="center">
+  <img src="figures/final/fig06_architecture.png" width="850" alt="Subarray beamforming architecture using photonic-crystal delay lines between subarrays">
+</p>
+
+---
+
+## Robustness
+
+The final architecture is evaluated under perturbations to:
+
+- phase
+- delay
+- amplitude
+
+as well as combined Monte Carlo perturbations.
+
+For the selected $M_{\mathrm{sub}}=4$ configuration, the combined system-level Monte Carlo analysis gives a **95th-percentile pointing error of approximately 0.35°** under the modeled perturbation assumptions.
+
+The robustness analysis is computational and does not substitute for a fabrication-tolerance or experimental uncertainty study.
+
+See:
+
+- [`docs/phase6_report.md`](docs/phase6_report.md)
+- [`docs/phase6_report_tables.md`](docs/phase6_report_tables.md)
+
+---
+
+## Conventional Propagation Reference
+
+A propagation-length comparison was added to place the W1 delay in context.
+
+For one carrier cycle of delay at the design frequency:
+
+| Medium | Group index | Required length |
+|---|---:|---:|
+| Air | 1.000 | $1.000\,\lambda_0$ |
+| Ideal homogeneous $\epsilon_r=12$ dielectric | 3.464 | $0.2887\,\lambda_0$ |
+| Selected W1 | 3.932 | $0.2543\,\lambda_0$ |
+
+The selected W1 is therefore only approximately **11.9% shorter** than the ideal homogeneous high-index propagation reference.
+
+This is a length-only comparison. It does not include:
+
+- waveguide width
+- cladding
+- bends
+- couplers
+- propagation loss
+- fabrication constraints
+- system integration
+
+The project therefore does **not** claim a large general footprint advantage over conventional high-index propagation.
+
+---
+
+## Verification and Reproducibility
+
+The current test suite contains **211 passing tests**.
+
+The code includes analytic, numerical, and regression checks covering:
+
+- homogeneous propagation
+- Fresnel behavior
+- transfer-matrix comparisons
+- FDTD convergence
+- MPB/FDTD consistency
+- modal transfer-function extraction
+- phase and delay conventions
+- array-factor calculations
+- final-result reproducibility
+
+The production environment is recorded in:
+
+- `environment/environment.yml`
+- `environment/env_versions.json`
+
+Primary environment:
+
+- Python 3.10
+- MEEP 1.33.0-beta
+- MPB through `meep.mpb`
+- NumPy 1.24.3
+- SciPy 1.11.1
+- Matplotlib 3.10.6
+- pandas 2.0.3
+- pytest 7.4.0
+
+To run the test suite:
 
 ```bash
 PY=~/miniconda3/envs/MEEP-GPU/bin/python
-cd experiments/phase3
-$PY 3a_mpb_designs.py && $PY 3c_mpb_res.py && $PY 3d_mpb_analyze.py       # MPB (about 20 min)
-for d in "D0 1.0 0.0" "D1 1.2 -0.05" "D2 1.2 -0.10"; do set -- $d; $PY 3b_fdtd.py $1 30 $2 $3 4 8 12 & done; wait   # ~1 h; res 40 confirmation: ~2-3 h
-for d in D0 D1 D2; do $PY 3e_analyze.py $d 30; $PY 3e_analyze.py $d 40; done
-$PY 3g_tables.py && $PY 3f_figures.py
+cd ~/MEEP/pc-ttd-beamforming
+$PY -m pytest -q
 ```
 
-## Reproduce Phase 5
+Detailed reproduction instructions are provided in:
 
-```
-cd experiments/phase5
-$PY 5a_array.py && $PY 5b_figures.py && $PY 5c_tables.py && $PY 5d_handoff.py   # needs results/phase4/phase4_handoff.npz
-```
+[`docs/reproducibility.md`](docs/reproducibility.md)
 
-## Reproduce Phase 4
+---
+
+## Reproducing the Main Computational Stages
+
+The full project was developed in sequential verification and modeling stages. The principal scripts are retained so that intermediate results can be reproduced independently.
+
+### Phase 1 — FDTD Verification
 
 ```bash
 PY=~/miniconda3/envs/MEEP-GPU/bin/python
-cd experiments/phase4
-$PY 4a_fdtd.py 30 --min_after=3500 & $PY 4a_fdtd.py 40 --min_after=3500 & wait    # 8 runs in parallel; about 2 h (res 30) and 3.5 h (res 40)
-$PY 4b_analyze.py 30; $PY 4b_analyze.py 40; $PY 4c_resolution_handoff.py --handoff
-$PY 4e_tables.py && $PY 4d_figures.py
-```
 
-## Reproduce Phase 1 (verification ladder)
+$PY -m pytest
 
-```bash
-PY=~/miniconda3/envs/MEEP-GPU/bin/python
-$PY -m pytest                                        # all tests (pure-Python, MPB, MEEP markers)
 cd experiments/phase1
-$PY 1a_vacuum.py && $PY 1b_dielectric.py             # minutes
-$PY 1d_mpb_directional.py                            # a few minutes (MPB, res 32/64/128)
-$PY 1c_bragg.py                                      # ~25 min (TMM vs MEEP, many studies)
-$PY 1d_pc2d.py                                       # ~1 h (2-D single-length sensitivity studies)
-$PY 1d_attenuation.py                                # ~1.5 h (N = 6..16 x ny = 24..48, minimum run time 20000)
-$PY 1d_termination.py && $PY 1d_termination.py 12 16 # ~25 min each
-$PY 1d_edges.py && $PY report.py && $PY make_figures.py
+
+$PY 1a_vacuum.py
+$PY 1b_dielectric.py
+$PY 1d_mpb_directional.py
+$PY 1c_bragg.py
+$PY 1d_pc2d.py
+$PY 1d_attenuation.py
+$PY 1d_termination.py
+$PY 1d_edges.py
+$PY report.py
+$PY make_figures.py
 ```
 
-Methods and derivations: [docs/phase1_methods.md](docs/phase1_methods.md).
+Methods and derivations:
 
-## Reproduce Phase 0.5
+[`docs/phase1_methods.md`](docs/phase1_methods.md)
+
+### Phase 3 — W1 Trade Study
 
 ```bash
 PY=~/miniconda3/envs/MEEP-GPU/bin/python
-$PY -m pytest                                   # 30 tests (6 need MPB)
-cd experiments/phase0p5
-$PY 01_bulk_gap_scan.py && $PY 01b_bulk_bands.py
-$PY 02_defect_sweep.py                          # H and R; add "H H_r030 extra=20" to re-solve H configs
-$PY 02_defect_sweep.py H H_r030 extra=20
-$PY 02_defect_sweep.py supp                     # R with wider supercell
-$PY 02c_analyze_sweep.py defect_sweep.json && $PY 02c_analyze_sweep.py defect_sweep_supp.json
-$PY 03_select.py && $PY 05_convergence.py H H_r030 R && $PY 04_figures.py && $PY 06_report.py
+
+cd experiments/phase3
+
+$PY 3a_mpb_designs.py
+$PY 3c_mpb_res.py
+$PY 3d_mpb_analyze.py
+
+for d in "D0 1.0 0.0" "D1 1.2 -0.05" "D2 1.2 -0.10"; do
+    set -- $d
+    $PY 3b_fdtd.py $1 30 $2 $3 4 8 12 &
+done
+wait
+
+for d in D0 D1 D2; do
+    $PY 3e_analyze.py $d 30
+    $PY 3e_analyze.py $d 40
+done
+
+$PY 3g_tables.py
+$PY 3f_figures.py
 ```
 
-(`02_defect_sweep.py` uses 10 worker processes; expect ~10–20 min per sweep on 12 cores.)
-
-## Layout
-
-```
-src/pcttd/        geometry.py (W1 supercells)  bands.py (gaps, modes, windows, GBP)  mpb_bands.py (MPB drivers)  io.py
-experiments/      one folder per phase; scripts numbered in run order
-tests/            analytic and regression tests; MPB closed-form checks marked `mpb`
-docs/             research plan, pre-declared criteria (with dated revisions), reports
-results/          machine-readable outputs with provenance; figures/ is regenerated from results/ only
-```
-
-## Data-integrity rule
-
-Every number in the docs is either read from `results/` by a script (`06_report.py` tables) or copied from those tables.
-Planned-but-not-run results are labeled planned.
-
-## Conventions
-
-American English spelling in all prose, comments, and documentation. Normalized units: a = 1, c = 1, frequency f = omega a / (2 pi c) = a/lambda.
-
-## Reproduce Phase 6 (delay-granularity mitigation, robustness)
-
-`experiments/phase6/6a_subarrays.py` (hierarchical subarray arrays, Msub = 1, 2, 4, 8) -> `6b_robustness.py` (perturbation sweeps, Monte Carlo seed 20261010, ~6 min on 10 cores) -> `6c_figures.py` -> `6d_tables.py` -> `6e_handoff.py`.
-Result: PASS WITH RESTRICTIONS; Msub = 4 subarray-level TTD matches the one-period PhC delay to 1.9 % and replaces the Phase 5 grating lobes by sidelobes. See `docs/phase6_report.md`, `docs/phase6_report_tables.md`, `results/phase6/phase6_handoff.*`.
-
-## Phase 7 (final synthesis; no simulation)
+### Phase 4 — Four-Channel Delay Family
 
 ```bash
-cd experiments/phase7
-$PY 7a_final_results.py && $PY 7b_figures.py && $PY 7c_tables.py && $PY 7d_handoff.py
+PY=~/miniconda3/envs/MEEP-GPU/bin/python
+
+cd experiments/phase4
+
+$PY 4a_fdtd.py 30 --min_after=3500 &
+$PY 4a_fdtd.py 40 --min_after=3500 &
+wait
+
+$PY 4b_analyze.py 30
+$PY 4b_analyze.py 40
+$PY 4c_resolution_handoff.py --handoff
+$PY 4e_tables.py
+$PY 4d_figures.py
 ```
 
-Outputs: `results/final/final_results.json`, `figures/final/`, `docs/final_tables.md`, `results/final/final_handoff.json`. Reproduction details and the (inferred) Phase 2 commands: [docs/reproducibility.md](docs/reproducibility.md).
+### Phase 5 — Element-Level Array
+
+```bash
+PY=~/miniconda3/envs/MEEP-GPU/bin/python
+
+cd experiments/phase5
+
+$PY 5a_array.py
+$PY 5b_figures.py
+$PY 5c_tables.py
+$PY 5d_handoff.py
+```
+
+### Phase 6 — Subarray Mitigation and Robustness
+
+The Phase 6 workflow is
+
+```text
+6a_subarrays.py
+    ↓
+6b_robustness.py
+    ↓
+6c_figures.py
+    ↓
+6d_tables.py
+    ↓
+6e_handoff.py
+```
+
+The robustness calculation uses a fixed Monte Carlo seed for reproducibility.
+
+### Phase 7 — Final Synthesis
+
+Phase 7 performs final synthesis from existing results and does not introduce a new electromagnetic simulation campaign.
+
+```bash
+PY=~/miniconda3/envs/MEEP-GPU/bin/python
+
+cd experiments/phase7
+
+$PY 7a_final_results.py
+$PY 7b_figures.py
+$PY 7c_tables.py
+$PY 7d_handoff.py
+```
+
+The later analytic additions include:
+
+```text
+7e_angle_sweep.py
+7f_conventional_reference.py
+```
+
+These use the validated simulation results and do not require new FDTD runs.
+
+---
+
+## Repository Structure
+
+```text
+src/pcttd/
+    reusable geometry, band-structure, transfer-function,
+    delay, and array-analysis code
+
+experiments/
+    numbered simulation and analysis scripts organized
+    by project phase
+
+tests/
+    analytic, numerical, regression, and reproducibility tests
+
+results/
+    machine-readable simulation and analysis outputs
+
+figures/
+    figures regenerated from stored results
+
+docs/
+    research plan, methods, phase reports, final report,
+    manuscript draft, and reproducibility documentation
+
+environment/
+    conda environment specification and recorded package versions
+```
+
+---
+
+## Selected Documentation
+
+For a concise project overview:
+
+- [`docs/executive_summary.md`](docs/executive_summary.md)
+- [`docs/final_report.md`](docs/final_report.md)
+
+For the manuscript-style research narrative:
+
+- [`docs/manuscript_draft.md`](docs/manuscript_draft.md)
+
+For numerical methods and verification:
+
+- [`docs/phase1_methods.md`](docs/phase1_methods.md)
+- [`docs/reproducibility.md`](docs/reproducibility.md)
+
+For final numerical values:
+
+- [`docs/final_tables.md`](docs/final_tables.md)
+
+For the individual computational stages:
+
+- [`docs/phase1_report.md`](docs/phase1_report.md)
+- [`docs/phase2_report.md`](docs/phase2_report.md)
+- [`docs/phase3_report.md`](docs/phase3_report.md)
+- [`docs/phase4_report.md`](docs/phase4_report.md)
+- [`docs/phase5_report.md`](docs/phase5_report.md)
+- [`docs/phase6_report.md`](docs/phase6_report.md)
+
+---
+
+## Data Integrity
+
+Machine-readable results are retained under `results/`.
+
+Figures and final tables are generated from stored computational results rather than manually reconstructed values wherever the project workflow permits.
+
+The repository preserves intermediate phase outputs so that the progression from electromagnetic verification to system-level conclusions can be audited.
+
+Planned calculations that were not executed are distinguished from completed simulation results in the project documentation.
+
+---
+
+## Limitations
+
+The principal limitations of the present study are:
+
+- 2-D electromagnetic model
+- lossless dielectric
+- non-dispersive material model
+- no fabrication disorder
+- no out-of-plane radiation
+- no bends
+- no input/output couplers
+- no channel-to-channel electromagnetic coupling
+- no thermal effects
+- isotropic antenna-element model
+- no antenna mutual coupling
+- four directly simulated delay channels
+- one simulated adjacent-channel delay increment
+- one constant phase trim per channel
+- angle sweep reuses the same validated channel family
+- narrow useful steering-angle range
+- validated normalized-frequency range limited to 0.231–0.268
+- no experimental validation
+
+The results should therefore be interpreted as a **verified computational case study**, not as a demonstration of deployable photonic beamforming hardware.
+
+---
+
+## Project Status
+
+The principal computational investigation is complete.
+
+The repository contains:
+
+- MPB band-structure calculations
+- verified MEEP/FDTD modeling
+- W1 delay-bandwidth trade study
+- directly simulated four-channel delay family
+- complex transfer-function extraction
+- element-level negative result
+- subarray-level mitigation
+- perturbation and Monte Carlo robustness analysis
+- steering-angle sweep
+- conventional propagation reference
+- final synthesis
+- manuscript draft
+- reproducibility documentation
+
+Potential extensions would require a new scope, such as 3-D slab modeling, realistic material loss, disorder, bends, couplers, additional delay increments, full photonic routing, antenna coupling, or experimental validation.
+
+---
+
+## License
+
+This project is distributed under the terms provided in the repository's [`LICENSE`](LICENSE) file.
