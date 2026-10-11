@@ -1,0 +1,63 @@
+{
+ "f0": 0.2495,
+ "lambda0_over_a": 4.008016032064128,
+ "tau_phc_a_over_c": 3.9323,
+ "references": {
+  "air": {
+   "n_g": 1.0,
+   "L_over_lambda0": 1.0,
+   "L_over_a": 4.008016032064128,
+   "relative_length_vs_W1": 3.9323,
+   "length_reduction_of_W1_vs_this_pct": 74.5695903161,
+   "intrinsic_dispersion": "none (assumed)",
+   "needs_constant_phase_trim": false,
+   "delay_selectable_by_length": "continuous",
+   "integer_period_quantum": false
+  },
+  "uniform_eps12": {
+   "n_g": 3.4641016151377544,
+   "L_over_lambda0": 0.2886751345948129,
+   "L_over_a": 1.1570145675142802,
+   "relative_length_vs_W1": 1.135157231767183,
+   "length_reduction_of_W1_vs_this_pct": 11.906476740387205,
+   "intrinsic_dispersion": "none (assumed: ideal nondispersive homogeneous medium, n_g = n_phase = sqrt(12))",
+   "needs_constant_phase_trim": false,
+   "delay_selectable_by_length": "continuous",
+   "integer_period_quantum": false
+  },
+  "W1_PhC": {
+   "n_g": 3.9323,
+   "L_over_lambda0": 0.25430409683900007,
+   "L_over_a": 1.0192548971503008,
+   "periods_for_one_cycle": 1.0192548971503008,
+   "L_over_a_period_route": 1.0192548971503008,
+   "delay_per_period_cycles": 0.98110885,
+   "a_over_lambda0": 0.2495,
+   "relative_length_vs_W1": 1.0,
+   "length_reduction_of_W1_vs_this_pct": 0.0,
+   "intrinsic_dispersion": "n_g flat to +-10 % over 0.231-0.268 c/a (14.8 % fractional bandwidth); nonzero GVD",
+   "needs_constant_phase_trim": true,
+   "delay_selectable_by_length": "only in whole lattice periods in the simulated channels (fractional-period lengths not simulated)",
+   "integer_period_quantum": true
+  }
+ },
+ "caveats": [
+  "uniform eps = 12 is an IDEAL HOMOGENEOUS-MEDIUM propagation reference, not a modeled dielectric waveguide",
+  "a real dielectric waveguide's effective and group index are set by its geometry; n_g != sqrt(eps) in general",
+  "length only: lateral width, cladding, couplers, loss and bends are not compared; no FDTD of any conventional line was run",
+  "the comparison limits the footprint framing only; it does not affect the beamforming result"
+ ],
+ "consistency": {
+  "L_phc_two_routes_abs_diff": 0.0,
+  "uniform_eps12_L_over_lambda0_times_sqrt12": 1.0
+ },
+ "provenance": {
+  "timestamp_utc": "2026-10-11T00:16:40+00:00",
+  "git_head": "6f9b87984e5e043c6dda9501ce40886953843c20",
+  "git_dirty": true,
+  "code_dirty": true,
+  "meep": "1.33.0-beta",
+  "numpy": "1.24.3",
+  "scipy": "1.11.1"
+ }
+}

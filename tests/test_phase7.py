@@ -87,9 +87,11 @@ def test_manuscript_key_numbers_present():
     t = (ROOT / "docs" / "manuscript_draft.md").read_text()
     for s in ("14.8 %", "0.981", "1.9 %", "0.19°", "0.070", "−12.4 dB", "−16.6 dB", "0.35°", "2.69°"):
         assert s in t, s
-    assert "[REF]" in t and "dispersion-engineered in this study" in t
+    # revised manuscript: bare [REF] placeholders replaced by verified citations
+    assert "[REF]" not in t and "not dispersion-engineered" in t
     low = t.lower()
     assert "first demonstration" not in low and "novel method" not in low
+    assert "0.2887" in t and "29.377" in t and "26–34°" in t
 
 
 def test_readme_script_references_exist():
