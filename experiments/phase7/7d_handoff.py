@@ -50,7 +50,7 @@ h = dict(
     arxiv_readiness="B: nearly ready; manuscript gap = references and literature positioning; scientific gap = no conventional-line comparison beyond MPB-only (restricts claim to feasibility); no numerical validation gap blocking; no further simulation recommended",
     figures={f"figures/final/{k}.png": v for k, v in FIGS.items()}, figures_pdf=[f"figures/final/{k}.pdf" for k in FIGS],
     tables="docs/final_tables.md (Tables 1-7, 5b)",
-    documents=["docs/final_report.md", "docs/manuscript_draft.md", "docs/executive_summary.md", "docs/interview_summary.md", "docs/reproducibility.md", "docs/phase7_audit.md", "docs/final_tables.md"],
+    documents=["docs/final_report.md", "docs/manuscript_draft.md", "docs/reproducibility.md", "docs/final_tables.md", "docs/decisions.md", "docs/research_plan.md"],
     upstream_handoffs=dict(phase4="results/phase4/phase4_handoff.npz", phase5="results/phase5/phase5_handoff.npz", phase6="results/phase6/phase6_handoff.npz"),
     protected_result_sha256={p: sha(RESULTS / p) for p in PROTECTED},
     provenance=dict(generated_by="experiments/phase7/7d_handoff.py", inputs="results/final/final_results.json plus the Phase 4-6 result files listed in protected_result_sha256", simulations_run_in_phase7=False),

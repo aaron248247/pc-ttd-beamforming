@@ -116,11 +116,10 @@
  "documents": [
   "docs/final_report.md",
   "docs/manuscript_draft.md",
-  "docs/executive_summary.md",
-  "docs/interview_summary.md",
   "docs/reproducibility.md",
-  "docs/phase7_audit.md",
-  "docs/final_tables.md"
+  "docs/final_tables.md",
+  "docs/decisions.md",
+  "docs/research_plan.md"
  ],
  "upstream_handoffs": {
   "phase4": "results/phase4/phase4_handoff.npz",

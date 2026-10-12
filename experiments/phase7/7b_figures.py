@@ -15,8 +15,8 @@ LO, HI = 0.231, 0.268
 F0 = 0.2495
 
 
-def save(fig, name):
-    fig.tight_layout()
+def save(fig, name, rect=None):
+    fig.tight_layout(rect=rect)
     fig.savefig(FIG / f"{name}.png"); fig.savefig(FIG / f"{name}.pdf"); plt.close(fig)
 
 
@@ -70,14 +70,14 @@ z2 = nload("phase2/2c_tol7_res40.npz"); z2b = nload("phase2/2c_tol7_res30.npz");
 fig, axs = plt.subplots(1, 3, figsize=(7.4, 2.9))
 ax = axs[0]; r = np.array([x["value"] for x in j1a]); e = np.array([x["mean_err"] for x in j1a])
 ax.loglog(r, e, "o-", color=C["trim"]); ax.loglog(r, e[0] * (r[0] / r) ** 2, "--", color="#999", label="slope −2")
-ax.set_xlabel("resolution (px/a)"); ax.set_ylabel("vacuum delay error (a/c)"); ax.legend(); ax.set_title("1-D vacuum delay", fontsize=8.5); tag(ax, "a")
+ax.set_xlabel("resolution (px/a)"); ax.set_ylabel("vacuum delay error (a/c)"); ax.legend(loc="lower left"); ax.set_title("1-D vacuum delay", fontsize=8.5); tag(ax, "a")
 ax = axs[1]; r = np.array([x["value"] for x in j1c]); e = np.array([x["median_rel_complex_t"] for x in j1c])
 ax.loglog(r, e, "o-", color=C["trim"]); ax.loglog(r, e[0] * (r[0] / r) ** 2, "--", color="#999", label="slope −2")
-ax.set_xlabel("resolution (px/a)"); ax.set_ylabel("median |t$_{FDTD}$ − t$_{TMM}$|/|t|"); ax.legend(); ax.set_title("Bragg stack vs TMM", fontsize=8.5); tag(ax, "b")
+ax.set_xlabel("resolution (px/a)"); ax.set_ylabel("median |t$_{FDTD}$ − t$_{TMM}$|/|t|"); ax.legend(loc="lower left"); ax.set_title("Bragg stack vs TMM", fontsize=8.5); tag(ax, "b")
 ax = axs[2]; fz = z2["f"]; sel = (fz >= uj[0]) & (fz <= uj[1])
 ax.plot(fz[sel], z2["ng_mpb"][sel], color=C["mpb"], lw=2.2, label="MPB")
 ax.plot(fz[sel], z2["ng_fit"][sel], ".", ms=3, color=C["trim"], label="FDTD (res 40)")
-ax.axvspan(LO, HI, color="#0072B2", alpha=0.07, lw=0); ax.set_xlabel("frequency f (c/a)"); ax.set_ylabel("group index n$_g$"); ax.legend(); ax.set_title("W1: FDTD vs MPB", fontsize=8.5); tag(ax, "c")
+ax.axvspan(LO, HI, color="#0072B2", alpha=0.07, lw=0); ax.set_xlabel("frequency f (c/a)"); ax.set_ylabel("group index n$_g$"); ax.legend(loc="lower center"); ax.set_title("W1: FDTD vs MPB", fontsize=8.5); tag(ax, "c")
 ax.set_ylim(3.7, 4.4)
 save(fig, "fig02_verification")
 
@@ -105,14 +105,14 @@ f4 = p4["f"]; m4 = p4["mask_common"].astype(bool); tgt = float(p4["dtau_target"]
 fig, axs = plt.subplots(2, 2, figsize=(7.4, 5.2))
 ax = axs[0, 0]
 for q in range(4): ax.plot(f4[m4], 20 * np.log10(np.abs(p4["H_raw"][q, m4])), color=CH[q], label=f"N = {8 + q}")
-ax.set_ylim(-0.1, 0.1); ax.set_xlabel("f (c/a)"); ax.set_ylabel("|H$_m$| (dB)"); ax.legend(ncol=2); ax.set_title(f"amplitude spread ≤ {FR['D_amp_imbalance_max_db']['value']:.3f} dB", fontsize=8.5); tag(ax, "a")
+ax.set_ylim(-0.1, 0.1); ax.set_xlabel("f (c/a)"); ax.set_ylabel("|H$_m$| (dB)"); ax.set_title(f"amplitude spread ≤ {FR['D_amp_imbalance_max_db']['value']:.3f} dB", fontsize=8.5, pad=8); ax.legend(ncol=4, loc="lower center", bbox_to_anchor=(0.5, 1.20), frameon=False); tag(ax, "a")
 ax = axs[0, 1]
 ph = p4["phase_abs_unwrapped"]; dd = []
 for q in range(4):
     c = np.polyfit(f4[m4] - F0, ph[q, m4], 3); dc = np.polyder(c); dd.append(np.polyval(dc, f4[m4] - F0) / (2 * np.pi))
 dd = np.array(dd)
 for q in range(3): ax.plot(f4[m4], dd[q + 1] - dd[q], color=CH[q + 1], label=f"N={9 + q} − N={8 + q}")
-ax.axhline(tgt, color="k", ls="--", lw=0.8, label="target 3.9323"); ax.set_ylim(3.7, 4.2); ax.set_xlabel("f (c/a)"); ax.set_ylabel("delay increment (a/c)"); ax.legend(ncol=2); ax.set_title("increments (cubic fit of phase)", fontsize=8.5); tag(ax, "b")
+ax.axhline(tgt, color="k", ls="--", lw=0.8, label="target 3.9323"); ax.set_ylim(3.7, 4.2); ax.set_xlabel("f (c/a)"); ax.set_ylabel("delay increment (a/c)"); ax.set_title("increments (cubic fit of phase)", fontsize=8.5, pad=8); ax.legend(ncol=2, loc="lower center", bbox_to_anchor=(0.5, 1.20), frameon=False); tag(ax, "b")
 ax = axs[1, 0]; i0 = int(np.argmin(np.abs(f4 - F0)))
 def phase_err(H):
     rel = np.unwrap(np.angle(H / H[0]), axis=1); e = rel - 2 * np.pi * f4[None, :] * (np.arange(4)[:, None] * tgt)
@@ -124,7 +124,7 @@ ax = axs[1, 1]
 for q in range(1, 4): ax.plot(f4[m4], et[q, m4], color=CH[q], label=f"m = {q}")
 ax.set_xlabel("f (c/a)"); ax.set_ylabel("trimmed phase error (rad)"); ax.legend(); ax.set_title(f"trimmed: ≤ {FR['E_trimmed_phase_residual_max_rad']['value']:.3f} rad", fontsize=8.5); tag(ax, "d")
 for a in axs.ravel(): band(a)
-save(fig, "fig04_channels")
+save(fig, "fig04_channels", rect=[0, 0, 1, 0.90])
 
 # ---------------- Fig 5: Phase 5 limitation ------------------------------------------------------------------------------------------------
 th5 = p5["theta_grid"]; pc = list(p5["pattern_cases"]); pf = p5["pattern_freqs"]
@@ -148,7 +148,7 @@ fig, axs = plt.subplots(1, 3, figsize=(7.8, 2.9))
 ax = axs[0]; Ms = [1, 2, 4, 8]; x = np.arange(4)
 req = [FR[f"H_msub{M}_required_cycles"]["value"] for M in Ms]; phc = FR["H_phc_delay_quantum_cycles"]["value"]
 ax.bar(x - 0.19, req, 0.36, color="#7F7F7F", label="required step"); ax.bar(x + 0.19, [phc] * 4, 0.36, color=C["trim"], label="PhC, one period")
-ax.set_xticks(x); ax.set_xticklabels([f"Msub={M}" for M in Ms], fontsize=7); ax.set_ylabel("delay step (carrier cycles at f$_0$)"); ax.legend(loc="upper left"); ax.set_title("Msub = 4: −1.89 % mismatch", fontsize=8); tag(ax, "a")
+ax.set_xticks(x); ax.set_xticklabels([f"Msub={M}" for M in Ms], fontsize=7); ax.set_ylabel("delay step (carrier cycles at f$_0$)"); ax.set_title("Msub = 4: −1.89 % mismatch", fontsize=8, pad=8); ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.20), ncol=1, frameon=False); tag(ax, "a")
 ax = axs[1]; qs = p6r["quantization_scan"]
 ax.semilogy([q["msub"] for q in qs], [q["max_err"] for q in qs], "o-", color=C["trim"], ms=4)
 ax.axhline(0.367, color="k", ls="--", lw=0.8); ax.text(12, 0.4, "tracking tolerance 0.37°", ha="right", fontsize=7)
@@ -156,7 +156,7 @@ ax.set_xlabel("elements per PhC channel, Msub"); ax.set_ylabel("trimmed max poin
 ax = axs[2]; nl = [FR[f"K_msub{M}_trim_strongest_other_lobe_db"]["value"] for M in Ms]
 ax.bar(x, nl, color=C["trim"], width=0.55); ax.set_xticks(x); ax.set_xticklabels([f"Msub={M}" for M in Ms], fontsize=7); ax.set_ylabel("strongest other lobe (dB)"); ax.set_ylim(-14, 0)
 ax.set_title("Phase 5 element-level: 0 dB", fontsize=8); tag(ax, "c")
-save(fig, "fig06_architecture")
+save(fig, "fig06_architecture", rect=[0, 0, 1, 0.90])
 
 # ---------------- Fig 7: Phase 6 beam patterns -------------------------------------------------------------------------------------------
 pcs = list(p6["pattern_cases"]); pf6 = p6["pattern_freqs"]
@@ -165,7 +165,8 @@ for i, ax in enumerate(axs):
     for k, lab, ls, lw in (("fixed", "fixed phase", "-", 1.0), ("ideal_sub", "ideal subarray TTD", "--", 1.2), ("trim", "trimmed PhC", "-", 1.3)):
         P = p6["patterns_res30_M4_" + k][i]; ax.plot(th6, 10 * np.log10(np.maximum(P, 1e-6)), color=C[k if k != "ideal_sub" else "ideal_sub"], ls=ls, lw=lw, label=lab)
     ax.axvline(30, color="k", lw=0.5, alpha=0.5); ax.set_ylim(-35, 2); ax.set_xlim(-90, 90); ax.set_xlabel("θ (deg)"); ax.set_title(f"f = {pf6[i]:.4g}", fontsize=8.5); tag(ax, "abc"[i])
-axs[0].set_ylabel("power (dB re ideal peak)"); axs[1].legend(loc="lower left", fontsize=7)
+axs[0].set_ylabel("power (dB re ideal peak)");
+handles, labels = axs[1].get_legend_handles_labels(); fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(0.5, 1.02), ncol=3, fontsize=7, frameon=False)
 save(fig, "fig07_patterns")
 
 # ---------------- Fig 8: pointing vs frequency -------------------------------------------------------------------------------------------
@@ -174,13 +175,16 @@ ax = axs[0]
 for k, lab, ls in (("fixed", "fixed phase", "-"), ("ideal_sub", "ideal subarray TTD", "--"), ("trim", "trimmed PhC", "-"), ("trim_p4", "Phase 4 trim unchanged", ":"), ("raw", "raw PhC", "-")):
     c = {"trim_p4": C["p4"]}.get(k, C.get(k))
     ax.plot(f6, p6[f"res30_M4_{k}_theta_peak"] - 30, color=c, ls=ls, label=lab, lw=1.2)
-ax.set_ylim(-7.5, 3.5); ax.set_xlabel("f (c/a)"); ax.set_ylabel("pointing error (deg)"); ax.legend(loc="lower right"); band(ax); tag(ax, "a"); ax.set_title("Msub = 4, 16 elements", fontsize=8.5)
+ax.set_ylim(-7.5, 3.5); ax.set_xlabel("f (c/a)"); ax.set_ylabel("pointing error (deg)"); ax.set_title("Msub = 4, 16 elements", fontsize=8.5, pad=8); ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.20), ncol=3, fontsize=7, frameon=False); band(ax)
+# Keep panel labels above the plot area, away from the vertical y-axis labels.
+ax.text(0.0, 1.06, "a", transform=ax.transAxes, fontsize=10, fontweight="bold", va="bottom")
 ax = axs[1]
 for k, lab, ls in (("ideal_sub", "ideal subarray TTD", "--"), ("trim", "trimmed PhC", "-")):
     ax.plot(f6, p6[f"res30_M4_{k}_theta_peak"] - 30, color=C[k], ls=ls, label=lab)
 ax.axhline(0.0, color="k", lw=0.5); ax.axhspan(-0.367, 0.367, color="#009E73", alpha=0.1, lw=0); ax.text(0.2315, 0.31, "tolerance ±0.37°", fontsize=7, color="#006d4f")
-ax.set_xlabel("f (c/a)"); ax.set_ylabel("pointing error (deg)"); ax.set_ylim(-0.5, 0.5); ax.set_title("zoom", fontsize=8.5); ax.legend(loc="lower left"); tag(ax, "b")
-save(fig, "fig08_pointing")
+ax.set_xlabel("f (c/a)"); ax.set_ylabel("pointing error (deg)"); ax.set_ylim(-0.5, 0.5); ax.set_title("zoom", fontsize=8.5, pad=8); ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.20), fontsize=7, frameon=False)
+ax.text(0.0, 1.06, "b", transform=ax.transAxes, fontsize=10, fontweight="bold", va="bottom")
+save(fig, "fig08_pointing", rect=[0, 0, 1, 0.90])
 
 # ---------------- Fig 9: robustness -------------------------------------------------------------------------------------------------------
 mc = p6r["monte_carlo"]

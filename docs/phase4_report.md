@@ -1,6 +1,6 @@
 # Phase 4 report: four-channel true-time-delay family (plain W1, D0)
 
-> **Status note (Phase 7).** The status line below is historical. Phases 5 and 6 were completed afterwards; see `docs/phase7_audit.md`. The Phase 4 conclusions are unchanged.
+> **Status note (Phase 7).** The status line below is historical. Phases 5 and 6 were completed afterwards; Phases 5 and 6 contain the later array-level work. The Phase 4 conclusions are unchanged.
 
 
 Status: **gate PASS WITH RESTRICTIONS** (2026-10-10). Phase 5 has not been started and is not authorized until this report is reviewed.

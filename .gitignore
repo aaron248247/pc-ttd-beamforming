@@ -4,10 +4,3 @@ __pycache__/
 *.egg-info/
 results/phase*/raw/
 results/phase*/raw_attempt1/
-
-# Internal manuscript review / prior-art audit notes
-docs/closest_prior_art.md
-docs/literature_matrix.md
-docs/manuscript_revision_notes.md
-docs/novelty_positioning.md
-docs/referee_review.md
